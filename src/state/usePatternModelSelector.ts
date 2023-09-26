@@ -15,20 +15,25 @@ const usePatternModelSelector = ()=>{
         } = Nums
 
         const {[STRING_PARAMS.Tokens]: Tokens} = Strings;
-
+        console.log(Tokens);
         const selectToken = ()=>{
-            return Tokens[Math.floor(Math.random()*Tokens.length-1)];
+            
+            return Tokens[Math.floor(Math.random()*Tokens.length)];
         }
 
-        const patternModel = new Array<PatternUnit>(TPC*SBT+SBC).fill(Silence);
-        patternModel.forEach((unit, index)=> {
-            if(index > TPC) {
-                unit.type = STIM_TYPES.Verbal;
-                unit.payload = selectToken();
-            }
-        })
+        const initialModel = [
+            ...(new Array<PatternUnit>(TPC*SBT+SBC).fill(Silence)), 
+                new PatternUnit(STIM_TYPES.End, '')
+        ];
 
-        return patternModel;
+        return initialModel.map((unit, index)=> index < TPC*SBT && index % SBT == 0
+            ? new PatternUnit(STIM_TYPES.Verbal, selectToken())
+            : unit
+        );
+
+            
+
+
     
             /*
             switch(unit.type){

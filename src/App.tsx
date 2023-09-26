@@ -1,15 +1,19 @@
 import React from 'react';
-import VerbalParameterPanel from './components/VerbalParameterPanel/ParameterPanel';
+
+import WithPanel from './components/withPanel/withPanel';
 
 import 'bulma/css/bulma.min.css';
 import './styles.css';
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
+import VerbalParameters from './components/VerbalParameters/VerbalParameters';
 
 function App() {
   return (
     
       <div>
-        <VerbalParameterPanel/>
+        <WithPanel>
+          <VerbalParameters/>  
+        </WithPanel> 
         <StimPatternModel />
       </div>
 

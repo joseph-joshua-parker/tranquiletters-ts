@@ -2,5 +2,6 @@ export enum STIM_TYPES{
     Verbal = 'verbal',
     SoundFX = 'soundfx',
     Feedback = 'feedback',
-    Silence = 'silence'
+    Silence = 'silence',
+    End = 'end'
 }

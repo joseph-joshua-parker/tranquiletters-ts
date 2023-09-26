@@ -31,7 +31,7 @@ const StringParameterInput = ({name, val, action}: StringParameterProps)=>{
             </div>
            
             <div className="control ">
-                <input style={{width:'10rem'}} className=" is-small input " value={val} id={name} onChange={handleChange} type="text" name="tokensPerClus"/>
+                <input  style={{width:'10rem'}} className=" is-small input " value={val} id={name} onChange={handleChange} type="text" name="tokensPerClus"/>
             </div>
         </div>
         

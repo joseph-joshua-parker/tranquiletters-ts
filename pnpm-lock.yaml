@@ -41,6 +41,9 @@ dependencies:
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
+  babel-plugin-macros:
+    specifier: ^3.1.0
+    version: 3.1.0
   bulma:
     specifier: ^0.9.4
     version: 0.9.4
