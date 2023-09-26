@@ -1,0 +1,19 @@
+.center-content {
+    display:flex;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.horizontal {
+    flex: row;
+}
+
+.vertical {
+    flex-direction: column;
+}
+
+fieldset{
+    border-color: lightgray;
+    padding: 15px;
+    padding-top: 0px;
+}
