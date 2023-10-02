@@ -6,11 +6,11 @@ const stringParameterSlice = createSlice({
     initialState: defaultStringParams as StringParameterState,
     reducers: {
         setName(state, action: PayloadAction<string>){
-            state[STRING_PARAMS.Name] = action.payload;
+            state['Name'] = action.payload;
         },
 
         setTokens(state, action: PayloadAction<string>){
-            state[STRING_PARAMS.Tokens] = action.payload.split(' ');
+            state['Tokens'] = action.payload.split(' ');
         }
     }
 })

@@ -10,7 +10,6 @@ interface StringParameterProps {
     name: STRING_PARAMS,
     val: string,
     action: ActionCreatorWithPayload<string>
-
 }
 
 

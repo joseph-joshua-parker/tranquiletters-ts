@@ -2,22 +2,23 @@ import { useSelector } from "react-redux/es/hooks/useSelector"
 import { PatternUnit, Silence, } from "../shared/models/patternUnit";
 import { STIM_TYPES } from "../shared/models/stimTypes";
 import { RootState } from "./store"
-import { NUM_PARAMS, STRING_PARAMS } from "../shared/models/parameters";
 
 
 const usePatternModelSelector = ()=>{
      const state = useSelector((state:RootState)=>{
         const {stringParameterReducer:Strings, numParameterReducer: Nums} = state;
          const {
-            [NUM_PARAMS.SecondsBetweenClusters]: SBC, 
-            [NUM_PARAMS.SecondsBetweenTokens]: SBT,
-            [NUM_PARAMS.TokensPerCluster]: TPC,
+            ['Tokens/Cluster']: TPC, 
+            ['Silence/Tokens']: SBT,
+            ['Silence/Clusters']: SBC,
         } = Nums
 
-        const {[STRING_PARAMS.Tokens]: Tokens} = Strings;
-        console.log(Tokens);
+        const {
+            ['Tokens']:Tokens, 
+            ['Name']: Name
+        } = Strings;
+
         const selectToken = ()=>{
-            
             return Tokens[Math.floor(Math.random()*Tokens.length)];
         }
 
@@ -26,6 +27,7 @@ const usePatternModelSelector = ()=>{
                 new PatternUnit(STIM_TYPES.End, '')
         ];
 
+                                                //is within the cluster && is spaced out by Silence 
         return initialModel.map((unit, index)=> index < TPC*SBT && index % SBT == 0
             ? new PatternUnit(STIM_TYPES.Verbal, selectToken())
             : unit

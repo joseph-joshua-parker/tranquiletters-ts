@@ -1,5 +1,5 @@
 import NumParameterInput from "../NumParameterInput/NumParameterInput";
-import { NUM_PARAMS, STRING_PARAMS } from "../../shared/models/parameters";
+import { NUM_PARAMS, STRING_PARAMS, StringParameterState } from "../../shared/models/parameters";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
 import { NumParameterState } from "../../shared/models/parameters";
@@ -10,22 +10,27 @@ import StringParameterInput from "../StringParamInput/StringParameterInput";
 import { ReactNode } from "react";
 
 const VerbalParameters = ()=>{
-/*        'Tokens/Cluster':       TokensPerCluster,
-        'Silence/Tokens':       SecondsBetweenTokens,
-        'Silence/Clusters':     SecondsBetweenClusters*/ 
+/*        */ 
 
-    const numParamState = useSelector((state:RootState)=>state.numParameterReducer)
-    const stringParamState  = useSelector((state:RootState)=>state.stringParameterReducer);
-    type Input = typeof NumParameterInput & typeof StringParameterInput;
-
-    const MakeInputsFrom = (Component: Input, state: Object)=>{
-        return Object.entries(state)
-                    .map(( [name, val])=> <Component name={name} val={val} />)    
-            }
-    }
+    const {
+        ['Tokens/Cluster']:     TokensPerCluster,
+        ['Silence/Tokens']:     SecondsBetweenTokens,
+        ['Silence/Clusters']:   SecondsBetweenClusters
+    } = useSelector((state:RootState)=>state.numParameterReducer)  
+            
+    const {
+        ['Name']:   NameVal,
+        ['Tokens']: TokensVal
+    } = useSelector((state:RootState)=>state.stringParameterReducer);
+    
     return (
         <>
-            {MakeInputsFrom(numParamState)}
+            <NumParameterInput name={'Tokens/Cluster'} val={TokensPerCluster}/>
+            <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
+            <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
+            
+            <StringParameterInput name={'Name'} val={NameVal} action={setName}/>
+            <StringParameterInput name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
         </>
     )
 }
