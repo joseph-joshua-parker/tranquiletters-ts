@@ -6,9 +6,9 @@ import { NumActionPayload } from "../shared/models/actionsPayload";
 
 
 const initialState = {
-        [NUM_PARAMS.TokensPerCluster]: 10,
-        [NUM_PARAMS.SecondsBetweenTokens]: 2,
-        [NUM_PARAMS.SecondsBetweenClusters]: 10
+        'Tokens/Cluster': 10,
+        'Silence/Tokens': 2,
+        'Silence/Clusters': 10
   
 };
 

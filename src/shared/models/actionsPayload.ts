@@ -1,5 +1,6 @@
 import { NUM_PARAMS } from "./parameters"
 
+
 export interface NumActionPayload{
     name: NUM_PARAMS,
     val: number

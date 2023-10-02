@@ -1,29 +1,24 @@
 
-export enum NUM_PARAMS {
-    TokensPerCluster ='Tokens/Cluster',
-    SecondsBetweenTokens='Silence/Token',
-    SecondsBetweenClusters='Silence/Cluster'
-}
+export type NUM_PARAMS = 'Tokens/Cluster' |'Silence/Tokens'|'Silence/Clusters';
+
 
 export interface NumParameterState {
-    [NUM_PARAMS.TokensPerCluster]: number,
-    [NUM_PARAMS.SecondsBetweenTokens]: number,
-    [NUM_PARAMS.SecondsBetweenClusters]: number
+    'Tokens/Cluster': number,
+    'Silence/Tokens': number,
+    'Silence/Clusters': number
 }
 
-export enum STRING_PARAMS {
-    Tokens = 'Tokens',
-    Name = 'Name'
-}
+export type STRING_PARAMS ='Tokens'|'Name';
+
 
 export interface StringParameterState {
-    [STRING_PARAMS.Tokens]: string[],
-    [STRING_PARAMS.Name]: string
+    'Tokens': string[],
+    'Name': string
 }
 
 export const defaultStringParams = {
-    [STRING_PARAMS.Tokens]: [],
-    [STRING_PARAMS.Name]: ''
+    'Tokens': [],
+    'Name': ''
 }
 
 
