@@ -8,7 +8,8 @@ import { NumActionPayload } from "../shared/models/actionsPayload";
 const initialState = {
         'Tokens/Cluster': 10,
         'Silence/Tokens': 2,
-        'Silence/Clusters': 10
+        'Silence/Clusters': 10,
+        'Position': 0
   
 };
 
@@ -24,6 +25,11 @@ const numParameterSlice = createSlice({
         crementNumParameter(state, action:PayloadAction<NumActionPayload>){
             const {name, val} = action.payload as NumActionPayload;
             state[name]  = state[name]+ val;
+        },
+
+        translate(state, action: PayloadAction<number>){
+            const translation = action.payload;
+            state['Position'] += translation;
         }
 
         

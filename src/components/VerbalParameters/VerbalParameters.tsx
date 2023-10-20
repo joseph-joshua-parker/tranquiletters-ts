@@ -15,7 +15,8 @@ const VerbalParameters = ()=>{
     const {
         ['Tokens/Cluster']:     TokensPerCluster,
         ['Silence/Tokens']:     SecondsBetweenTokens,
-        ['Silence/Clusters']:   SecondsBetweenClusters
+        ['Silence/Clusters']:   SecondsBetweenClusters,
+        ['Position']: Position
     } = useSelector((state:RootState)=>state.numParameterReducer)  
             
     const {
@@ -28,6 +29,7 @@ const VerbalParameters = ()=>{
             <NumParameterInput name={'Tokens/Cluster'} val={TokensPerCluster}/>
             <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
             <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
+            <NumParameterInput name={'Position'} val={Position}/>
             
             <StringParameterInput name={'Name'} val={NameVal} action={setName}/>
             <StringParameterInput name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>

@@ -11,6 +11,7 @@ const usePatternModelSelector = ()=>{
             ['Tokens/Cluster']: TPC, 
             ['Silence/Tokens']: SBT,
             ['Silence/Clusters']: SBC,
+            ['Position']: Position,
         } = Nums
 
         const {
@@ -27,11 +28,20 @@ const usePatternModelSelector = ()=>{
                 new PatternUnit(STIM_TYPES.End, '')
         ];
 
-                                                //is within the cluster && is spaced out by Silence 
-        return initialModel.map((unit, index)=> index < TPC*SBT && index % SBT == 0
+        const leftSideTranslationFactor = new Array<PatternUnit>(Position).fill(Silence);
+        const rightSideTranslationFactor = Position + initialModel.length;
+
+                                                //is within the cluster && is spaced out by Silence && aligned with position 
+        const preTranslationModel = initialModel.map((unit, index)=> index < TPC*SBT && 
+                index % SBT == 0
             ? new PatternUnit(STIM_TYPES.Verbal, selectToken())
             : unit
         );
+
+        preTranslationModel.unshift(...leftSideTranslationFactor);
+        preTranslationModel.length = initialModel.length;
+        return preTranslationModel;
+
 
             
 
