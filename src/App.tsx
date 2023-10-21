@@ -7,32 +7,31 @@ import './styles.css';
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import VerbalParameters from './components/VerbalParameters/VerbalParameters';
 import usePatternModelSelector from './state/usePatternModelSelector';
-import {speak, init} from './audio/speechSynthesis';
-import { STIM_TYPES } from './shared/models/stimTypes';
+import useLoop, { PLAYBACK_STATE } from './useLoop';
+import { PatternUnit } from './shared/models/patternUnit';
+
 
 function App() {
-  init();
-  const [patternModel, sessionMinutes] = usePatternModelSelector();
-  const sessionTime = sessionMinutes*60*1000;
+  
+  const  [patternModel, sessionMinutes, selectToken] = (usePatternModelSelector() as [PatternUnit[], number, ()=>string])
+  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, selectToken)
+  
 
-  let sessionInterval: NodeJS.Timer | undefined;
-  let timeElapsed = 0;
+  const startCancel = <div>
+    { (playbackState == PLAYBACK_STATE.Waiting)
+      ?<button onClick={start} className='button is-small'>Start</button>
+      :<button onClick={cancel} className='button is-small'>Cancel</button>
+    }
+  </div>
 
-  const start = ()=>{
-    sessionInterval = setInterval(()=>{
-      console.log(timeElapsed)
-      if(timeElapsed >= sessionTime) clearInterval(sessionInterval);
-      
-      const unit = patternModel[timeElapsed/1000];
-      if(unit.type == STIM_TYPES.Verbal){
-        console.log(unit.payload);
-        speak(unit.payload);
-      }
+  const pauseResume = <div>
+    { (playbackState != PLAYBACK_STATE.Paused)
+    ? <button onClick={pause} className='button is-small'>Pause</button>
+    : <button onClick={resume} className='button is-small'>Resume</button>
 
 
-      timeElapsed += 1000;
-    },1000)
-  }
+    }
+  </div>
 
   return (
     
@@ -41,7 +40,9 @@ function App() {
           <VerbalParameters/>  
         </WithPanel> 
         <StimPatternModel model={patternModel}/>
-        <button onClick={start} className='button is-small'>Start</button>
+        {startCancel}
+        {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+
       </div>
 
   );

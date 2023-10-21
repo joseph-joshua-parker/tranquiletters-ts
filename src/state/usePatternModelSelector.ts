@@ -28,10 +28,11 @@ const usePatternModelSelector = ()=>{
             ...(new Array<PatternUnit>(TPC*SBT+SBC).fill(Silence)), 
         ];
 
+
                                                 //is within the cluster && is spaced out by Silence 
         const preTranslationModel = initialModel.map((unit, index)=>    index < TPC*SBT && 
                                                                         index % SBT == 0
-            ? new PatternUnit(STIM_TYPES.Verbal, selectToken())
+            ? new PatternUnit(STIM_TYPES.Verbal, '')
             : unit
         );
 
@@ -44,7 +45,7 @@ const usePatternModelSelector = ()=>{
 
         preTranslationModel.push(End);
         
-        return [preTranslationModel, SessionTime] as [PatternUnit[], number];
+        return [preTranslationModel, SessionTime, selectToken] as [PatternUnit[], number, ()=>string];
     })
 
     return state;
