@@ -27,14 +27,25 @@ const numParameterSlice = createSlice({
             state[name]  = state[name]+ val;
         },
 
-        translate(state, action: PayloadAction<number>){
-            const translation = action.payload;
-            state['Position'] += translation;
+        translate(state, action: PayloadAction<NumActionPayload>){
+            const {name, val} = action.payload;
+            const {
+                ['Tokens/Cluster']: TPC, 
+                ['Silence/Tokens']: SBT,
+                ['Silence/Clusters']: SBC,
+            } = state;
+
+            const totalLength = TPC*SBT+SBC;
+
+
+            const newPosition = state['Position'] + val;
+            if(! (newPosition + TPC*SBT > totalLength) && newPosition > 0)
+                state['Position'] = newPosition;
         }
 
         
     }
 })
 
-export const {modifyNumParameters, crementNumParameter} = numParameterSlice.actions;
+export const {modifyNumParameters, crementNumParameter, translate} = numParameterSlice.actions;
 export default numParameterSlice.reducer;

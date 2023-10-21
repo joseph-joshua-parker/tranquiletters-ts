@@ -3,18 +3,23 @@ import { NUM_PARAMS } from "../../shared/models/parameters"
 import { AppDispatch, RootState } from "../../state/store"
 import { modifyNumParameters, crementNumParameter } from "../../state/numParameterSlice"
 import './NumParameterInputStyles.css';
+import { Dispatch } from "react";
+import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 interface NumParameterProps {
     name: NUM_PARAMS,
     val: number
+    delta?: Function
 }
 
 
 
-const NumParameterInput = ({name, val}: NumParameterProps)=>{
+const NumParameterInput = ({name, val, delta}: NumParameterProps)=>{
     const dispatch = useDispatch<AppDispatch>();
+    const deltaAction = delta ?? crementNumParameter;
 
-    const handleCrement = (val: number)=> dispatch(crementNumParameter({name, val}));
+
+    const handleCrement = (val: number)=> dispatch(deltaAction({name, val}));
     const handleModify = (val: number)=> dispatch(modifyNumParameters({name, val}));
 
 

@@ -1,13 +1,13 @@
 import NumParameterInput from "../NumParameterInput/NumParameterInput";
-import { NUM_PARAMS, STRING_PARAMS, StringParameterState } from "../../shared/models/parameters";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../state/store";
-import { NumParameterState } from "../../shared/models/parameters";
+
+import { useSelector } from "react-redux";
+import {  RootState } from "../../state/store";
 
 
 import { setName, setTokens } from "../../state/stringParameterSlice";
 import StringParameterInput from "../StringParamInput/StringParameterInput";
-import { ReactNode } from "react";
+import { translate } from "../../state/numParameterSlice";
+
 
 const VerbalParameters = ()=>{
 /*        */ 
@@ -29,7 +29,7 @@ const VerbalParameters = ()=>{
             <NumParameterInput name={'Tokens/Cluster'} val={TokensPerCluster}/>
             <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
             <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
-            <NumParameterInput name={'Position'} val={Position}/>
+            <NumParameterInput name={'Position'} val={Position} delta={translate}/>
             
             <StringParameterInput name={'Name'} val={NameVal} action={setName}/>
             <StringParameterInput name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>

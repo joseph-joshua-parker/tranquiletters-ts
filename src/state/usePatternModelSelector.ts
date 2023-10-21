@@ -29,8 +29,6 @@ const usePatternModelSelector = ()=>{
         ];
 
         const leftSideTranslationFactor = new Array<PatternUnit>(Position).fill(Silence);
-        const rightSideTranslationFactor = Position + initialModel.length;
-
                                                 //is within the cluster && is spaced out by Silence && aligned with position 
         const preTranslationModel = initialModel.map((unit, index)=> index < TPC*SBT && 
                 index % SBT == 0
