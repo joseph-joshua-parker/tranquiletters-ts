@@ -6,6 +6,7 @@ export class PatternUnit {
 }
 
 export const Silence = new PatternUnit(STIM_TYPES.Silence, 'Silence');
+export const End = new PatternUnit(STIM_TYPES.End, '');
 
 export const typeToIconMap = {
     [STIM_TYPES.Verbal]: faSignature,

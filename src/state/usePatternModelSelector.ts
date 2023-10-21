@@ -1,23 +1,23 @@
 import { useSelector } from "react-redux/es/hooks/useSelector"
-import { PatternUnit, Silence, } from "../shared/models/patternUnit";
+import { PatternUnit, Silence, End} from "../shared/models/patternUnit";
 import { STIM_TYPES } from "../shared/models/stimTypes";
 import { RootState } from "./store"
 
 
 const usePatternModelSelector = ()=>{
      const state = useSelector((state:RootState)=>{
-        const {stringParameterReducer:Strings, numParameterReducer: Nums} = state;
+        const {tokenSetParameterReducer:Set, tokenNumParameterReducer: TokenParams} = state;
          const {
             ['Tokens/Cluster']: TPC, 
             ['Silence/Tokens']: SBT,
             ['Silence/Clusters']: SBC,
-            ['Position']: Position,
-        } = Nums
+            ['Position']: Translation,
+        } = TokenParams
 
         const {
             ['Tokens']:Tokens, 
             ['Name']: Name
-        } = Strings;
+        } = Set;
 
         const selectToken = ()=>{
             return Tokens[Math.floor(Math.random()*Tokens.length)];
@@ -25,19 +25,24 @@ const usePatternModelSelector = ()=>{
 
         const initialModel = [
             ...(new Array<PatternUnit>(TPC*SBT+SBC).fill(Silence)), 
-                new PatternUnit(STIM_TYPES.End, '')
         ];
 
-        const leftSideTranslationFactor = new Array<PatternUnit>(Position).fill(Silence);
-                                                //is within the cluster && is spaced out by Silence && aligned with position 
-        const preTranslationModel = initialModel.map((unit, index)=> index < TPC*SBT && 
-                index % SBT == 0
+                                                //is within the cluster && is spaced out by Silence 
+        const preTranslationModel = initialModel.map((unit, index)=>    index < TPC*SBT && 
+                                                                        index % SBT == 0
             ? new PatternUnit(STIM_TYPES.Verbal, selectToken())
             : unit
         );
 
+        //move everything to the right
+        const leftSideTranslationFactor = new Array<PatternUnit>(Translation).fill(Silence);
         preTranslationModel.unshift(...leftSideTranslationFactor);
+
+        //trim the right side fat, a poor man's splice
         preTranslationModel.length = initialModel.length;
+
+        preTranslationModel.push(End);
+        
         return preTranslationModel;
 
 

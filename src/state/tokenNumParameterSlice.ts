@@ -13,8 +13,8 @@ const initialState = {
   
 };
 
-const numParameterSlice = createSlice({
-    name: 'numParameters',
+const tokenNumParameterSlice = createSlice({
+    name: 'tokenParameters',
     initialState,
     reducers: {
         modifyNumParameters(state, action: PayloadAction<NumActionPayload>){
@@ -47,5 +47,5 @@ const numParameterSlice = createSlice({
     }
 })
 
-export const {modifyNumParameters, crementNumParameter, translate} = numParameterSlice.actions;
-export default numParameterSlice.reducer;
+export const {modifyNumParameters, crementNumParameter, translate} = tokenNumParameterSlice.actions;
+export default tokenNumParameterSlice.reducer;

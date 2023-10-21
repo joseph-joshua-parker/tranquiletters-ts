@@ -1,9 +1,9 @@
 import {configureStore} from '@reduxjs/toolkit';
-import numParameterReducer from './numParameterSlice';
-import stringParameterReducer from './stringParameterSlice';
+import tokenNumParameterReducer from './tokenNumParameterSlice';
+import tokenSetParameterReducer from './tokenSetParameterSlice';
 
 export const store = configureStore({
-    reducer: {numParameterReducer, stringParameterReducer}
+    reducer: {tokenNumParameterReducer, tokenSetParameterReducer}
 });
 
 export type AppDispatch = typeof store.dispatch;

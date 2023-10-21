@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 import {  RootState } from "../../state/store";
 
 
-import { setName, setTokens } from "../../state/stringParameterSlice";
+import { setName, setTokens } from "../../state/tokenSetParameterSlice";
 import StringParameterInput from "../StringParamInput/StringParameterInput";
-import { translate } from "../../state/numParameterSlice";
+import { translate } from "../../state/tokenNumParameterSlice";
 
 
 const VerbalParameters = ()=>{
@@ -17,12 +17,12 @@ const VerbalParameters = ()=>{
         ['Silence/Tokens']:     SecondsBetweenTokens,
         ['Silence/Clusters']:   SecondsBetweenClusters,
         ['Position']: Position
-    } = useSelector((state:RootState)=>state.numParameterReducer)  
+    } = useSelector((state:RootState)=>state.tokenNumParameterReducer)  
             
     const {
         ['Name']:   NameVal,
         ['Tokens']: TokensVal
-    } = useSelector((state:RootState)=>state.stringParameterReducer);
+    } = useSelector((state:RootState)=>state.tokenSetParameterReducer);
     
     return (
         <>

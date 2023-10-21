@@ -12,7 +12,7 @@ export interface NumParameterState {
 export type STRING_PARAMS ='Tokens'|'Name';
 
 
-export interface StringParameterState {
+export interface TokenSetParameterState {
     'Tokens': string[],
     'Name': string
 }
