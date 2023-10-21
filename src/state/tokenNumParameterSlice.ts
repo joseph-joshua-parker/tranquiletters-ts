@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NumParameterState } from "../shared/models/parameters";
-import { NUM_PARAMS } from "../shared/models/parameters";
 import { NumActionPayload } from "../shared/models/actionsPayload";
 
 
@@ -9,7 +7,8 @@ const initialState = {
         'Tokens/Cluster': 10,
         'Silence/Tokens': 2,
         'Silence/Clusters': 10,
-        'Position': 0
+        'Position': 0,
+        'SessionTime': 10
   
 };
 

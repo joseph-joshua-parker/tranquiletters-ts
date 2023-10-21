@@ -13,5 +13,6 @@ export const typeToIconMap = {
     [STIM_TYPES.SoundFX]: faVolumeHigh,
     [STIM_TYPES.Feedback]: faReply,
     [STIM_TYPES.Silence]: faSquare,
+    [STIM_TYPES.Hum]: faSquare,
     [STIM_TYPES.End]: faPause
 }

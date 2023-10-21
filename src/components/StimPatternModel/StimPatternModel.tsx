@@ -10,8 +10,8 @@ interface StimPatternModelProps {
     model : PatternUnit[]
 }
 
-const StimPatternModel = ()=>{
-    const model = usePatternModelSelector();
+const StimPatternModel: React.FC<StimPatternModelProps> = ({model})=>{
+
     const isSilence = (unit:PatternUnit)=> unit.type == STIM_TYPES.Silence 
     const stims = model.map(unit=> <FontAwesomeIcon color={isSilence(unit) ? 'white' : 'gray' } icon={typeToIconMap[unit.type]} />);
     

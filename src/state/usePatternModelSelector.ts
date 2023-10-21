@@ -12,6 +12,7 @@ const usePatternModelSelector = ()=>{
             ['Silence/Tokens']: SBT,
             ['Silence/Clusters']: SBC,
             ['Position']: Translation,
+            ['SessionTime']: SessionTime
         } = TokenParams
 
         const {
@@ -38,36 +39,12 @@ const usePatternModelSelector = ()=>{
         const leftSideTranslationFactor = new Array<PatternUnit>(Translation).fill(Silence);
         preTranslationModel.unshift(...leftSideTranslationFactor);
 
-        //trim the right side fat, a poor man's splice
+        //trim the right side fat
         preTranslationModel.length = initialModel.length;
 
         preTranslationModel.push(End);
         
-        return preTranslationModel;
-
-
-            
-
-
-    
-            /*
-            switch(unit.type){
-                case STIM_TYPES.Feedback: {
-                    break;
-                }
-                case STIM_TYPES.Silence:{
-                    return unit;
-                    break;
-
-                }
-                case STIM_TYPES.SoundFX:{
-                    break;
-                }
-                case STIM_TYPES.Verbal:{
-                    
-                    break;
-                }
-            }*/
+        return [preTranslationModel, SessionTime] as [PatternUnit[], number];
     })
 
     return state;
