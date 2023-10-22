@@ -11,28 +11,33 @@ export enum PLAYBACK_STATE {
 }
 
 
- const useLoop = (patternModel: PatternUnit[], sessionMinutes: number, selectToken: ()=>string)=>{
+ const useLoop = (
+    patternModel: PatternUnit[], 
+    sessionMinutes: number, 
+    selectToken: ()=>string,
+    setCursorIndex: React.Dispatch<React.SetStateAction<number>>
+)=>{
     init();
     const sessionTime = sessionMinutes*60*1000;
 
   let sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
   let timeElapsed = useRef(0)
-  let unitsTraversed = useRef(0);
+  let currentIndex = useRef(0);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
 
   const loop = ()=>{ 
     sessionInterval.current = setInterval(()=>{
-      console.log(timeElapsed.current)
       if(timeElapsed.current >= sessionTime) {
         cancel();
         return;
       }
 
-      else if(unitsTraversed.current >= patternModel.length)
-        unitsTraversed.current = 0;
+      else if(currentIndex.current >= patternModel.length)
+      currentIndex.current = 0;
       
-      const unit = patternModel[unitsTraversed.current++];
+      const unit = patternModel[currentIndex.current++];
+      setCursorIndex(currentIndex.current);
       if(unit.type == STIM_TYPES.Token){
         console.log(unit.payload);
         speak(selectToken());
@@ -45,9 +50,10 @@ export enum PLAYBACK_STATE {
 
   const cancel = ()=>{
     clearInterval(sessionInterval.current);
+    setCursorIndex(-1)
     sessionInterval.current = undefined;
     timeElapsed.current = 0;
-    unitsTraversed.current = 0;
+    currentIndex.current = 0;
     setPlaybackState(PLAYBACK_STATE.Waiting);
   }
 
@@ -63,11 +69,12 @@ export enum PLAYBACK_STATE {
   }
 
   const start = ()=>{
+    setCursorIndex(0)
     loop();
     setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
-  return {start, pause, resume, cancel, playbackState}
+  return {start, pause, resume, cancel, playbackState, currentIndex}
 }
 
 export default useLoop;

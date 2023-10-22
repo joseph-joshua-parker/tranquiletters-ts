@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import { TokenSetParameterState, defaultStringParams } from '../shared/models/parameters';
+import { TokenSetParameterState, defaultStringParams } from '../../shared/models/parameters';
 
 const tokenSetParameterSlice = createSlice({
     name: 'setParameters',

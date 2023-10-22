@@ -6,5 +6,6 @@ export enum STIM_TYPES{
     NormalRhythm = 'normal_rhythm',
     PolyRhythm = 'poly_rhythm',
     Silence = 'silence',
-    End = 'end'
+    End = 'end',
+    Cursor='cursor'
 }

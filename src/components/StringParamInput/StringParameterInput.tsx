@@ -1,7 +1,7 @@
 import { useDispatch, } from "react-redux"
 import { STRING_PARAMS } from "../../shared/models/parameters"
-import { AppDispatch, RootState } from "../../state/store"
-import {setName, setTokens } from "../../state/tokenSetParameterSlice"
+import { AppDispatch, RootState } from "../../state/redux/store"
+import {setName, setTokens } from "../../state/redux/tokenSetParameterSlice"
 import './StringParameterInputStyles.css';
 import { Dispatch } from "redux";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";

@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { TOKEN_NUM_PARAMS } from "../../shared/models/parameters"
-import { AppDispatch, RootState } from "../../state/store"
-import { modifyNumParameters, crementNumParameter } from "../../state/tokenNumParameterSlice"
+import { AppDispatch, RootState } from "../../state/redux/store"
+import { modifyNumParameters, crementNumParameter } from "../../state/redux/tokenNumParameterSlice"
 import './NumParameterInputStyles.css';
 import { Dispatch } from "react";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";

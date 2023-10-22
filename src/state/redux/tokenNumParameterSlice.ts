@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NumActionPayload } from "../shared/models/actionsPayload";
+import { NumActionPayload } from "../../shared/models/actionsPayload";
 
 
 

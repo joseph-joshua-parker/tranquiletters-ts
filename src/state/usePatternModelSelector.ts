@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux/es/hooks/useSelector"
 import { PatternUnit, Silence, End} from "../shared/models/patternUnit";
 import { STIM_TYPES } from "../shared/models/stimTypes";
-import { RootState } from "./store"
+import { RootState } from "./redux/store"
 
 
 const usePatternModelSelector = ()=>{

@@ -31,9 +31,12 @@ import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 
 function App() {
   
+  const [cursorIndex, setCursorIndex] = useState(-1);
   const  [patternModel, sessionMinutes, selectToken] = (usePatternModelSelector() as [PatternUnit[], number, ()=>string])
-  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, selectToken)
+  
+  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, selectToken, setCursorIndex)
   const [stimType, setStimType] = useState<STIM_TYPES>(STIM_TYPES.Feedback);
+
 
 
   const startCancel = <div>
@@ -74,7 +77,7 @@ function App() {
           </div>
         </div>
         <div>
-          <StimPatternModel model={patternModel}/>
+          <StimPatternModel cursorIndex={cursorIndex}  model={patternModel}/>
             {startCancel}
             {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
         </div>

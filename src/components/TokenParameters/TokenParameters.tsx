@@ -1,12 +1,12 @@
-import NumParameterInput from "../../NumParameterInput/NumParameterInput";
+import NumParameterInput from "../NumParameterInput/NumParameterInput";
 
 import { useSelector } from "react-redux";
-import {  RootState } from "../../../state/redux/store";
+import {  RootState } from "../../state/redux/store";
 
 
-import { setName, setTokens } from "../../../state/redux/tokenSetParameterSlice";
-import StringParameterInput from "../../StringParamInput/StringParameterInput";
-import { translate } from "../../../state/redux/tokenNumParameterSlice";
+import { setName, setTokens } from "../../state/redux/tokenSetParameterSlice";
+import StringParameterInput from "../StringParamInput/StringParameterInput";
+import { translate } from "../../state/redux/tokenNumParameterSlice";
 
 
 const TokenParameters = ()=>{

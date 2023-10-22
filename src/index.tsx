@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-import { store } from './state/store';
+import { store } from './state/redux/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
