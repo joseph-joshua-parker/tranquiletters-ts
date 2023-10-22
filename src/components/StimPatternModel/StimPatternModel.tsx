@@ -5,6 +5,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import { typeToIconMap } from "../../shared/models/patternUnit";
 import { useSelector } from "react-redux";
 import usePatternModelSelector from "../../state/usePatternModelSelector";
+import chunkify from "../../shared/utilities/chunkify";
 
 interface StimPatternModelProps {
     model : PatternUnit[]
@@ -12,14 +13,25 @@ interface StimPatternModelProps {
 
 const StimPatternModel: React.FC<StimPatternModelProps> = ({model})=>{
 
-    const isSilence = (unit:PatternUnit)=> unit.type == STIM_TYPES.Silence 
-    const stims = model.map(unit=> <FontAwesomeIcon color={isSilence(unit) ? 'white' : 'gray' } icon={typeToIconMap[unit.type]} />);
+    const isSilence = (unit:PatternUnit)=> unit.type == STIM_TYPES.Silence
     
+    const factor = model.length / 20 + 1;
+    const balanced = !!(model.length % factor)
+    const chunkedStims = chunkify(model, factor, balanced)
+
+
+    const displayedModel = chunkedStims.map(
+        chunk=> <div>
+             {chunk.map((unit)=> <FontAwesomeIcon style={{width:'5vw'}} color={isSilence(unit) ? 'white' : 'gray' } icon={typeToIconMap[unit.type]} />)}
+        </div>
+    )
+
+
         
 
     return (
         <div>
-            {stims}
+            {displayedModel}
         </div>
     )
 }
