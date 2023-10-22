@@ -1,8 +1,10 @@
 export enum STIM_TYPES{
-    Verbal = 'verbal',
+    Token = 'Token',
     SoundFX = 'soundfx',
     Feedback = 'feedback',
-    Hum = 'hum',
+    Ambience = 'ambience',
+    NormalRhythm = 'normal_rhythm',
+    PolyRhythm = 'poly_rhythm',
     Silence = 'silence',
     End = 'end'
 }

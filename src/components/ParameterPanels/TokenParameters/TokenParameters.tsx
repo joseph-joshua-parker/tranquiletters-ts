@@ -1,15 +1,15 @@
-import NumParameterInput from "../NumParameterInput/NumParameterInput";
+import NumParameterInput from "../../NumParameterInput/NumParameterInput";
 
 import { useSelector } from "react-redux";
-import {  RootState } from "../../state/store";
+import {  RootState } from "../../../state/store";
 
 
-import { setName, setTokens } from "../../state/tokenSetParameterSlice";
-import StringParameterInput from "../StringParamInput/StringParameterInput";
-import { translate } from "../../state/tokenNumParameterSlice";
+import { setName, setTokens } from "../../../state/tokenSetParameterSlice";
+import StringParameterInput from "../../StringParamInput/StringParameterInput";
+import { translate } from "../../../state/tokenNumParameterSlice";
 
 
-const VerbalParameters = ()=>{
+const TokenParameters = ()=>{
 /*        */ 
 
     const {
@@ -37,4 +37,4 @@ const VerbalParameters = ()=>{
     )
 }
 
-export default VerbalParameters
+export default TokenParameters

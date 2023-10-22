@@ -1,5 +1,6 @@
 const FeedBackParameters = ()=>{
-    return <div>Feedback</div>
+    return <div>Coming Soon...</div>
+
 }
 
 export default FeedBackParameters;

@@ -33,7 +33,7 @@ export enum PLAYBACK_STATE {
         unitsTraversed.current = 0;
       
       const unit = patternModel[unitsTraversed.current++];
-      if(unit.type == STIM_TYPES.Verbal){
+      if(unit.type == STIM_TYPES.Token){
         console.log(unit.payload);
         speak(selectToken());
       }

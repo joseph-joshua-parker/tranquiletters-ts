@@ -9,10 +9,12 @@ export const Silence = new PatternUnit(STIM_TYPES.Silence, 'Silence');
 export const End = new PatternUnit(STIM_TYPES.End, '');
 
 export const typeToIconMap = {
-    [STIM_TYPES.Verbal]: faSignature,
+    [STIM_TYPES.Token]: faSignature,
     [STIM_TYPES.SoundFX]: faVolumeHigh,
     [STIM_TYPES.Feedback]: faReply,
     [STIM_TYPES.Silence]: faSquare,
-    [STIM_TYPES.Hum]: faSquare,
+    [STIM_TYPES.Ambience]: faSquare,
+    [STIM_TYPES.NormalRhythm]: faSquare,
+    [STIM_TYPES.PolyRhythm]: faSquare,
     [STIM_TYPES.End]: faPause
 }

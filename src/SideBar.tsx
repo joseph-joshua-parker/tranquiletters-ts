@@ -1,27 +1,32 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import { STIM_TYPES } from "./shared/models/stimTypes";
 
-const useSideBar = ()=>{
-    const [stimType, setStimType] = useState<STIM_TYPES>(STIM_TYPES.Verbal);
+interface SideBarProps {
+    setStimType: React.Dispatch<SetStateAction<STIM_TYPES>>
+}
 
-    const SideBar = ()=>{
-        return (
-            <div className="column is-one-fifth">
-                <aside className="menu">
+const SideBar: React.FC<SideBarProps> = ({setStimType})=>{
+
+    return (
+        <div className="column is-one-fifth">
+            <aside className="menu">
                 <p className="menu-label">Aspects</p>
                 <ul className="menu-list">
-                    <li onClick={()=>setStimType(STIM_TYPES.Verbal)}><a>Tokens</a></li>
-                    <li onClick={()=>setStimType(STIM_TYPES.SoundFX)}><a href="">SoundFX</a></li>
-                    <li onClick={()=>setStimType(STIM_TYPES.Feedback)}><a href="">Feedback</a></li>
+                    <li onClick={()=>setStimType(STIM_TYPES.Token)}><a>Tokens</a></li>
                 </ul>
-                </aside>
-            </div>
-        )
-    }
-    
-    return {stimType, SideBar};
 
+                <p className="menu-label">Coming Soon...</p>
+                <ul className="menu-list">
+                    <li onClick={()=>setStimType(STIM_TYPES.SoundFX)}><a>SoundFX</a></li>
+                    <li onClick={()=>setStimType(STIM_TYPES.Feedback)}><a>Feedback</a></li>
+                    <li onClick={()=>setStimType(STIM_TYPES.Ambience)}><a>Ambience</a></li>
+                    <li onClick={()=>setStimType(STIM_TYPES.NormalRhythm)}><a>Normal Rhythm</a></li>
+                    <li onClick={()=>setStimType(STIM_TYPES.PolyRhythm)}><a>Poly Rhythm</a></li>
+                </ul>
+            </aside>
+        </div>
+    )
 
 }
 
-export default useSideBar;
+export default SideBar;

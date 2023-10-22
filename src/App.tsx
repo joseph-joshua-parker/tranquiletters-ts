@@ -1,24 +1,40 @@
+import { useState } from 'react';
 
-
-import WithPanel from './components/withPanel/withPanel';
-
+//CSS
 import 'bulma/css/bulma.min.css';
 import './styles.css';
-import StimPatternModel from './components/StimPatternModel/StimPatternModel';
-import VerbalParameters from './components/VerbalParameters/VerbalParameters';
+
+//hooks
 import usePatternModelSelector from './state/usePatternModelSelector';
 import useLoop, { PLAYBACK_STATE } from './useLoop';
+
+//models & enums
 import { PatternUnit } from './shared/models/patternUnit';
-import useSideBar from './SideBar';
 import { STIM_TYPES } from './shared/models/stimTypes';
-import FeedBackParameters from './FeedbackParameters';
+
+//components
+import SideBar from './SideBar';
+import {
+  TokenParameters, 
+  SoundFXParameters,
+  FeedBackParameters,
+  AmbienceParameters,
+  NormalRhythmParameters,
+  PolyRhythmParameters,
+
+  WithPanel
+} from './components/ParameterPanels/index';
+import StimPatternModel from './components/StimPatternModel/StimPatternModel';
+
+
 
 
 function App() {
   
   const  [patternModel, sessionMinutes, selectToken] = (usePatternModelSelector() as [PatternUnit[], number, ()=>string])
   const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, selectToken)
-  const {stimType, SideBar} = useSideBar();
+  const [stimType, setStimType] = useState<STIM_TYPES>(STIM_TYPES.Feedback);
+
 
   const startCancel = <div>
     { (playbackState == PLAYBACK_STATE.Waiting)
@@ -36,9 +52,13 @@ function App() {
 
   const StimParams = (()=> {
     switch(stimType){
-      case STIM_TYPES.Verbal: return VerbalParameters
+      case STIM_TYPES.Token: return TokenParameters
       case STIM_TYPES.Feedback: return FeedBackParameters
-      default: return VerbalParameters
+      case STIM_TYPES.SoundFX: return SoundFXParameters
+      case STIM_TYPES.Ambience: return AmbienceParameters
+      case STIM_TYPES.NormalRhythm: return NormalRhythmParameters
+      case STIM_TYPES.PolyRhythm: return PolyRhythmParameters
+      default: return TokenParameters
     }
   })()
 
@@ -46,7 +66,7 @@ function App() {
 
       <div>
         <div className="columns is-mobile">
-          <SideBar/>
+          <SideBar setStimType={setStimType}/>
           <div className="column">
             <WithPanel>
               <StimParams/>

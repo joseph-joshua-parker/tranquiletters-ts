@@ -32,7 +32,7 @@ const usePatternModelSelector = ()=>{
                                                 //is within the cluster && is spaced out by Silence 
         const preTranslationModel = initialModel.map((unit, index)=>    index < TPC*SBT && 
                                                                         index % SBT == 0
-            ? new PatternUnit(STIM_TYPES.Verbal, '')
+            ? new PatternUnit(STIM_TYPES.Token, '')
             : unit
         );
 
