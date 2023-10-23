@@ -1,6 +1,6 @@
-import { PatternUnit } from "../models/patternUnit";
+import { PatternUnitModel } from "../models/patternUnitModel";
 
-function chunkify(a: Array<PatternUnit>, n: number, balanced: boolean) {
+function chunkify(a: Array<PatternUnitModel>, n: number, balanced: boolean) {
     
     if (n < 2)
         return [a];

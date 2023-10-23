@@ -1,4 +1,4 @@
-import { PatternUnit } from "./shared/models/patternUnit";
+import { PatternUnitModel } from "./shared/models/patternUnitModel";
 import {speak, init} from './audio/speechSynthesis';
 import { STIM_TYPES } from "./shared/models/stimTypes";
 import { useState, useRef, MutableRefObject } from "react";
@@ -12,7 +12,7 @@ export enum PLAYBACK_STATE {
 
 
  const useLoop = (
-    patternModel: PatternUnit[], 
+    patternModel: PatternUnitModel[], 
     sessionMinutes: number, 
     selectToken: ()=>string,
     setCursorIndex: React.Dispatch<React.SetStateAction<number>>

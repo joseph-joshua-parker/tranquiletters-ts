@@ -1,20 +1,20 @@
-import { Cursor, PatternUnit } from "../../shared/models/patternUnit"
+import { Cursor, PatternUnitModel,typeToIconMap } from "../../shared/models/patternUnitModel"
 import { STIM_TYPES } from "../../shared/models/stimTypes";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { typeToIconMap } from "../../shared/models/patternUnit";
 
 import chunkify from "../../shared/utilities/chunkify";
+import StimPatternView from "./PatternUnitView";
 
 
 interface StimPatternModelProps {
-    model : PatternUnit[]
+    model : PatternUnitModel[]
     cursorIndex: number
+    selectedStimType: STIM_TYPES
 }
 
 const StimPatternModel: React.FC<StimPatternModelProps> = ({model, cursorIndex})=>{
 
-    const isSilence = (unit:PatternUnit)=> unit.type == STIM_TYPES.Silence
     if(cursorIndex >= 0)   
         model[cursorIndex] = Cursor;
 
@@ -26,13 +26,9 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({model, cursorIndex})
 
 
 
-
     const displayedModel = chunkedStims.map(
         chunk=> <div>
-             {chunk.map((unit)=> 
-                
-                <FontAwesomeIcon style={{width:'5vw'}} color={isSilence(unit) ? 'white' : 'gray' } icon={typeToIconMap[unit.type]} />)}
-            
+             {chunk.map((unit)=> <StimPatternView unit={unit}/>)}
         </div>
     )
 

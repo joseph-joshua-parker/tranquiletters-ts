@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux/es/hooks/useSelector"
-import { PatternUnit, Silence, End} from "../shared/models/patternUnit";
+import { PatternUnitModel, Silence, End} from "../shared/models/patternUnitModel";
 import { STIM_TYPES } from "../shared/models/stimTypes";
 import { RootState } from "./redux/store"
 
@@ -25,19 +25,19 @@ const usePatternModelSelector = ()=>{
         }
 
         const initialModel = [
-            ...(new Array<PatternUnit>(TPC*SBT+SBC).fill(Silence)), 
+            ...(new Array<PatternUnitModel>(TPC*SBT+SBC).fill(Silence)), 
         ];
 
 
                                                 //is within the cluster && is spaced out by Silence 
         const preTranslationModel = initialModel.map((unit, index)=>    index < TPC*SBT && 
                                                                         index % SBT == 0
-            ? new PatternUnit(STIM_TYPES.Token, '')
+            ? new PatternUnitModel(STIM_TYPES.Token, '')
             : unit
         );
 
         //move everything to the right
-        const leftSideTranslationFactor = new Array<PatternUnit>(Translation).fill(Silence);
+        const leftSideTranslationFactor = new Array<PatternUnitModel>(Translation).fill(Silence);
         preTranslationModel.unshift(...leftSideTranslationFactor);
 
         //trim the right side fat
@@ -45,7 +45,7 @@ const usePatternModelSelector = ()=>{
 
         preTranslationModel.push(End);
         
-        return [preTranslationModel, SessionTime, selectToken] as [PatternUnit[], number, ()=>string];
+        return [preTranslationModel, SessionTime, selectToken] as [PatternUnitModel[], number, ()=>string];
     })
 
     return state;

@@ -9,7 +9,7 @@ import usePatternModelSelector from './state/usePatternModelSelector';
 import useLoop, { PLAYBACK_STATE } from './useLoop';
 
 //models & enums
-import { PatternUnit } from './shared/models/patternUnit';
+import { PatternUnitModel } from './shared/models/patternUnitModel';
 import { STIM_TYPES } from './shared/models/stimTypes';
 
 //components
@@ -25,6 +25,7 @@ import {
   WithPanel
 } from './components/ParameterPanels/index';
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
+import CurrentStimTypeContext from './state/contexts/CurrentStimTypeContext';
 
 
 
@@ -32,7 +33,7 @@ import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 function App() {
   
   const [cursorIndex, setCursorIndex] = useState(-1);
-  const  [patternModel, sessionMinutes, selectToken] = (usePatternModelSelector() as [PatternUnit[], number, ()=>string])
+  const  [patternModel, sessionMinutes, selectToken] = (usePatternModelSelector() as [PatternUnitModel[], number, ()=>string])
   
   const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, selectToken, setCursorIndex)
   const [stimType, setStimType] = useState<STIM_TYPES>(STIM_TYPES.Feedback);
@@ -77,9 +78,11 @@ function App() {
           </div>
         </div>
         <div>
-          <StimPatternModel cursorIndex={cursorIndex}  model={patternModel}/>
-            {startCancel}
-            {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+          <CurrentStimTypeContext.Provider value={stimType}>
+            <StimPatternModel selectedStimType={stimType} cursorIndex={cursorIndex}  model={patternModel}/>
+          </CurrentStimTypeContext.Provider>
+          {startCancel}
+          {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
         </div>
       </div>
 
