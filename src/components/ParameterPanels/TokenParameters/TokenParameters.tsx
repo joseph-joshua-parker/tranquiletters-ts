@@ -6,7 +6,7 @@ import {  RootState } from "../../../state/redux/store";
 
 import { setName, setTokens } from "../../../state/redux/tokenSetParameterSlice";
 import StringParameterInput from "../../StringParamInput/StringParameterInput";
-import { translate } from "../../../state/redux/tokenNumParameterSlice";
+import { crementTranslate } from "../../../state/redux/tokenNumParameterSlice";
 
 
 const TokenParameters = ()=>{
@@ -29,7 +29,7 @@ const TokenParameters = ()=>{
             <NumParameterInput name={'Tokens/Cluster'} val={TokensPerCluster}/>
             <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
             <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
-            <NumParameterInput name={'Position'} val={Position} delta={translate}/>
+            <NumParameterInput name={'Position'} val={Position} delta={crementTranslate}/>
             
             <StringParameterInput name={'Name'} val={NameVal} action={setName}/>
             <StringParameterInput name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>

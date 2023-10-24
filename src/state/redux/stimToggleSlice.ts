@@ -13,11 +13,6 @@ interface SetStimPayload {
     type: STIM_TYPES
 }
 
-interface TRanslationPayload {
-    translation: number,
-    initialLength: number
-}
-
 
 const DefaultStimsToggled = {
     patternModel: new Array<PatternUnitModel>(),
@@ -70,5 +65,5 @@ const stimToggleSlice = createSlice({
     }
 })
 
-export const {switchStimToToggle, toggleStim, initializeModel, setStim, handleTranslate} = stimToggleSlice.actions;
+export const {switchStimToToggle, toggleStim, initializeModel, setStim, handleTranslate, capOff} = stimToggleSlice.actions;
 export default stimToggleSlice.reducer;

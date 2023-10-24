@@ -7,6 +7,7 @@ export enum ON_STRIKEOUT {
 }
 
 export interface FeedbackParameterState {
+    questionSound:string,
     hitSound: string,
     strikeSound:string,
     strikeCount: number,
@@ -15,6 +16,7 @@ export interface FeedbackParameterState {
 }
 
 export const DefaultFeedbackParameters = {
+    questionSound: 'question.wav',
     hitSound: 'small_hit.wav',
     strikeSound: 'small_strike.wav',
     strikeCount: 3,

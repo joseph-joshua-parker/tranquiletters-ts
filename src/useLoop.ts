@@ -2,6 +2,7 @@ import { PatternUnitModel } from "./shared/models/patternUnitModel";
 import {speak, init} from './audio/speechSynthesis';
 import { STIM_TYPES } from "./shared/models/stimTypes";
 import { useState, useRef, MutableRefObject } from "react";
+import usePayloads from "./shared/utilities/usePayloads";
 
 
 export enum PLAYBACK_STATE {
@@ -14,11 +15,15 @@ export enum PLAYBACK_STATE {
  const useLoop = (
     patternModel: PatternUnitModel[], 
     sessionMinutes: number, 
-    selectToken: ()=>string,
     setCursorIndex: React.Dispatch<React.SetStateAction<number>>
 )=>{
     init();
     const sessionTime = sessionMinutes*60*1000;
+    const {tokens, questionSound} = usePayloads();
+    const selectToken = ()=>{
+        const max = tokens.length-1;
+        return tokens[Math.floor(Math.random()*max)];
+    }
 
   let sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
   let timeElapsed = useRef(0)

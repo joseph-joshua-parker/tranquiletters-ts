@@ -9,7 +9,6 @@ import usePatternModelSelector from './state/usePatternModelSelector';
 import useLoop, { PLAYBACK_STATE } from './useLoop';
 
 //models & enums
-import { PatternUnitModel } from './shared/models/patternUnitModel';
 import { STIM_TYPES } from './shared/models/stimTypes';
 
 //components
@@ -25,7 +24,8 @@ import {
   WithPanel
 } from './components/ParameterPanels/index';
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
-import CurrentStimTypeContext from './state/contexts/CurrentStimTypeContext';
+import { RootState } from './state/redux/store';
+import { useSelector } from 'react-redux';
 
 
 
@@ -33,11 +33,10 @@ import CurrentStimTypeContext from './state/contexts/CurrentStimTypeContext';
 function App() {
   
   const [cursorIndex, setCursorIndex] = useState(-1);
-  const  [patternModel, sessionMinutes, selectToken] = (usePatternModelSelector() as [PatternUnitModel[], number, ()=>string])
+  const  sessionMinutes = usePatternModelSelector();
+  const {patternModel} = useSelector((state: RootState)=>state.stimToggleSliceReducer);
   
-  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, selectToken, setCursorIndex)
-  const [stimType, setStimType] = useState<STIM_TYPES>(STIM_TYPES.Feedback);
-
+  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, setCursorIndex)
 
 
   const startCancel = <div>
@@ -54,8 +53,9 @@ function App() {
     }
   </div>
 
+  const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
   const StimParams = (()=> {
-    switch(stimType){
+    switch(currentStimType){
       case STIM_TYPES.Token: return TokenParameters
       case STIM_TYPES.Feedback: return FeedBackParameters
       case STIM_TYPES.SoundFX: return SoundFXParameters
@@ -70,7 +70,7 @@ function App() {
 
       <div>
         <div className="columns is-mobile">
-          <SideBar setStimType={setStimType}/>
+          <SideBar/>
           <div className="column">
             <WithPanel>
               <StimParams/>
@@ -78,9 +78,8 @@ function App() {
           </div>
         </div>
         <div>
-          <CurrentStimTypeContext.Provider value={stimType}>
-            <StimPatternModel selectedStimType={stimType} cursorIndex={cursorIndex}  model={patternModel}/>
-          </CurrentStimTypeContext.Provider>
+          <StimPatternModel selectedStimType={currentStimType} cursorIndex={cursorIndex}  model={patternModel}/>
+  
           {startCancel}
           {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
         </div>

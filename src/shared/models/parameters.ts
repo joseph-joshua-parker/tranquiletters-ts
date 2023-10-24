@@ -7,7 +7,7 @@ export interface NumParameterState {
     'Silence/Tokens': number,
     'Silence/Clusters': number
     'Position': number,
-    'SEssionTime': number
+    'SessionTime': number
 }
 
 export type STRING_PARAMS ='Tokens'|'Name';

@@ -1,22 +1,23 @@
 import { useSelector } from "react-redux/es/hooks/useSelector"
-import { useDispatch } from "react-redux";
+import { useDispatch, batch } from "react-redux";
 
 import { PatternUnitModel, Silence, End} from "../shared/models/patternUnitModel";
 import { STIM_TYPES } from "../shared/models/stimTypes";
 import { RootState } from "./redux/store"
 
-import { handleTranslate, initializeModel, setStim, toggleStim } from "./redux/stimToggleSlice";
+import { capOff, handleTranslate, initializeModel, setStim, toggleStim } from "./redux/stimToggleSlice";
+import { useEffect } from "react";
 
 const usePatternModelSelector = ()=>{
 
     const dispatch = useDispatch();
-     const state = useSelector((state:RootState)=>{
+     const state = useSelector((state:RootState)=>state);
         const {
             tokenSetParameterReducer:Set, 
             tokenNumParameterReducer: TokenParams, 
             feedbackParameterReducer: FeedbackParams,
             stimToggleSliceReducer: StimToggle
-        } = state;
+        } = state
          const {
             ['Tokens/Cluster']: TPC, 
             ['Silence/Tokens']: SBT,
@@ -34,50 +35,34 @@ const usePatternModelSelector = ()=>{
             patternModel,
             currentStimType
         } = StimToggle;
-
-
-
+    
         const {feedbackAt} = FeedbackParams;
-
-
-
-        const selectToken = ()=>{
-            return Tokens[Math.floor(Math.random()*Tokens.length)];
-        }
-
         const modelLength = TPC*SBT+SBC
 
-        dispatch(initializeModel(modelLength));
-
-        //Add Tokens
-        for(let i=0; i<modelLength; i++){
-            if( i < TPC*SBT && i % SBT == 0)    dispatch(setStim({index:i, type:STIM_TYPES.Token}))
-            else                                dispatch(setStim({index: i, type: STIM_TYPES.Silence}))
-        }
-
-                        
-
-        //Add Feedback
-        feedbackAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.Feedback})));
-
-        //Translate
-        dispatch(handleTranslate(Translation));
-
-
-        dispatch(capOff());
+        useEffect(()=>{
+            batch(()=>{
+                dispatch(initializeModel(modelLength));
+                //Add Tokens
+                for(let i=0; i<modelLength; i++){
+                    if( i < TPC*SBT && i % SBT == 0)    dispatch(setStim({index:i, type:STIM_TYPES.Token}))
+                    else                                dispatch(setStim({index: i, type: STIM_TYPES.Silence}))
+                }
         
-        return [SessionTime, selectToken] as [number, ()=>string];
-    })
-
-    return state;
+                //Add Feedback
+                feedbackAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.Feedback})));
+        
+                //Translate
+                dispatch(handleTranslate(Translation));
+        
+                //Cap off
+                dispatch(capOff());
+            })
+        }, [SBT, TPC, SBC, Translation, feedbackAt, modelLength])   
+        
+        
+        
+        return SessionTime;
 }
 
 export default usePatternModelSelector;
         
-
-        
-
-
-
-
-
