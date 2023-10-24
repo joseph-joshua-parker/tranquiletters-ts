@@ -26,8 +26,8 @@ const tokenNumParameterSlice = createSlice({
             state[name]  = state[name]+ val;
         },
 
-        translate(state, action: PayloadAction<NumActionPayload>){
-            const {name, val} = action.payload;
+        crementTranslate(state, action: PayloadAction<number>){
+            const val = action.payload;
             const {
                 ['Tokens/Cluster']: TPC, 
                 ['Silence/Tokens']: SBT,
@@ -46,5 +46,5 @@ const tokenNumParameterSlice = createSlice({
     }
 })
 
-export const {modifyNumParameters, crementNumParameter, translate} = tokenNumParameterSlice.actions;
+export const {modifyNumParameters, crementNumParameter, crementTranslate} = tokenNumParameterSlice.actions;
 export default tokenNumParameterSlice.reducer;

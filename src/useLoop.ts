@@ -39,7 +39,7 @@ export enum PLAYBACK_STATE {
       const unit = patternModel[currentIndex.current++];
       setCursorIndex(currentIndex.current);
       if(unit.type == STIM_TYPES.Token){
-        console.log(unit.payload);
+
         speak(selectToken());
       }
 

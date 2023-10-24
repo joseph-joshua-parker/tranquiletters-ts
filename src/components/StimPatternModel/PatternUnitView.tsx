@@ -3,15 +3,20 @@ import { PatternUnitModel, typeToIconMap } from "../../shared/models/patternUnit
 import { STIM_TYPES } from "../../shared/models/stimTypes"
 import { useContext, useState } from "react"
 import CurrentStimTypeContext from "../../state/contexts/CurrentStimTypeContext"
-
+import { addFeedback } from "../../state/redux/feedbackParameterSlice"
+import { translate } from "../../state/redux/tokenNumParameterSlice"
 interface StimPatternViewProps {
-    unit: PatternUnitModel
+    unit: PatternUnitModel,
+    index: number
 }
 
-const StimPatternView: React.FC<StimPatternViewProps> = ({unit})=>{
-    const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
+const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
     const [stimType, setStimType] = useState(unit.type);
     const currentStimType = useContext(CurrentStimTypeContext);
+
+
+
+    const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
 
     const toggleStimType = ()=>{
         setStimType(currentStimType);
@@ -24,7 +29,7 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit})=>{
             style={{width:'5vw'}} 
             color={isSilence(unit) ? 'white' : 'gray' } 
             icon={typeToIconMap[stimType]} 
-            onClick={toggleStimType}
+            onClick={()=>translate(index)}
         />)
 }
 
