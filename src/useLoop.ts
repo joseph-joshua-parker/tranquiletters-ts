@@ -3,6 +3,7 @@ import {speak, init} from './audio/speechSynthesis';
 import { STIM_TYPES } from "./shared/models/stimTypes";
 import { useState, useRef, MutableRefObject } from "react";
 import usePayloads from "./shared/utilities/usePayloads";
+import useFeedback from "./shared/utilities/useFeedback";
 
 
 export enum PLAYBACK_STATE {
@@ -19,7 +20,9 @@ export enum PLAYBACK_STATE {
 )=>{
     init();
     const sessionTime = sessionMinutes*60*1000;
-    const {tokens, questionSound} = usePayloads();
+    const {tokens} = usePayloads();
+    const {playQuestion} = useFeedback();
+
     const selectToken = ()=>{
         const max = tokens.length-1;
         return tokens[Math.floor(Math.random()*max)];
@@ -43,10 +46,13 @@ export enum PLAYBACK_STATE {
       
       const unit = patternModel[++currentIndex.current];
       setCursorIndex(currentIndex.current);
-      if(unit.type == STIM_TYPES.Token){
+      console.log(unit.type);
+      switch(unit.type){
+        case STIM_TYPES.Token: speak(selectToken()); break;
+        case STIM_TYPES.Feedback: playQuestion(); console.log('feedback'); break;
 
-        speak(selectToken());
       }
+      
 
       timeElapsed.current += 1000;
     }, 1000)
