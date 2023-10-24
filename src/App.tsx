@@ -33,10 +33,9 @@ import { useSelector } from 'react-redux';
 function App() {
   
   const [cursorIndex, setCursorIndex] = useState(-1);
-  const  sessionMinutes = usePatternModelSelector();
-  const {patternModel} = useSelector((state: RootState)=>state.stimToggleSliceReducer);
+  const  {SessionTime, patternModel} = usePatternModelSelector();
   
-  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, sessionMinutes, setCursorIndex)
+  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, SessionTime, setCursorIndex)
 
 
   const startCancel = <div>
@@ -78,7 +77,7 @@ function App() {
           </div>
         </div>
         <div>
-          <StimPatternModel selectedStimType={currentStimType} cursorIndex={cursorIndex}  model={patternModel}/>
+          <StimPatternModel cursorIndex={cursorIndex} model={patternModel}/>
   
           {startCancel}
           {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}

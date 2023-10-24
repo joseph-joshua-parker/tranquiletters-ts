@@ -39,9 +39,9 @@ export enum PLAYBACK_STATE {
       }
 
       else if(currentIndex.current >= patternModel.length)
-      currentIndex.current = 0;
+      currentIndex.current = -1;
       
-      const unit = patternModel[currentIndex.current++];
+      const unit = patternModel[++currentIndex.current];
       setCursorIndex(currentIndex.current);
       if(unit.type == STIM_TYPES.Token){
 
@@ -58,7 +58,7 @@ export enum PLAYBACK_STATE {
     setCursorIndex(-1)
     sessionInterval.current = undefined;
     timeElapsed.current = 0;
-    currentIndex.current = 0;
+    currentIndex.current = -1;
     setPlaybackState(PLAYBACK_STATE.Waiting);
   }
 

@@ -23,6 +23,7 @@ const SideBar = () =>{
                     <li onClick={()=>handleStimSelect(STIM_TYPES.Ambience)}><a>Ambience</a></li>
                     <li onClick={()=>handleStimSelect(STIM_TYPES.NormalRhythm)}><a>Normal Rhythm</a></li>
                     <li onClick={()=>handleStimSelect(STIM_TYPES.PolyRhythm)}><a>Poly Rhythm</a></li>
+                    <li onClick={()=>handleStimSelect(STIM_TYPES.HigherOrderPatterns)}><a>Higher Order Patterns</a></li>
                 </ul>
             </aside>
         </div>

@@ -61,7 +61,7 @@ const usePatternModelSelector = ()=>{
         
         
         
-        return SessionTime;
+        return {SessionTime, patternModel};
 }
 
 export default usePatternModelSelector;
