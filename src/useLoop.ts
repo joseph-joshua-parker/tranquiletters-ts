@@ -20,8 +20,8 @@ export enum PLAYBACK_STATE {
 )=>{
     init();
     const sessionTime = sessionMinutes*60*1000;
-    const {tokens} = usePayloads();
-    const {playQuestion} = useFeedback();
+    const {tokens, feedbackTime} = usePayloads();
+    const {askQuestion, answerQuestion, strikeCount, hitTime} = useFeedback();
 
     const selectToken = ()=>{
         const max = tokens.length-1;
@@ -46,7 +46,7 @@ export enum PLAYBACK_STATE {
       
       const unit = patternModel[++currentIndex.current];
       setCursorIndex(currentIndex.current);
-      console.log(unit.type);
+      console.log(unit.type)
       switch(unit.type){
         case STIM_TYPES.Token: speak(selectToken()); break;
         case STIM_TYPES.Feedback: playQuestion(); console.log('feedback'); break;

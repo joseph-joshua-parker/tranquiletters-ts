@@ -6,8 +6,9 @@ import {  RootState } from "../../../state/redux/store";
 
 import { setName, setTokens } from "../../../state/redux/tokenSetParameterSlice";
 import StringParameterInput from "../../StringParamInput/StringParameterInput";
-import { crementTranslate } from "../../../state/redux/tokenNumParameterSlice";
 
+import { crementTranslate, crementNumParameter, modifyNumParameters  } from "../../../state/redux/tokenNumParameterSlice";
+import NumParamChangeHandlerContext from "../../../contexts/NumParamChangeHandlerContext";
 
 const TokenParameters = ()=>{
 /*        */ 
@@ -23,17 +24,20 @@ const TokenParameters = ()=>{
         ['Name']:   NameVal,
         ['Tokens']: TokensVal
     } = useSelector((state:RootState)=>state.tokenSetParameterReducer);
+
+
+    const ChangleHandlerContext = NumParamChangeHandlerContext;
     
     return (
-        <>
+        <ChangleHandlerContext.Provider value={{delta: crementNumParameter, modify: modifyNumParameters}}>
             <NumParameterInput name={'Tokens/Cluster'} val={TokensPerCluster}/>
             <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
             <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
-            <NumParameterInput name={'Position'} val={Position} delta={crementTranslate}/>
+            <NumParameterInput name={'Position'} val={Position} propDelta={crementTranslate}/>
             
             <StringParameterInput name={'Name'} val={NameVal} action={setName}/>
             <StringParameterInput name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
-        </>
+        </ChangleHandlerContext.Provider>
     )
 }
 

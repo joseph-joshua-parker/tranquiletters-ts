@@ -1,5 +1,7 @@
+import NumParameterInput from "../NumParameterInput/NumParameterInput";
+
 const FeedBackParameters = ()=>{
-    return <div>Coming Soon...</div>
+    return 
 
 }
 

@@ -2,16 +2,17 @@ import { TOKEN_NUM_PARAMS } from "./parameters"
 
 
 export interface NumActionPayload{
-    name: TOKEN_NUM_PARAMS,
+    name: string,
     val: number
 }
 
 export interface StringActionPayload{
-    name: TOKEN_NUM_PARAMS,
+    name: string,
     val: string
 }
 
 export interface ArrayActionPayload{
-    name: TOKEN_NUM_PARAMS,
+    name: string,
     val: string[]
 }
+

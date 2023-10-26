@@ -1,26 +1,26 @@
-import { useDispatch, useSelector } from "react-redux"
-import { TOKEN_NUM_PARAMS } from "../../shared/models/parameters"
-import { AppDispatch, RootState } from "../../state/redux/store"
-import { modifyNumParameters, crementNumParameter } from "../../state/redux/tokenNumParameterSlice"
+import { useDispatch, } from "react-redux"
+import { AppDispatch } from "../../state/redux/store"
 import './NumParameterInputStyles.css';
-import { Dispatch } from "react";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { NumActionPayload } from "../../shared/models/actionsPayload";
+
+
 
 interface NumParameterProps {
-    name: TOKEN_NUM_PARAMS,
-    val: number
-    delta?: Function
+    name: string,
+    val: number,
+    delta: ActionCreatorWithPayload<NumActionPayload>,
+    modify: ActionCreatorWithPayload<NumActionPayload>
 }
 
 
 
-const NumParameterInput = ({name, val, delta}: NumParameterProps)=>{
+const NumParameterInput = ({name, val, delta, modify}: NumParameterProps)=>{
     const dispatch = useDispatch<AppDispatch>();
-    const deltaAction = delta ?? crementNumParameter;
 
 
-    const handleCrement = (val: number)=> dispatch(deltaAction({name, val}));
-    const handleModify = (val: number)=> dispatch(modifyNumParameters({name, val}));
+    const handleDelta = (val: number)=> dispatch(delta({name, val}));
+    const handleModify = ((e:React.ChangeEvent<HTMLInputElement>)=> dispatch(modify({name, val:parseInt(e.target.value)})));
 
 
     return (
@@ -32,9 +32,9 @@ const NumParameterInput = ({name, val, delta}: NumParameterProps)=>{
             </div>
            
             <div className="control center-content horizontal">
-                <button className="button is-small crement-button" id={`decrement-${name}`} type="button" onClick={()=>handleCrement(-1)}>-1</button>
-                <input style={{width:'6rem'}} className=" is-small input " value={val} id={name} onChange={()=>{}} type="number" name="tokensPerClus"/>
-                <button className="button is-small crement-button" id={`increment-${name}`} type="button" onClick={()=>handleCrement(+1)}>+1</button>
+                <button className="button is-small crement-button" id={`decrement-${name}`} type="button" onClick={()=>handleDelta(-1)}>-1</button>
+                <input style={{width:'6rem'}} className=" is-small input " value={val} id={name} onChange={handleModify} type="number" name="tokensPerClus"/>
+                <button className="button is-small crement-button" id={`increment-${name}`} type="button" onClick={()=>handleDelta(+1)}>+1</button>
             </div>
         </div>
         

@@ -12,6 +12,7 @@ export interface FeedbackParameterState {
     strikeSound:string,
     strikeCount: number,
     feedbackAt: number[],
+    feedbackTime:number,
     onStrikeout: ON_STRIKEOUT
 }
 
@@ -21,6 +22,7 @@ export const DefaultFeedbackParameters = {
     strikeSound: 'small_strike.wav',
     strikeCount: 3,
     feedbackAt: new Array<number>(),
+    feedbackTime: 20,
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel
 
 }
@@ -38,9 +40,13 @@ const feedbackParameterSlice = createSlice({
         removeFeedback(state, action: PayloadAction<number>){
             const index = action.payload;
             state.feedbackAt = state.feedbackAt.filter(i=> i != index);
+        },
+
+        crementFeedbackTime(state, action: PayloadAction<number>){
+            state.feedbackTime = action.payload;
         }
     }
 })
 
-export const {addFeedback, removeFeedback} = feedbackParameterSlice.actions;
+export const {addFeedback, removeFeedback, crementFeedbackTime} = feedbackParameterSlice.actions;
 export default feedbackParameterSlice.reducer; 

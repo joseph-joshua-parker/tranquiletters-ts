@@ -4,12 +4,12 @@ import { RootState } from "../../state/redux/store";
 const usePayloads = ()=>{
 
     const {
-        feedbackParameterReducer : {questionSound},
+        feedbackParameterReducer : {questionSound, feedbackTime},
         tokenSetParameterReducer : {['Tokens']: tokens}
     } = useSelector((state: RootState)=>state)
     
 
-    return {tokens, questionSound};
+    return {tokens, questionSound, feedbackTime};
 
 }
 
