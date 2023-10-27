@@ -42,6 +42,7 @@ export enum PLAYBACK_STATE {
       }
       if(timeElapsed.current >= sessionTime) {
         cancel();
+        speak('Session Finished');
         return;
       }
 
