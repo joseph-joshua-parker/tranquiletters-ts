@@ -34,7 +34,7 @@ const useFeedback = (feedbackTime: number)=>{
         SpeechRecognition.startListening();
         pendingQuestion.current =  setTimeout(()=>{
             playStrike();
-            strikeCount.current++;
+            strikeCount.current++;  
         }, feedbackTime*1000)
     }
 

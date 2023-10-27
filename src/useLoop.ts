@@ -36,12 +36,16 @@ export enum PLAYBACK_STATE {
 
   const loop = ()=>{ 
     sessionInterval.current = setInterval(()=>{
+      if(strikeCount.current >= 3){
+        speak('Over excitedness detected; consider changing parameters');
+        cancel();
+      }
       if(timeElapsed.current >= sessionTime) {
         cancel();
         return;
       }
 
-      else if(currentIndex.current >= patternModel.length)
+      if(currentIndex.current >= patternModel.length-1)
       currentIndex.current = -1;
       
       const unit = patternModel[++currentIndex.current];
@@ -52,6 +56,7 @@ export enum PLAYBACK_STATE {
         case STIM_TYPES.Feedback: askQuestion(); console.log('feedback'); break;
 
       }
+      
       
 
       timeElapsed.current += 1000;
