@@ -76,10 +76,10 @@ function App() {
           <h2 className="center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
           <br/>
         <div className="columns is-mobile">
-          <div className="column is-5">
+          <div className="column is-6">
             <SideBar/>
           </div>
-          <div className="column is-7">
+          <div className="column is-6">
             <WithPanel>
               <StimParams/>
             </WithPanel>

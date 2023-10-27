@@ -1,14 +1,18 @@
 
 import { STIM_TYPES } from "./shared/models/stimTypes";
 import { switchStimToToggle } from "./state/redux/stimToggleSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "./state/redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition, faReply, faSignature } from "@fortawesome/free-solid-svg-icons";
 
+
 const SideBar = () =>{
     const dispatch = useDispatch();
+    const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer);
 
     const handleStimSelect = (type: STIM_TYPES) => dispatch(switchStimToToggle(type));
+    const isSelectedStyle = (stim:STIM_TYPES)=> stim == currentStimType ? 'dimgray' : 'black'
 
     interface SideBarIconProps {
         stim: STIM_TYPES,
@@ -16,8 +20,10 @@ const SideBar = () =>{
         label: string
     }
     const SideBarIcon: React.FC<SideBarIconProps> = ({stim, icon, label}) =>{
-        return <li style={{boxSizing: 'border-box'}} onClick={()=>handleStimSelect(stim)}>
-            <FontAwesomeIcon color={'#303030'} icon={icon}/>{label}
+        return <li style={{backgroundColor: isSelectedStyle(stim), boxSizing: 'border-box'}} onClick={()=>handleStimSelect(stim)}>
+            <a>
+                <FontAwesomeIcon color={'#303030'} icon={icon}/>{label}
+            </a>
         </li>
     }
 

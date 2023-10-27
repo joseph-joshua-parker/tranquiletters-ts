@@ -16,8 +16,7 @@ const FeedBackParameters = ()=>{
 
     return (
             <div>
-                <NumParameterInput name= "Time to Acknowledge" val={feedbackTime} propDelta={crementFeedbackTime}/>
-                <NumParameterInput name= "Upgrade Threshold" val={hitUpgradeThreshold} propDelta={crementHitUpgradeThreshold}/>
+                <NumParameterInput name= "Time to Acknowledge (Seconds)" val={feedbackTime} propDelta={crementFeedbackTime}/>
                 <StringParameterInput isMultiline={true} name="Acknowledgements Accepted" val={acknowledgementsAccepted.join(',')} action={modifyAcceptedAcknowledgements}/>
             </div>
         
