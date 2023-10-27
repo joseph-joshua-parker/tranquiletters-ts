@@ -31,7 +31,7 @@ export const DefaultFeedbackParameters = {
     feedbackAt: new Array<number>(),
     feedbackTime: 20,
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
-    hitUpgradeThreshold: 0,
+    hitUpgradeThreshold: 10,
     isAdaptive: false
 }
 
