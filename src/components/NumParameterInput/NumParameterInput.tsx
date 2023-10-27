@@ -39,7 +39,7 @@ const NumParameterInput = ({name, val, propDelta, propModify}: NumParameterProps
 
     return (
 
-        <div className="center-content vertical">
+        <div style={{justifyContent:'center'}} className="center-content vertical">
             
             <div className="center-content">
                 <label className="label is-small" htmlFor={name}>{name}</label>

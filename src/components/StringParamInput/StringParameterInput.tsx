@@ -31,12 +31,12 @@ const StringParameterInput = ({name, val, action, isMultiline}: StringParameterP
     const multiLineInput = <textarea className="is-small textarea" style={{width: '10rem', whiteSpace: 'pre-wrap'}} value={val} id={name} onChange={handleTextAreaChange} name={name}/>
 
     return (
-        <div className="center-content vertical">
+        <div style={{justifyContent:'center'}} className="center-content vertical">
             <div className="center-content ">
                 <label className="label is-small" htmlFor={name}>{name}</label>
             </div>
            
-            <div className="control ">
+            <div className="control center-content ">
                 {isMultiline
                 ? multiLineInput
                 : singleLineInput
