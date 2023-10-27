@@ -8,8 +8,13 @@ const smallHit = require('../../assets/soundFX/small_hit.wav');
 const largeHit = require('../../assets/soundFX/large_hit.wav');
 const strike = require('../../assets/soundFX/small_strike.wav');
 
+interface FeedbackParameters {
+    feedbackTime: number, 
+    acknowledgementsAccepted: string[], 
+    hitUpgradeThreshold: number
+}
 
-const useFeedback = (feedbackTime: number)=>{
+const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold}:FeedbackParameters)=>{
     const [playQuestion] = useSound(question); 
     const [playSmallHit] = useSound(smallHit);
     const [playLargeHit] = useSound(largeHit);
@@ -22,12 +27,13 @@ const useFeedback = (feedbackTime: number)=>{
     const answerQuestion = ()=>{
         clearTimeout(pendingQuestion.current);
         pendingQuestion.current = undefined;
-
+        if(listening) SpeechRecognition.stopListening();
+        SpeechRecognition.stopListening();
         playSmallHit();
         hitTime.current += feedbackTime;
     }
 
-    const {transcript} = useCommandRecognition(answerQuestion);
+    const {transcript, listening} = useCommandRecognition(answerQuestion, acknowledgementsAccepted);
 
     const askQuestion = ()=>{
         playQuestion();

@@ -33,8 +33,8 @@ const TokenParameters = ()=>{
             <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
             <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
             
-            <StringParameterInput name={'Name'} val={NameVal} action={setName}/>
-            <StringParameterInput name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
+            <StringParameterInput isMultiline={false} name={'Name'} val={NameVal} action={setName}/>
+            <StringParameterInput isMultiline={false}  name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
         </NumParamChangeHandlerContext.Provider>
     )
 }

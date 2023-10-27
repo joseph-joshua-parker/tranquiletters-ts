@@ -1,6 +1,6 @@
 import {useSpeechRecognition} from 'react-speech-recognition';
 
-const useCommandRecognition = (acceptAnswer: ()=>void)=>{
+const useCommandRecognition = (acceptAnswer: ()=>void, acknowledgementsAccepted: string[])=>{
 
     const unpedantic = {
         matchInterim: true,
@@ -9,13 +9,14 @@ const useCommandRecognition = (acceptAnswer: ()=>void)=>{
         bestMatchOnly:true
     }
 
-    const commands = [
-        {command: 'okay', ...unpedantic}, 
-        {command: 'got it', ...unpedantic}, 
-        {command: 'right', ...unpedantic}, 
-        {command: 'cool', ...unpedantic}, 
-        {command: 'good', ...unpedantic}, 
-    ]
+    const readyAcknowledgements = acknowledgementsAccepted.map(ack=>{
+        return {
+            command: ack,
+            ...unpedantic
+        }
+    })
+
+    const commands = [...readyAcknowledgements ]
 
     return useSpeechRecognition({commands});
 }

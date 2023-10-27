@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { NumActionPayload } from "../../shared/models/actionsPayload";
 
 export enum ON_STRIKEOUT {
     Adapt = 'adapt',
@@ -6,7 +7,10 @@ export enum ON_STRIKEOUT {
     BackupSound = 'backup_sound'
 }
 
+
+
 export interface FeedbackParameterState {
+    acknowledgementsAccepted: string[],
     questionSound:string,
     hitSound: string,
     strikeSound:string,
@@ -14,17 +18,19 @@ export interface FeedbackParameterState {
     feedbackAt: number[],
     feedbackTime:number,
     onStrikeout: ON_STRIKEOUT
+    hitUpgradeThreshold: 0
 }
 
 export const DefaultFeedbackParameters = {
+    acknowledgementsAccepted: ['yes', 'good', 'okay', 'right', 'got it'],
     questionSound: 'question.wav',
     hitSound: 'small_hit.wav',
     strikeSound: 'small_strike.wav',
     strikeCount: 3,
     feedbackAt: new Array<number>(),
     feedbackTime: 20,
-    ON_STRIKEOUT: ON_STRIKEOUT.Cancel
-
+    ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
+    hitUpgradeThreshold: 0
 }
 
 const feedbackParameterSlice = createSlice({
@@ -33,7 +39,6 @@ const feedbackParameterSlice = createSlice({
     reducers: {
         addFeedback(state, action: PayloadAction<number>){
             const index = action.payload;
-            console.log('dfg');
             state.feedbackAt.push(index);
         },
 
@@ -42,11 +47,37 @@ const feedbackParameterSlice = createSlice({
             state.feedbackAt = state.feedbackAt.filter(i=> i != index);
         },
 
-        crementFeedbackTime(state, action: PayloadAction<number>){
-            state.feedbackTime = action.payload;
+        crementFeedbackTime(state, action: PayloadAction<NumActionPayload>){
+            state.feedbackTime += action.payload.val;
+        },
+
+        crementHitUpgradeThreshold(state, action: PayloadAction<NumActionPayload>){
+            state.hitUpgradeThreshold += action.payload.val;
+        },
+
+        addAcceptedAcknowledgement(state, action: PayloadAction<string>){
+            state.acknowledgementsAccepted.push(action.payload);
+        },
+
+        modifyAcceptedAcknowledgements(state, action: PayloadAction<string>){
+            const acknowledgements = action.payload.split(',');
+            state.acknowledgementsAccepted = acknowledgements;
+        },
+
+        removeAcceptedAcknowledgement(state, action: PayloadAction<string>){
+            state.acknowledgementsAccepted = state.acknowledgementsAccepted.filter(ack => ack != action.payload);
         }
     }
 })
 
-export const {addFeedback, removeFeedback, crementFeedbackTime} = feedbackParameterSlice.actions;
+export const {
+    addFeedback, 
+    removeFeedback, 
+    crementFeedbackTime, 
+    crementHitUpgradeThreshold,
+    addAcceptedAcknowledgement,
+    removeAcceptedAcknowledgement, 
+    modifyAcceptedAcknowledgements
+
+} = feedbackParameterSlice.actions;
 export default feedbackParameterSlice.reducer; 

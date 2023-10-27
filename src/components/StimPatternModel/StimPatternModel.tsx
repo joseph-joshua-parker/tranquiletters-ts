@@ -29,13 +29,6 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({model, cursorIndex})
     const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback]
     const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
 
-    const translate = (delta: number)=>{
-        batch(()=>{
-            dispatch(handleTranslate(delta))
-
-        })
-    }
-
     const displayedModel = model.map((unit, index)=>{
             return index != cursorIndex
             ? <StimPatternView index={index} unit={unit}/>
@@ -46,13 +39,13 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({model, cursorIndex})
     const modelPanel =    
     <div className="columns is-mobile">
         <div className="column is-1" >
-            <FontAwesomeIcon onClick={()=>translate(-1)} icon={faArrowLeft}/>
+            <FontAwesomeIcon onClick={()=>dispatch(handleTranslate(-1))} icon={faArrowLeft}/>
         </div>
         <div className="column is-10" >
             {displayedModel}
         </div>
         <div className="column is-1" >
-            <FontAwesomeIcon onClick={()=>translate(1)} icon={faArrowRight}/>
+            <FontAwesomeIcon onClick={()=>dispatch(handleTranslate(1))} icon={faArrowRight}/>
         </div>
     </div>
 

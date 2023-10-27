@@ -8,19 +8,31 @@ import { STRING_PARAMS } from "../../shared/models/parameters"
 
 
 interface StringParameterProps {
-    name: STRING_PARAMS,
+    name: string,
     val: string,
+    isMultiline: boolean
     action: ActionCreatorWithPayload<string>
 }
 
 
-const StringParameterInput = ({name, val, action}: StringParameterProps)=>{
+
+const StringParameterInput = ({name, val, action, isMultiline}: StringParameterProps)=>{
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
+    const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         dispatch(action(e.target.value));
     }
+
+    const handleTextAreaChange = (e:  React.ChangeEvent<HTMLTextAreaElement>)=>{
+        dispatch(action(e.target.value));
+    }
+
+
+
+    const singleLineInput = <input  style={{width:'10rem'}} className=" is-small input " value={val} id={name} onChange={handleInputChange} type="text"  name={name}/>
+
+    const multiLineInput = <textarea style={{width: '10rem', whiteSpace: 'pre-wrap'}} value={val} id={name} onChange={handleTextAreaChange} name={name}/>
 
     return (
         <div className="center-content vertical">
@@ -29,7 +41,10 @@ const StringParameterInput = ({name, val, action}: StringParameterProps)=>{
             </div>
            
             <div className="control ">
-                <input  style={{width:'10rem'}} className=" is-small input " value={val} id={name} onChange={handleChange} type="text" name="tokensPerClus"/>
+                {isMultiline
+                ? multiLineInput
+                : singleLineInput
+                }
             </div>
         </div>
         

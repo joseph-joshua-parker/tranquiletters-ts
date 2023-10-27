@@ -20,8 +20,8 @@ export enum PLAYBACK_STATE {
 )=>{
     init();
     const sessionTime = sessionMinutes*60*1000;
-    const {tokens, feedbackTime} = usePayloads();
-    const {askQuestion, answerQuestion, strikeCount, hitTime} = useFeedback(10);
+    const {tokens, feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted} = usePayloads();
+    const {askQuestion, answerQuestion, strikeCount, hitTime} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
 
     const selectToken = ()=>{
         const max = tokens.length-1;
