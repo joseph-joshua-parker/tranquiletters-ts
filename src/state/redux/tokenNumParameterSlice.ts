@@ -18,6 +18,7 @@ const tokenNumParameterSlice = createSlice({
     reducers: {
         modifyNumParameters(state, action: PayloadAction<NumActionPayload>){
             const {name, val} = action.payload as NumActionPayload;
+            if(action.payload.val <= 0) return;
             state[name as TOKEN_NUM_PARAMS]  = val;
         },
 
