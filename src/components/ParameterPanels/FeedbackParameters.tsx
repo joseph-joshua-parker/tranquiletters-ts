@@ -30,7 +30,7 @@ const FeedBackParameters = ()=>{
                 </div>
 
                 {isAdaptive && (
-                    <NumParameterInput name="Adapt stimulation after this many successes" val={hitUpgradeThreshold} propDelta = {crementHitUpgradeThreshold}/>
+                    <NumParameterInput name="Reduce stimulation after this many successes" val={hitUpgradeThreshold} propDelta = {crementHitUpgradeThreshold}/>
                 ) 
                     
                 }
