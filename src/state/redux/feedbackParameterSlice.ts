@@ -19,6 +19,7 @@ export interface FeedbackParameterState {
     feedbackTime:number,
     onStrikeout: ON_STRIKEOUT
     hitUpgradeThreshold: 0
+    isAdaptive: boolean
 }
 
 export const DefaultFeedbackParameters = {
@@ -30,7 +31,8 @@ export const DefaultFeedbackParameters = {
     feedbackAt: new Array<number>(),
     feedbackTime: 20,
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
-    hitUpgradeThreshold: 0
+    hitUpgradeThreshold: 0,
+    isAdaptive: false
 }
 
 const feedbackParameterSlice = createSlice({
@@ -66,6 +68,10 @@ const feedbackParameterSlice = createSlice({
 
         removeAcceptedAcknowledgement(state, action: PayloadAction<string>){
             state.acknowledgementsAccepted = state.acknowledgementsAccepted.filter(ack => ack != action.payload);
+        },
+
+        toggleAdaptation(state){
+            state.isAdaptive = !state.isAdaptive
         }
     }
 })
@@ -77,7 +83,8 @@ export const {
     crementHitUpgradeThreshold,
     addAcceptedAcknowledgement,
     removeAcceptedAcknowledgement, 
-    modifyAcceptedAcknowledgements
+    modifyAcceptedAcknowledgements,
+    toggleAdaptation
 
 } = feedbackParameterSlice.actions;
 export default feedbackParameterSlice.reducer; 

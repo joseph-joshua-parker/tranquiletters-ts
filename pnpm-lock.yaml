@@ -50,6 +50,9 @@ dependencies:
   bulma-accordion:
     specifier: ^2.0.1
     version: 2.0.1
+  bulma-switch:
+    specifier: ^2.0.4
+    version: 2.0.4
   font-awesome:
     specifier: ^4.7.0
     version: 4.7.0
@@ -3448,6 +3451,10 @@ packages:
 
   /bulma-accordion@2.0.1:
     resolution: {integrity: sha512-qqLN67Y60c0adHAVvQmJTr6rhg0FWUCWbswFaW/3+offjc6ujqrUoIdlzX1avni4d/aJEl7j9PckfRGmIJcxxQ==}
+    dev: false
+
+  /bulma-switch@2.0.4:
+    resolution: {integrity: sha512-kMu4H0Pr0VjvfsnT6viRDCgptUq0Rvy7y7PX6q+IHg1xUynsjszPjhAdal5ysAlCG5HNO+5YXxeiu92qYGQolw==}
     dev: false
 
   /bulma@0.9.4:

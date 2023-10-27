@@ -1,10 +1,12 @@
 import { PatternUnitModel } from "./shared/models/patternUnitModel";
 import {speak, init} from './audio/speechSynthesis';
 import { STIM_TYPES } from "./shared/models/stimTypes";
-import { useState, useRef, MutableRefObject } from "react";
+import { useState, useRef, MutableRefObject, useEffect } from "react";
 import usePayloads from "./shared/utilities/usePayloads";
 import useFeedback from "./shared/utilities/useFeedback";
-
+import { useDispatch, useSelector, useStore } from "react-redux";
+import { crementNumParameter } from "./state/redux/tokenNumParameterSlice";
+import { RootState } from "./state/redux/store";
 
 export enum PLAYBACK_STATE {
     Paused,
@@ -19,9 +21,16 @@ export enum PLAYBACK_STATE {
     setCursorIndex: React.Dispatch<React.SetStateAction<number>>
 )=>{
     init();
+
+    const dispatch = useDispatch();
     const sessionTime = sessionMinutes*60*1000;
-    const {tokens, feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted} = usePayloads();
-    const {askQuestion, answerQuestion, strikeCount, hitTime} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
+    const {tokens, feedbackTime, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted} = usePayloads();
+    const {askQuestion, answerQuestion, reset, strikeCount, hitTime, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
+    const store = useStore();
+    const {
+      ['Tokens/Cluster']: TPC,
+      ['Silence/Clusters']: SBC
+    } = (store.getState() as RootState).tokenNumParameterReducer;
 
     const selectToken = ()=>{
         const max = tokens.length-1;
@@ -33,6 +42,18 @@ export enum PLAYBACK_STATE {
   let currentIndex = useRef(0);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
+
+    useEffect(()=>{
+      if(!isAdaptive) return;
+      if(hitCount.current >= hitUpgradeThreshold){
+        speak('Ease of focus detected, reducing stimulation');
+        if(TPC > 1) dispatch(crementNumParameter({name: 'Tokens/Cluster', val:-1}))
+        else dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
+        reset();
+      }
+    },[hitCount.current])
+
+
 
   const loop = ()=>{ 
     sessionInterval.current = setInterval(()=>{
@@ -91,7 +112,7 @@ export enum PLAYBACK_STATE {
     setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
-  return {start, pause, resume, cancel, playbackState, currentIndex}
+  return {start, pause, resume, cancel, playbackState, currentIndex, answerQuestion}
 }
 
 export default useLoop;

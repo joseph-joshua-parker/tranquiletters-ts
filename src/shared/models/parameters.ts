@@ -18,7 +18,7 @@ export interface TokenSetParameterState {
 }
 
 export const defaultStringParams = {
-    'Tokens': [],
+    'Tokens': ['a', 'b', 'c','d', 'e'],
     'Name': ''
 }
 

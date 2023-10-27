@@ -4,6 +4,7 @@ import FeedBackParameters from "./FeedbackParameters";
 import AmbienceParameters from "./AmbienceParameters";
 import NormalRhythmParameters from "./NormalRhythmParameters";
 import PolyRhythmParameters from "./PolyRhythmParameters";
+import HigherOrderPatternParameters from './HigherOrderPatternParameters'
 import WithPanel from "./withPanel/withPanel";
 
 export {
@@ -13,6 +14,7 @@ export {
     AmbienceParameters,
     NormalRhythmParameters,
     PolyRhythmParameters,
+    HigherOrderPatternParameters,
 
     WithPanel
 }

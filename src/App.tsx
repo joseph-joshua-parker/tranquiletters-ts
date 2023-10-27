@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 //CSS
 import 'bulma/css/bulma.min.css';
+import 'bulma-switch/dist/css/bulma-switch.min.css';
 import './styles.css';
 
 //hooks
@@ -23,6 +24,7 @@ import {
   AmbienceParameters,
   NormalRhythmParameters,
   PolyRhythmParameters,
+  HigherOrderPatternParameters,
 
   WithPanel
 } from './components/ParameterPanels/index';
@@ -51,6 +53,7 @@ function App() {
       case STIM_TYPES.Ambience: return AmbienceParameters
       case STIM_TYPES.NormalRhythm: return NormalRhythmParameters
       case STIM_TYPES.PolyRhythm: return PolyRhythmParameters
+      case STIM_TYPES.HigherOrderPatterns: return HigherOrderPatternParameters
       default: return TokenParameters
     }
   })()

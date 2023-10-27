@@ -23,6 +23,7 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
 
     const strikeCount = useRef(0);
     const hitTime = useRef(0);
+    const hitCount = useRef(0);
 
     const answerQuestion = ()=>{
         clearTimeout(pendingQuestion.current);
@@ -31,6 +32,7 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
         SpeechRecognition.stopListening();
         playSmallHit();
         hitTime.current += feedbackTime;
+        hitCount.current++;
     }
 
     const {transcript, listening} = useCommandRecognition(answerQuestion, acknowledgementsAccepted);
@@ -44,9 +46,14 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
         }, feedbackTime*1000)
     }
 
+    const reset = ()=>{
+        strikeCount.current = 0;
+        hitCount.current = 0;
+    }
 
 
-    return {askQuestion, answerQuestion, strikeCount, hitTime};
+
+    return {askQuestion, answerQuestion, reset, strikeCount, hitTime, hitCount};
 }
 
 export default useFeedback
