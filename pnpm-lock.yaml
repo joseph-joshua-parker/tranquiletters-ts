@@ -65,6 +65,9 @@ dependencies:
   react-scripts:
     specifier: 5.0.1
     version: 5.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.50.0)(react@18.2.0)(typescript@4.9.5)
+  react-speech-recognition:
+    specifier: ^3.10.0
+    version: 3.10.0(react@18.2.0)
   redux:
     specifier: ^4.2.1
     version: 4.2.1
@@ -115,6 +118,9 @@ dependencies:
     version: 6.6.1
 
 devDependencies:
+  '@types/react-speech-recognition':
+    specifier: ^3.9.3
+    version: 3.9.3
   eslint-config-react-app:
     specifier: ^7.0.1
     version: 7.0.1(@babel/plugin-syntax-flow@7.22.5)(@babel/plugin-transform-react-jsx@7.22.15)(eslint@8.50.0)(jest@27.5.1)(typescript@4.9.5)
@@ -2372,6 +2378,10 @@ packages:
       '@types/node': 17.0.45
     dev: false
 
+  /@types/dom-speech-recognition@0.0.3:
+    resolution: {integrity: sha512-PC0zoxejynqxI9oSQ5Aa3iningnnqCSu6OEtVhJmtEvBuzvZCiAMERrUYxT53BORrfw6VYoB7dubIWZqoYH+/A==}
+    dev: true
+
   /@types/eslint-scope@3.7.5:
     resolution: {integrity: sha512-JNvhIEyxVW6EoMIFIvj93ZOywYFatlpu9deeH6eSx6PE3WHYvHaQtmHmQeNw7aA81bYGBPPQqdtBm6b1SsQMmA==}
     dependencies:
@@ -2502,6 +2512,12 @@ packages:
     dependencies:
       '@types/react': 18.2.22
     dev: false
+
+  /@types/react-speech-recognition@3.9.3:
+    resolution: {integrity: sha512-QUahvbgfsCnvPxim22D6CTS67g8zybSSvCF8QCOXq61/1syLp1cFJTZC3/xHNFLNKn6Daj8nAA6VOUNzbu3ZWw==}
+    dependencies:
+      '@types/dom-speech-recognition': 0.0.3
+    dev: true
 
   /@types/react@18.2.22:
     resolution: {integrity: sha512-60fLTOLqzarLED2O3UQImc/lsNRgG0jE/a1mPW9KjMemY0LMITWEsbS4VvZ4p6rorEHd5YKxxmMKSDK505GHpA==}
@@ -8273,6 +8289,14 @@ packages:
       - webpack-cli
       - webpack-hot-middleware
       - webpack-plugin-serve
+    dev: false
+
+  /react-speech-recognition@3.10.0(react@18.2.0):
+    resolution: {integrity: sha512-EVSr4Ik8l9urwdPiK2r0+ADrLyDDrjB0qBRdUWO+w2MfwEBrj6NuRmy1GD3x7BU/V6/hab0pl8Lupen0zwlJyw==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react@18.2.0:

@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import useSound from 'use-sound';
+import useCommandRecognition from '../../audio/recognition/useCommandRecognition';
+import SpeechRecognition from 'react-speech-recognition';
 
 const question = require('../../assets/soundFX/question.wav');
 const smallHit = require('../../assets/soundFX/small_hit.wav');
@@ -17,14 +19,6 @@ const useFeedback = (feedbackTime: number)=>{
     const strikeCount = useRef(0);
     const hitTime = useRef(0);
 
-    const askQuestion = ()=>{
-        playQuestion();
-        pendingQuestion.current =  setTimeout(()=>{
-            playStrike();
-            strikeCount.current++;
-        }, feedbackTime*1000)
-    }
-
     const answerQuestion = ()=>{
         clearTimeout(pendingQuestion.current);
         pendingQuestion.current = undefined;
@@ -32,6 +26,19 @@ const useFeedback = (feedbackTime: number)=>{
         playSmallHit();
         hitTime.current += feedbackTime;
     }
+
+    const {transcript} = useCommandRecognition(answerQuestion);
+
+    const askQuestion = ()=>{
+        playQuestion();
+        SpeechRecognition.startListening();
+        pendingQuestion.current =  setTimeout(()=>{
+            playStrike();
+            strikeCount.current++;
+        }, feedbackTime*1000)
+    }
+
+
 
     return {askQuestion, answerQuestion, strikeCount, hitTime};
 }
