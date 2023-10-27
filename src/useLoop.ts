@@ -88,6 +88,7 @@ export enum PLAYBACK_STATE {
 
   const cancel = ()=>{
     clearInterval(sessionInterval.current);
+    reset();
     setCursorIndex(-1)
     sessionInterval.current = undefined;
     timeElapsed.current = 0;

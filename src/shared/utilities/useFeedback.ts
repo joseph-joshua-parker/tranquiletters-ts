@@ -49,6 +49,7 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
     const reset = ()=>{
         strikeCount.current = 0;
         hitCount.current = 0;
+        clearTimeout(pendingQuestion.current);
     }
 
 
