@@ -38,14 +38,16 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({model, cursorIndex})
 
     const modelPanel =    
     <div className="columns is-mobile">
-        <div className="column is-1" >
-            <FontAwesomeIcon onClick={()=>dispatch(handleTranslate(-1))} icon={faArrowLeft}/>
+        <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}} 
+        onClick={()=>dispatch(handleTranslate(-1))}>
+            <FontAwesomeIcon icon={faArrowLeft}/>
         </div>
         <div className="column is-10" >
             {displayedModel}
         </div>
-        <div className="column is-1" >
-            <FontAwesomeIcon onClick={()=>dispatch(handleTranslate(1))} icon={faArrowRight}/>
+        <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}} 
+        onClick={()=>dispatch(handleTranslate(1))}>
+            <FontAwesomeIcon icon={faArrowRight}/>
         </div>
     </div>
 

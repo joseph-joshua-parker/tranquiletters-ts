@@ -17,7 +17,7 @@ const SideBar = () =>{
     }
     const SideBarIcon: React.FC<SideBarIconProps> = ({stim, icon, label}) =>{
         return <li style={{boxSizing: 'border-box'}} onClick={()=>handleStimSelect(stim)}>
-            <FontAwesomeIcon icon={icon}/>{label}
+            <FontAwesomeIcon color={'#303030'} icon={icon}/>{label}
         </li>
     }
 

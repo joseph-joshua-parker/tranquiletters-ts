@@ -20,9 +20,12 @@ fieldset{
 
 *{
     box-sizing: border-box;
+    border-color: dimgray !important;
 }
 
 html, input, textarea, button{
     background-color: black !important;
     color:gray !important;
 }
+
+

@@ -28,7 +28,7 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
     return (
         <FontAwesomeIcon 
             style={{width:'5vw'}} 
-            color={isSilence(unit) ? 'black' : 'dark-gray' } 
+            color={isSilence(unit) ? 'black' : '#303030' } 
             icon={typeToIconMap[unit.type]} 
             onClick={()=>dispatch(toggleStim(index))}
         />)
