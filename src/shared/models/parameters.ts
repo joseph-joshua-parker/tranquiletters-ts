@@ -1,12 +1,11 @@
 
-export type TOKEN_NUM_PARAMS = 'Tokens/Cluster' |'Silence/Tokens'|'Silence/Clusters' | 'Position' | 'SessionTime';
+export type TOKEN_NUM_PARAMS = 'Tokens/Cluster' |'Silence/Tokens'|'Silence/Clusters'  | 'SessionTime';
 
 
 export interface NumParameterState {
     'Tokens/Cluster': number,
     'Silence/Tokens': number,
     'Silence/Clusters': number
-    'Position': number,
     'SessionTime': number
 }
 

@@ -3,10 +3,13 @@ import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { NumActionPayload } from "../shared/models/actionsPayload";
 
 
-const NumParamChangeHandlerContext = createContext<{
-        delta: ActionCreatorWithPayload<NumActionPayload>,
-        modify: ActionCreatorWithPayload<NumActionPayload>
-    } | undefined>(undefined);
+
+export interface ParamChangeHandlers {
+    delta: ActionCreatorWithPayload<NumActionPayload>,
+    modify: ActionCreatorWithPayload<NumActionPayload>
+}
+
+const NumParamChangeHandlerContext = createContext<ParamChangeHandlers>({} as ParamChangeHandlers);
 
 
 export default NumParamChangeHandlerContext;

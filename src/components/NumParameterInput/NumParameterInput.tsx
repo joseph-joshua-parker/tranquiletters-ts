@@ -3,24 +3,29 @@ import { AppDispatch } from "../../state/redux/store"
 import './NumParameterInputStyles.css';
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { NumActionPayload } from "../../shared/models/actionsPayload";
+import { useContext } from "react";
+import NumParamChangeHandlerContext from "../../contexts/NumParamChangeHandlerContext";
 
 
 
 interface NumParameterProps {
     name: string,
     val: number,
-    delta: ActionCreatorWithPayload<NumActionPayload>,
-    modify: ActionCreatorWithPayload<NumActionPayload>
+    propDelta?: ActionCreatorWithPayload<NumActionPayload>,
+    propModify?: ActionCreatorWithPayload<NumActionPayload>
 }
 
 
 
-const NumParameterInput = ({name, val, delta, modify}: NumParameterProps)=>{
+const NumParameterInput = ({name, val, propDelta, propModify}: NumParameterProps)=>{
     const dispatch = useDispatch<AppDispatch>();
+    const {delta, modify} = useContext(NumParamChangeHandlerContext); 
 
+    const trueDelta = delta ?? propDelta;
+    const trueModify = modify ?? propModify;
 
-    const handleDelta = (val: number)=> dispatch(delta({name, val}));
-    const handleModify = ((e:React.ChangeEvent<HTMLInputElement>)=> dispatch(modify({name, val:parseInt(e.target.value)})));
+    const handleDelta = (val: number)=> dispatch(trueDelta({name, val}));
+    const handleModify = ((e:React.ChangeEvent<HTMLInputElement>)=> dispatch(trueModify({name, val:parseInt(e.target.value)})));
 
 
     return (

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NumActionPayload } from "../../shared/models/actionsPayload";
+import { TOKEN_NUM_PARAMS } from "../../shared/models/parameters";
 
 
 
@@ -7,7 +8,6 @@ const initialState = {
         'Tokens/Cluster': 10,
         'Silence/Tokens': 2,
         'Silence/Clusters': 10,
-        'Position': 0,
         'SessionTime': 10
   
 };
@@ -18,33 +18,18 @@ const tokenNumParameterSlice = createSlice({
     reducers: {
         modifyNumParameters(state, action: PayloadAction<NumActionPayload>){
             const {name, val} = action.payload as NumActionPayload;
-            state[name]  = val;
+            state[name as TOKEN_NUM_PARAMS]  = val;
         },
 
         crementNumParameter(state, action:PayloadAction<NumActionPayload>){
             const {name, val} = action.payload as NumActionPayload;
-            state[name]  = state[name]+ val;
+            state[name as TOKEN_NUM_PARAMS]  = state[name as TOKEN_NUM_PARAMS]+ val;
         },
 
-        crementTranslate(state, action: PayloadAction<number>){
-            const val = action.payload;
-            const {
-                ['Tokens/Cluster']: TPC, 
-                ['Silence/Tokens']: SBT,
-                ['Silence/Clusters']: SBC,
-            } = state;
-
-            const totalLength = TPC*SBT+SBC;
-
-
-            const newPosition = state['Position'] + val;
-            if(! (newPosition + TPC*SBT > totalLength) && newPosition > 0)
-                state['Position'] = newPosition;
-        }
 
         
     }
 })
 
-export const {modifyNumParameters, crementNumParameter, crementTranslate} = tokenNumParameterSlice.actions;
+export const {modifyNumParameters, crementNumParameter} = tokenNumParameterSlice.actions;
 export default tokenNumParameterSlice.reducer;

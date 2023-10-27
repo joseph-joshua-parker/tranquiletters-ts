@@ -1,4 +1,7 @@
+//React API
 import { useState } from 'react';
+import { RootState } from './state/redux/store';
+import { useSelector } from 'react-redux';
 
 //CSS
 import 'bulma/css/bulma.min.css';
@@ -24,19 +27,33 @@ import {
   WithPanel
 } from './components/ParameterPanels/index';
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
-import { RootState } from './state/redux/store';
-import { useSelector } from 'react-redux';
 
 
 
 
 function App() {
   
+  //React API
   const [cursorIndex, setCursorIndex] = useState(-1);
+  const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
+
+  //Hooks
   const  {SessionTime, patternModel} = usePatternModelSelector();
-  
   const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, SessionTime, setCursorIndex)
 
+
+  //Components
+  const StimParams = (()=> {
+    switch(currentStimType){
+      case STIM_TYPES.Token: return TokenParameters
+      case STIM_TYPES.Feedback: return FeedBackParameters
+      case STIM_TYPES.SoundFX: return SoundFXParameters
+      case STIM_TYPES.Ambience: return AmbienceParameters
+      case STIM_TYPES.NormalRhythm: return NormalRhythmParameters
+      case STIM_TYPES.PolyRhythm: return PolyRhythmParameters
+      default: return TokenParameters
+    }
+  })()
 
   const startCancel = <div>
     { (playbackState == PLAYBACK_STATE.Waiting)
@@ -52,21 +69,8 @@ function App() {
     }
   </div>
 
-  const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
-  const StimParams = (()=> {
-    switch(currentStimType){
-      case STIM_TYPES.Token: return TokenParameters
-      case STIM_TYPES.Feedback: return FeedBackParameters
-      case STIM_TYPES.SoundFX: return SoundFXParameters
-      case STIM_TYPES.Ambience: return AmbienceParameters
-      case STIM_TYPES.NormalRhythm: return NormalRhythmParameters
-      case STIM_TYPES.PolyRhythm: return PolyRhythmParameters
-      default: return TokenParameters
-    }
-  })()
 
   return (
-
       <div>
         <div className="columns is-mobile">
           <SideBar/>
@@ -77,8 +81,9 @@ function App() {
           </div>
         </div>
         <div>
+
           <StimPatternModel cursorIndex={cursorIndex} model={patternModel}/>
-  
+
           {startCancel}
           {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
         </div>

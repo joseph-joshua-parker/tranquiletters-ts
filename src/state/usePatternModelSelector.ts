@@ -5,7 +5,7 @@ import { PatternUnitModel, Silence, End} from "../shared/models/patternUnitModel
 import { STIM_TYPES } from "../shared/models/stimTypes";
 import { RootState } from "./redux/store"
 
-import { capOff, handleTranslate, initializeModel, setStim, toggleStim } from "./redux/stimToggleSlice";
+import { capOff, handleTranslate, initializeModel, setStim} from "./redux/stimToggleSlice";
 import { useEffect } from "react";
 
 const usePatternModelSelector = ()=>{
@@ -18,23 +18,15 @@ const usePatternModelSelector = ()=>{
             feedbackParameterReducer: FeedbackParams,
             stimToggleSliceReducer: StimToggle
         } = state
+        
          const {
             ['Tokens/Cluster']: TPC, 
             ['Silence/Tokens']: SBT,
             ['Silence/Clusters']: SBC,
-            ['Position']: Translation,
             ['SessionTime']: SessionTime
         } = TokenParams
 
-        const {
-            ['Tokens']:Tokens, 
-            ['Name']: Name
-        } = Set;
-
-        const {
-            patternModel,
-            currentStimType
-        } = StimToggle;
+        const {patternModel} = StimToggle;
     
         const {feedbackAt} = FeedbackParams;
         const modelLength = TPC*SBT+SBC
@@ -51,13 +43,11 @@ const usePatternModelSelector = ()=>{
                 //Add Feedback
                 feedbackAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.Feedback})));
         
-                //Translate
-                dispatch(handleTranslate(Translation));
         
                 //Cap off
                 dispatch(capOff());
             })
-        }, [SBT, TPC, SBC, Translation, feedbackAt, modelLength])   
+        }, [SBT, TPC, SBC, feedbackAt, modelLength])   
         
         
         

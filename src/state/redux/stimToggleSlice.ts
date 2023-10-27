@@ -5,7 +5,7 @@ import { STIM_TYPES } from "../../shared/models/stimTypes";
 
 export interface StimToggleState {
     patternModel: PatternUnitModel[],
-    currentStimType: STIM_TYPES
+    currentStimType: STIM_TYPES,
 }
 
 interface SetStimPayload {
@@ -16,7 +16,8 @@ interface SetStimPayload {
 
 const DefaultStimsToggled = {
     patternModel: new Array<PatternUnitModel>(),
-    currentStimType: STIM_TYPES.Token
+    currentStimType: STIM_TYPES.Token,
+
 }
 
 const stimToggleSlice = createSlice({
@@ -49,15 +50,24 @@ const stimToggleSlice = createSlice({
 
         handleTranslate(state, action: PayloadAction<number>){
             const translation = action.payload;
-            const length = state.patternModel.length;
+            const {patternModel} = state;
 
-                    //move everything to the right
-            const leftSideTranslationFactor = new Array<PatternUnitModel>(translation).fill(Silence);
-            state.patternModel.unshift(...leftSideTranslationFactor);
+            if(translation > 0){
+                const spliceStart = patternModel.length - translation;
+                const displaced = patternModel.splice(spliceStart);
+                patternModel.unshift(...displaced);
+            }
 
-            //trim the right side fat
-            state.patternModel.length = length;
+            else if(translation < 0){
+                const spliceEnd = -translation;
+                const displaced = patternModel.splice(0, spliceEnd);
+                patternModel.push(...displaced);
+            }
+            
+ 
+        
         },
+
 
         capOff(state){
             state.patternModel.push(End)
