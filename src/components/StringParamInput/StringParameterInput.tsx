@@ -3,10 +3,6 @@ import { useDispatch, } from "react-redux"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../state/redux/store"
 
-//models & enums
-import { STRING_PARAMS } from "../../shared/models/parameters"
-
-
 interface StringParameterProps {
     name: string,
     val: string,
@@ -32,7 +28,7 @@ const StringParameterInput = ({name, val, action, isMultiline}: StringParameterP
 
     const singleLineInput = <input  style={{width:'10rem'}} className=" is-small input " value={val} id={name} onChange={handleInputChange} type="text"  name={name}/>
 
-    const multiLineInput = <textarea style={{width: '10rem', whiteSpace: 'pre-wrap'}} value={val} id={name} onChange={handleTextAreaChange} name={name}/>
+    const multiLineInput = <textarea className="is-small textarea" style={{width: '10rem', whiteSpace: 'pre-wrap'}} value={val} id={name} onChange={handleTextAreaChange} name={name}/>
 
     return (
         <div className="center-content vertical">

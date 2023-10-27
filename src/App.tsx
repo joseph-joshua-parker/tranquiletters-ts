@@ -72,9 +72,14 @@ function App() {
 
   return (
       <div>
+          <h1 className="label center-content">A Day Waker's Widgets</h1>
+          <h2 className="center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
+          <br/>
         <div className="columns is-mobile">
-          <SideBar/>
-          <div className="column">
+          <div className="column is-5">
+            <SideBar/>
+          </div>
+          <div className="column is-7">
             <WithPanel>
               <StimParams/>
             </WithPanel>

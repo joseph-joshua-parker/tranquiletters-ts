@@ -2,19 +2,32 @@
 import { STIM_TYPES } from "./shared/models/stimTypes";
 import { switchStimToToggle } from "./state/redux/stimToggleSlice";
 import { useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition, faReply, faSignature } from "@fortawesome/free-solid-svg-icons";
 
 const SideBar = () =>{
     const dispatch = useDispatch();
 
     const handleStimSelect = (type: STIM_TYPES) => dispatch(switchStimToToggle(type));
 
+    interface SideBarIconProps {
+        stim: STIM_TYPES,
+        icon: IconDefinition,
+        label: string
+    }
+    const SideBarIcon: React.FC<SideBarIconProps> = ({stim, icon, label}) =>{
+        return <li style={{boxSizing: 'border-box'}} onClick={()=>handleStimSelect(stim)}>
+            <FontAwesomeIcon icon={icon}/>{label}
+        </li>
+    }
+
     return (
         <div className="column is-one-fifth">
             <aside className="menu">
                 <p className="menu-label">Aspects</p>
                 <ul className="menu-list">
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.Token)}><a>Tokens</a></li>
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.Feedback)}><a>Feedback</a></li>
+                    <SideBarIcon icon={faSignature} label='Tokens' stim={STIM_TYPES.Token}/>
+                    <SideBarIcon icon={faReply} label='Feedback' stim={STIM_TYPES.Feedback}/>
                 </ul>
 
                 <p className="menu-label">Coming Soon...</p>
