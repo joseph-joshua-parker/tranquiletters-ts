@@ -1,11 +1,17 @@
+//React & Redux API
+import { useContext } from "react";
 import { useDispatch, } from "react-redux"
 import { AppDispatch } from "../../state/redux/store"
-import './NumParameterInputStyles.css';
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+
+//Models & enums
 import { NumActionPayload } from "../../shared/models/actionsPayload";
-import { useContext } from "react";
+
+//Context
 import NumParamChangeHandlerContext from "../../contexts/NumParamChangeHandlerContext";
 
+//Styles
+import './NumParameterInputStyles.css';
 
 
 interface NumParameterProps {

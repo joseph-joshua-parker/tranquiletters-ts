@@ -1,10 +1,15 @@
+//React & Redux API
 import { batch, useDispatch } from "react-redux";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//Models & enums
 import { Cursor, PatternUnitModel } from "../../shared/models/patternUnitModel"
 
+//Views & Components
 import StimPatternView from "./PatternUnitView";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+//Redux
 import {  handleTranslate } from "../../state/redux/stimToggleSlice";
 
 

@@ -1,12 +1,14 @@
-import { useSelector } from "react-redux/es/hooks/useSelector"
-import { useDispatch, batch } from "react-redux";
-
-import { PatternUnitModel, Silence, End} from "../shared/models/patternUnitModel";
-import { STIM_TYPES } from "../shared/models/stimTypes";
+//React & Redux API
+import { useEffect } from "react";
+import { useDispatch, useSelector, batch } from "react-redux";
 import { RootState } from "./redux/store"
 
-import { capOff, handleTranslate, initializeModel, setStim} from "./redux/stimToggleSlice";
-import { useEffect } from "react";
+//Models & enums
+import { STIM_TYPES } from "../shared/models/stimTypes";
+
+//Redux
+import { capOff, initializeModel, setStim} from "./redux/stimToggleSlice";
+
 
 const usePatternModelSelector = ()=>{
 
@@ -18,7 +20,7 @@ const usePatternModelSelector = ()=>{
             feedbackParameterReducer: FeedbackParams,
             stimToggleSliceReducer: StimToggle
         } = state
-        
+
          const {
             ['Tokens/Cluster']: TPC, 
             ['Silence/Tokens']: SBT,

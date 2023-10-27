@@ -1,10 +1,15 @@
+
+//React & Redux API
+import { useDispatch } from "react-redux"
+
+//Views & Components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { PatternUnitModel, typeToIconMap } from "../../shared/models/patternUnitModel"
+
+//Models & enums
 import { STIM_TYPES } from "../../shared/models/stimTypes"
-import { useContext, useState } from "react"
-import CurrentStimTypeContext from "../../state/contexts/CurrentStimTypeContext"
-import { useDispatch } from "react-redux"
-import { addFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice"
+
+//Redux
 import { toggleStim } from "../../state/redux/stimToggleSlice"
 
 interface StimPatternViewProps {

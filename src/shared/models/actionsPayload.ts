@@ -1,6 +1,3 @@
-import { TOKEN_NUM_PARAMS } from "./parameters"
-
-
 export interface NumActionPayload{
     name: string,
     val: number

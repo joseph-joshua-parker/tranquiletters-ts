@@ -1,10 +1,11 @@
+//React & Redux API
 import { useDispatch, } from "react-redux"
-import { STRING_PARAMS } from "../../shared/models/parameters"
-import { AppDispatch, RootState } from "../../state/redux/store"
-import {setName, setTokens } from "../../state/redux/tokenSetParameterSlice"
-import './StringParameterInputStyles.css';
-import { Dispatch } from "redux";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { AppDispatch } from "../../state/redux/store"
+
+//models & enums
+import { STRING_PARAMS } from "../../shared/models/parameters"
+
 
 interface StringParameterProps {
     name: STRING_PARAMS,
@@ -13,18 +14,16 @@ interface StringParameterProps {
 }
 
 
-
 const StringParameterInput = ({name, val, action}: StringParameterProps)=>{
 
     const dispatch = useDispatch<AppDispatch>();
+
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         dispatch(action(e.target.value));
     }
 
     return (
-
         <div className="center-content vertical">
-            
             <div className="center-content ">
                 <label className="label is-small" htmlFor={name}>{name}</label>
             </div>
@@ -36,13 +35,5 @@ const StringParameterInput = ({name, val, action}: StringParameterProps)=>{
         
     )
 }
-
-const paramStyle = {
-    display:'flex',
-    flexDirection:'column',
-    justifyContent: 'center'
-}
-
-
 
 export default StringParameterInput;

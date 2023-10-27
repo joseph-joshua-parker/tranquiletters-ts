@@ -1,4 +1,4 @@
-//React API
+//React & Redux API
 import { useState } from 'react';
 import { RootState } from './state/redux/store';
 import { useSelector } from 'react-redux';

@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { End, PatternUnitModel, Silence } from "../../shared/models/patternUnitModel";
+import { End, PatternUnitModel } from "../../shared/models/patternUnitModel";
 import { STIM_TYPES } from "../../shared/models/stimTypes";
 
 
