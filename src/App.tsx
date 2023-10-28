@@ -29,6 +29,7 @@ import {
   WithPanel
 } from './components/ParameterPanels/index';
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
+import PlaybackContext from './state/contexts/PlaybackContext';
 
 
 
@@ -40,8 +41,9 @@ function App() {
   const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
 
   //Hooks
-  const  {SessionTime, patternModel} = usePatternModelSelector();
-  const {start, cancel, pause, resume, playbackState} = useLoop(patternModel, SessionTime, setCursorIndex)
+  const {start, cancel, pause, resume, rerender, playbackState} = useLoop(setCursorIndex)
+  usePatternModelSelector(playbackState);
+
 
 
   //Components
@@ -74,28 +76,28 @@ function App() {
 
 
   return (
-      <div>
-          <h1 className="label center-content">A Day Waker's Widgets</h1>
-          <h2 className="center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
-          <br/>
-        <div className="columns is-mobile">
-          <div className="column is-6">
-            <SideBar/>
-          </div>
-          <div className="column is-6">
-            <WithPanel>
-              <StimParams/>
-            </WithPanel>
-          </div>
-        </div>
+      <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState}}>
         <div>
-
-          <StimPatternModel cursorIndex={cursorIndex} model={patternModel}/>
-
-          {startCancel}
-          {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+            <h1 className="label center-content">A Day Waker's Widgets</h1>
+            <h2 className="center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
+            <br/>
+          <div className="columns is-mobile">
+            <div className="column is-6">
+              <SideBar/>
+            </div>
+            <div className="column is-6">
+              <WithPanel>
+                <StimParams/>
+              </WithPanel>
+            </div>
+          </div>
+          <div>
+            <StimPatternModel rerender={rerender} cursorIndex={cursorIndex}/>
+            {startCancel}
+            {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+          </div>
         </div>
-      </div>
+      </PlaybackContext.Provider>
 
   );
 }

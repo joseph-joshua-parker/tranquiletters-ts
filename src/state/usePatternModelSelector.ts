@@ -10,7 +10,7 @@ import { STIM_TYPES } from "../shared/models/stimTypes";
 import { capOff, initializeModel, setStim} from "./redux/stimToggleSlice";
 
 
-const usePatternModelSelector = ()=>{
+const usePatternModelSelector = (...args: any[])=>{
 
     const dispatch = useDispatch();
      const state = useSelector((state:RootState)=>state);
@@ -27,8 +27,6 @@ const usePatternModelSelector = ()=>{
             ['Silence/Clusters']: SBC,
             ['SessionTime']: SessionTime
         } = TokenParams
-
-        const {patternModel} = StimToggle;
     
         const {feedbackAt} = FeedbackParams;
         const modelLength = TPC*SBT+SBC
@@ -49,11 +47,11 @@ const usePatternModelSelector = ()=>{
                 //Cap off
                 dispatch(capOff());
             })
-        }, [SBT, TPC, SBC, feedbackAt, modelLength])   
+        }, [SBT, TPC, SBC, feedbackAt, modelLength, ...args])   
         
         
         
-        return {SessionTime, patternModel};
+        return {SessionTime};
 }
 
 export default usePatternModelSelector;

@@ -1,6 +1,6 @@
 
 //React & Redux API
-import { useDispatch, useSelector } from "react-redux"
+import { batch, useDispatch, useSelector } from "react-redux"
 
 //Views & Components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -11,29 +11,42 @@ import { STIM_TYPES } from "../../shared/models/stimTypes"
 
 //Redux
 import { toggleStim } from "../../state/redux/stimToggleSlice"
-import { addFeedback } from "../../state/redux/feedbackParameterSlice"
+import { addFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice"
 import { RootState } from "../../state/redux/store"
 
 interface StimPatternViewProps {
     unit: PatternUnitModel,
     index: number
+    rerender: ()=>void
 }
 
-const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
+const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index, rerender})=>{
 
     const dispatch = useDispatch();
     const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer);
 
 
     const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
+    const chooseToToggle = ()=>{
+ 
+        dispatch(toggleStim({index, stimType: currentStimType}));
+        switch(currentStimType){
+            case STIM_TYPES.Feedback: {
+                if(unit.type == STIM_TYPES.Feedback)    dispatch(removeFeedback(index));
+                else                                    dispatch(addFeedback(index));
+            }
+        }
 
+
+        rerender();
+    }
 
     return (
         <FontAwesomeIcon 
             style={{width:'5vw'}} 
             color={isSilence(unit) ? 'black' : '#303030' } 
             icon={typeToIconMap[unit.type]} 
-            onClick={()=>dispatch(toggleStim({index, stimType: currentStimType}))}
+            onClick={chooseToToggle}
         />)
 }
 

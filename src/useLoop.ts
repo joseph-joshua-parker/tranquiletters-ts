@@ -7,30 +7,35 @@ import useFeedback from "./shared/utilities/useFeedback";
 import { useDispatch, useSelector, useStore } from "react-redux";
 import { crementNumParameter } from "./state/redux/tokenNumParameterSlice";
 import { RootState } from "./state/redux/store";
+import usePatternModelSelector from "./state/usePatternModelSelector";
+import {useInterval} from 'usehooks-ts';
 
 export enum PLAYBACK_STATE {
-    Paused,
-    Playing,
-    Waiting,
+    Paused = 'paused',
+    Playing = 'playing',
+    Waiting = 'waiting'
 }
 
 
  const useLoop = (
-    patternModel: PatternUnitModel[], 
-    sessionMinutes: number, 
     setCursorIndex: React.Dispatch<React.SetStateAction<number>>
 )=>{
     init();
 
     const dispatch = useDispatch();
-    const sessionTime = sessionMinutes*60*1000;
+
     const {tokens, feedbackTime, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted} = usePayloads();
     const {askQuestion, reset, strikeCount, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
-    const store = useStore();
+    const {tokenNumParameterReducer, stimToggleSliceReducer} = useSelector((state:RootState)=>state)
     const {
       ['Tokens/Cluster']: TPC,
-      ['Silence/Clusters']: SBC
-    } = (store.getState() as RootState).tokenNumParameterReducer;
+      ['Silence/Clusters']: SBC,
+      ['SessionTime']: SessionTime
+    } = tokenNumParameterReducer;
+
+    const {patternModel} = stimToggleSliceReducer;
+  
+    const sessionTime = SessionTime*60*1000;
 
     const selectToken = ()=>{
         const max = tokens.length-1;
@@ -42,21 +47,28 @@ export enum PLAYBACK_STATE {
   let currentIndex = useRef(0);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
+    const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
 
+    usePatternModelSelector(hitCount.current)
     useEffect(()=>{
       if(!isAdaptive) return;
       if(hitCount.current >= hitUpgradeThreshold){
+        pause();
         speak('Ease of focus detected, reducing stimulation');
-        if(TPC > 1) dispatch(crementNumParameter({name: 'Tokens/Cluster', val:-1}))
+        setTimeout(resume, 5000)
+        if(TPC > 1) dispatch(crementNumParameter({name: 'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
         else dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
+
+
+
         reset();
       }
     },[hitCount.current])
 
 
 
-  const loop = ()=>{ 
-    sessionInterval.current = setInterval(()=>{
+  
+    useInterval(()=>{
       if(strikeCount.current >= 3){
         speak('Over excitedness detected; consider changing parameters');
         cancel();
@@ -81,8 +93,8 @@ export enum PLAYBACK_STATE {
       
 
       timeElapsed.current += 1000;
-    }, 1000)
-}
+    }, delay)
+
 
 
   const cancel = ()=>{
@@ -96,7 +108,6 @@ export enum PLAYBACK_STATE {
   }
 
   const resume = ()=>{
-    loop();
     setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
@@ -106,13 +117,18 @@ export enum PLAYBACK_STATE {
     setPlaybackState(PLAYBACK_STATE.Paused);
   }
 
+  const rerender = ()=>{
+    const originalState = playbackState;
+    pause();
+    resume(); 
+  }
+
   const start = ()=>{
     setCursorIndex(0)
-    loop();
     setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
-  return {start, pause, resume, cancel, playbackState, currentIndex}
+  return {start, pause, resume, cancel, rerender, playbackState, currentIndex}
 }
 
 export default useLoop;

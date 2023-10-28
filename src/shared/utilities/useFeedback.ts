@@ -29,7 +29,6 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
         if(pendingQuestion.current == undefined) return;
         clearTimeout(pendingQuestion.current);
         pendingQuestion.current = undefined;
-        console.log('answered')
         playSmallHit();
         hitTime.current += feedbackTime;
         hitCount.current++;

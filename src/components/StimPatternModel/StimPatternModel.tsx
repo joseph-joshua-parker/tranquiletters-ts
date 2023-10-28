@@ -17,22 +17,22 @@ import { STIM_TYPES } from "../../shared/models/stimTypes";
 
 
 interface StimPatternModelProps {
-    model : PatternUnitModel[],
-    cursorIndex:number
+    cursorIndex:number,
+    rerender:()=>void
 }
 
-const StimPatternModel: React.FC<StimPatternModelProps> = ({model, cursorIndex})=>{
+const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex, rerender})=>{
 
     const dispatch = useDispatch();
 
-    const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
+    const {currentStimType, patternModel} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
     const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback]
     const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
 
-    const displayedModel = model.map((unit, index)=>{
+    const displayedModel = patternModel.map((unit, index)=>{
             return index != cursorIndex
-            ? <StimPatternView index={index} unit={unit}/>
-            : <StimPatternView index={index} unit={Cursor}/>
+            ? <StimPatternView rerender={rerender} index={index} unit={unit}/>
+            : <StimPatternView rerender={rerender} index={index} unit={Cursor}/>
         } 
     )
 
