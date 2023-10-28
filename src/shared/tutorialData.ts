@@ -44,8 +44,8 @@ TutorialData.set(
 TutorialData.set(
     TUTORIAL_KEYS.FeedbackGeneral,  {
         title: 'Feedback General',
-        description: `Widgets can also check in with you to see if you're still aware and focused. It will beep a set number of times, before
-        giving a voice notification to you and cancelling the session so you can change the stims you're using.`
+        description: `Widgets can also check in with you to see if you're still aware and focused. Each time you don't acknowledge within the timeframe,
+        it will beep. After a set number of strikes, a voice will notify you and Widgets will cancel the session so you can change the stims you're using.`
     });
 
 TutorialData.set(
@@ -60,8 +60,8 @@ TutorialData.set(
     TUTORIAL_KEYS.FeedbackByMediaKeys,  {
         title: 'Feedback By Media Keys',
         description: `[COMING SOON] Media Keys are the Play, Pause, and other buttons on your headset or earphones. Believe me, this functionality is the
-        bane of my existence as a developer, I don't understand why I can't make the most basic examples do this one simple thing, and I consider it
-        critical for this app, and others that I want to make. Very frustrating.`
+        bane of my existence as a developer, I don't understand why I'm having this much trouble with it, and I consider it
+        critical for this app, and others that I want to make. Seven yikes.`
     });
 
 TutorialData.set(

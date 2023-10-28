@@ -30,8 +30,8 @@ export enum PLAYBACK_STATE {
       patternModel
     } = usePayloads();
     const {
-
-      askQuestion, reset, strikeCount, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, isVocal });
+      answerQuestion,
+      askQuestion, reset, strikeCount, hitCount} = useFeedback({ feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, isVocal });
 
 
 
@@ -129,7 +129,7 @@ export enum PLAYBACK_STATE {
     setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
-  return {start, pause, resume, cancel, rerender, playbackState, currentIndex}
+  return {answerQuestion, start, pause, resume, cancel, rerender, playbackState, currentIndex}
 }
 
 export default useLoop;

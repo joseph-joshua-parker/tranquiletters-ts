@@ -50,6 +50,11 @@ const router = createBrowserRouter([
       },
 
       {
+        path: TUTORIAL_KEYS.FeedbackByMediaKeys,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.FeedbackByMediaKeys)}/>
+      },
+
+      {
         path: TUTORIAL_KEYS.Adaptive,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Adaptive)}/>
       },

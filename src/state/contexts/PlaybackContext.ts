@@ -7,6 +7,7 @@ interface PlaybackControl {
     resume: ()=>void,
     cancel: ()=> void
     rerender: ()=>void,
+    answerQuestion: ()=>void,
     playbackState: PLAYBACK_STATE
 }
 

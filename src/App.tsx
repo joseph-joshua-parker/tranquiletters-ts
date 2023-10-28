@@ -43,7 +43,7 @@ function App() {
   const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
 
   //Hooks
-  const {start, cancel, pause, resume, rerender, playbackState} = useLoop(setCursorIndex)
+  const {start, cancel, pause, resume, rerender, playbackState, answerQuestion} = useLoop(setCursorIndex)
   usePatternModelSelector(playbackState);
 
 
@@ -78,7 +78,7 @@ function App() {
 
 
   return (
-      <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState}}>
+      <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion}}>
         <div>
             <h1 className="label center-content">A Day Waker's Widgets</h1>
             <h2 className="center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
