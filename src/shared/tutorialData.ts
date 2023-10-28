@@ -53,7 +53,7 @@ TutorialData.set(
         title: 'Feedback By Voice',
         description: `If you're working with your hands, or just don't want to hold your phone constantly, you can instead speak your
         acknowledgement. You can also tell Widgets which phrases to listen for. Unlike the token list, the phrases are separated by commas,
-        not spaces. Click on the timeline to set up a checkpoint.`
+        not spaces.`
     });
 
 TutorialData.set(

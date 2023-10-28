@@ -11,10 +11,11 @@ const strike = require('../../assets/soundFX/small_strike.wav');
 interface FeedbackParameters {
     feedbackTime: number, 
     acknowledgementsAccepted: string[], 
-    hitUpgradeThreshold: number
+    hitUpgradeThreshold: number,
+    isVocal: boolean
 }
 
-const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold}:FeedbackParameters)=>{
+const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, isVocal}:FeedbackParameters)=>{
     const [playQuestion] = useSound(question); 
     const [playSmallHit] = useSound(smallHit);
     const [playLargeHit] = useSound(largeHit);
@@ -38,7 +39,7 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
 
     const askQuestion = ()=>{
         playQuestion();
-        SpeechRecognition.startListening();
+        if(isVocal) SpeechRecognition.startListening();
         pendingQuestion.current =  setTimeout(()=>{
             playStrike();
             strikeCount.current++;  

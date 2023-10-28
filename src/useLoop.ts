@@ -24,16 +24,17 @@ export enum PLAYBACK_STATE {
 
     const dispatch = useDispatch();
 
-    const {tokens, feedbackTime, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted} = usePayloads();
-    const {askQuestion, reset, strikeCount, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
-    const {tokenNumParameterReducer, stimToggleSliceReducer} = useSelector((state:RootState)=>state)
     const {
-      ['Tokens/Cluster']: TPC,
-      ['Silence/Clusters']: SBC,
-      ['SessionTime']: SessionTime
-    } = tokenNumParameterReducer;
+      TPC, SBC, SessionTime, tokens, 
+      feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, acknowledgementsAccepted,
+      patternModel
+    } = usePayloads();
+    const {
 
-    const {patternModel} = stimToggleSliceReducer;
+      askQuestion, reset, strikeCount, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, isVocal });
+
+
+
   
     const sessionTime = SessionTime*60*1000;
 

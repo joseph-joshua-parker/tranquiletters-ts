@@ -19,7 +19,8 @@ export interface FeedbackParameterState {
     feedbackTime:number,
     onStrikeout: ON_STRIKEOUT
     hitUpgradeThreshold: 0
-    isAdaptive: boolean
+    isAdaptive: boolean,
+    isVocal:boolean
 }
 
 export const DefaultFeedbackParameters = {
@@ -32,7 +33,8 @@ export const DefaultFeedbackParameters = {
     feedbackTime: 20,
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
     hitUpgradeThreshold: 10,
-    isAdaptive: false
+    isAdaptive: false,
+    isVocal: false
 }
 
 const feedbackParameterSlice = createSlice({
@@ -72,6 +74,10 @@ const feedbackParameterSlice = createSlice({
 
         toggleAdaptation(state){
             state.isAdaptive = !state.isAdaptive
+        },
+
+        toggleVocal(state){
+            state.isVocal = !state.isVocal;
         }
     }
 })
@@ -84,7 +90,8 @@ export const {
     addAcceptedAcknowledgement,
     removeAcceptedAcknowledgement, 
     modifyAcceptedAcknowledgements,
-    toggleAdaptation
+    toggleAdaptation,
+    toggleVocal
 
 } = feedbackParameterSlice.actions;
 export default feedbackParameterSlice.reducer; 

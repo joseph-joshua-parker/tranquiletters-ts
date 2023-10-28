@@ -4,12 +4,32 @@ import { RootState } from "../../state/redux/store";
 const usePayloads = ()=>{
 
     const {
-        feedbackParameterReducer : {questionSound, feedbackTime, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted},
+        feedbackParameterReducer : {questionSound, feedbackTime, isVocal, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted},
         tokenSetParameterReducer : {['Tokens']: tokens},
+        tokenNumParameterReducer:  {
+            ['Tokens/Cluster']: TPC,
+            ['Silence/Clusters']: SBC,
+            ['SessionTime']: SessionTime
+          },
+        stimToggleSliceReducer: {patternModel}
     } = useSelector((state: RootState)=>state)
     
 
-    return {tokens, questionSound, feedbackTime, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted};
+    return {
+        TPC,
+        SBC,
+        SessionTime,
+        tokens, 
+        
+        questionSound, 
+        feedbackTime, 
+        hitUpgradeThreshold,
+        isAdaptive, 
+        isVocal,
+        acknowledgementsAccepted,
+    
+        patternModel
+    };
 
 }
 
