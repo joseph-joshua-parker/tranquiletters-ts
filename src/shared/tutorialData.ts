@@ -9,7 +9,8 @@ export enum TUTORIAL_KEYS {
     FeedbackGeneral = 'feedback-general',
     FeedbackByVoice = 'feedback-by-voice',
     FeedbackByMediaKeys = 'feedback-by-media-keys',
-    Adaptive = 'adaptive'
+    Adaptive = 'adaptive',
+    Timeline = 'timeline'
 
 }
 
@@ -59,9 +60,8 @@ TutorialData.set(
 TutorialData.set(
     TUTORIAL_KEYS.FeedbackByMediaKeys,  {
         title: 'Feedback By Media Keys',
-        description: `[COMING SOON] Media Keys are the Play, Pause, and other buttons on your headset or earphones. Believe me, this functionality is the
-        bane of my existence as a developer, I don't understand why I'm having this much trouble with it, and I consider it
-        critical for this app, and others that I want to make. Seven yikes.`
+        description: `[COMING SOON] Media Keys are the Play, Pause, and other buttons on your headset or earphones. I consider it
+        critical for this app, and others that I want to make. Oddly enough, the Vocal Mode was much easier to implement. `
     });
 
 TutorialData.set(
@@ -71,6 +71,16 @@ TutorialData.set(
         you find helpful will go down. In fact, four tokens in rapid succession can quickly go from soothing to annoying. So, after a set number of successes,
         Widgets will reduce the amount of stimulation for you.`
     });
+
+TutorialData.set(
+    TUTORIAL_KEYS.Timeline,  {
+        title: 'Timeline',
+        description: `This will display the pattern of stims that Widgets will play for you. Each space in the pattern is one second long.
+        To change it, click one of the "Aspects" of the left-hand Sidebar, such as 'Tokens', 'Feedback', etc. Then, click on a space to turn it into
+        a stim. When you hit start, a cursor will move across the timeline, playing the stim you've toggled.` 
+    });
+
+
 
 
 

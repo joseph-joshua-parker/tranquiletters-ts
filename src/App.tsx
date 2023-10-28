@@ -32,6 +32,8 @@ import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import PlaybackContext from './state/contexts/PlaybackContext';
 
 import {Outlet} from 'react-router';
+import TutorialLink from './components/TutorialLink';
+import { TUTORIAL_KEYS } from './shared/tutorialData';
 
 
 
@@ -81,7 +83,7 @@ function App() {
       <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion}}>
         <div>
             <h1 className="label center-content">A Day Waker's Widgets</h1>
-            <h2 className="center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
+            <h2 className="label center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
             <br/>
           <div className="columns is-mobile">
             <div className="column is-6">
@@ -94,12 +96,20 @@ function App() {
             </div>
           </div>
 
-          <Outlet/>
+          
           <div>
+
             <StimPatternModel rerender={rerender} cursorIndex={cursorIndex}/>
+            <div style={{display:'flex', justifyContent: 'center',}}>
+              <TutorialLink link={TUTORIAL_KEYS.Timeline}/>
+            </div>
             {startCancel}
             {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
           </div>
+
+
+          <Outlet/>
+
         </div>
       </PlaybackContext.Provider>
 

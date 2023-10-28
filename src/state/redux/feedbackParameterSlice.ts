@@ -30,7 +30,7 @@ export const DefaultFeedbackParameters = {
     strikeSound: 'small_strike.wav',
     strikeCount: 3,
     feedbackAt: new Array<number>(),
-    feedbackTime: 20,
+    feedbackTime: 5,
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
     hitUpgradeThreshold: 10,
     isAdaptive: false,

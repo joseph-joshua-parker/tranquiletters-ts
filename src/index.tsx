@@ -58,6 +58,11 @@ const router = createBrowserRouter([
         path: TUTORIAL_KEYS.Adaptive,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Adaptive)}/>
       },
+
+      {
+        path: TUTORIAL_KEYS.Timeline,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Timeline)}/>
+      },
     ]
   },
 
