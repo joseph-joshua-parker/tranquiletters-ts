@@ -26,10 +26,10 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
     const hitCount = useRef(0);
 
     const answerQuestion = ()=>{
+        if(pendingQuestion.current == undefined) return;
         clearTimeout(pendingQuestion.current);
         pendingQuestion.current = undefined;
-        if(listening) SpeechRecognition.stopListening();
-        SpeechRecognition.stopListening();
+        console.log('answered')
         playSmallHit();
         hitTime.current += feedbackTime;
         hitCount.current++;

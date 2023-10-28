@@ -25,7 +25,7 @@ export enum PLAYBACK_STATE {
     const dispatch = useDispatch();
     const sessionTime = sessionMinutes*60*1000;
     const {tokens, feedbackTime, hitUpgradeThreshold, isAdaptive, acknowledgementsAccepted} = usePayloads();
-    const {askQuestion, answerQuestion, reset, strikeCount, hitTime, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
+    const {askQuestion, reset, strikeCount, hitCount} = useFeedback({feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted });
     const store = useStore();
     const {
       ['Tokens/Cluster']: TPC,
@@ -72,7 +72,6 @@ export enum PLAYBACK_STATE {
       
       const unit = patternModel[++currentIndex.current];
       setCursorIndex(currentIndex.current);
-      console.log(unit.type)
       switch(unit.type){
         case STIM_TYPES.Token: speak(selectToken()); break;
         case STIM_TYPES.Feedback: askQuestion(); console.log('feedback'); break;
@@ -113,7 +112,7 @@ export enum PLAYBACK_STATE {
     setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
-  return {start, pause, resume, cancel, playbackState, currentIndex, answerQuestion}
+  return {start, pause, resume, cancel, playbackState, currentIndex}
 }
 
 export default useLoop;

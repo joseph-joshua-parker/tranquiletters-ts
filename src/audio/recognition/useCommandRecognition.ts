@@ -6,9 +6,11 @@ const useCommandRecognition = (acceptAnswer: ()=>void, acknowledgementsAccepted:
         matchInterim: true,
         isFuzzyMatch: true,
         callback: acceptAnswer,
-        bestMatchOnly:true
-    }
+        bestMatchOnly:true,
+        fuzzyMatchingThreshold: 0.9,
 
+    }
+ 
     const readyAcknowledgements = acknowledgementsAccepted.map(ack=>{
         return {
             command: ack,

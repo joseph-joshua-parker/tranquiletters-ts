@@ -26,20 +26,14 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
 
 
     const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
-    const chooseToggle = (index: number)=>{
-        switch(currentStimType){
-            case STIM_TYPES.Feedback: dispatch(addFeedback(index)); break;
-            case STIM_TYPES.Token: dispatch(toggleStim(index)); break;
-            default: return;
-        }
-    }
+
 
     return (
         <FontAwesomeIcon 
             style={{width:'5vw'}} 
             color={isSilence(unit) ? 'black' : '#303030' } 
             icon={typeToIconMap[unit.type]} 
-            onClick={()=>chooseToggle(index)}
+            onClick={()=>dispatch(toggleStim({index, stimType: currentStimType}))}
         />)
 }
 

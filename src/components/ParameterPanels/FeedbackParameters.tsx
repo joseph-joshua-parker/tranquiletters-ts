@@ -4,6 +4,8 @@ import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowle
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../StringParamInput/StringParameterInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestion, faReply } from "@fortawesome/free-solid-svg-icons";
 
 const FeedBackParameters = ()=>{
     const {

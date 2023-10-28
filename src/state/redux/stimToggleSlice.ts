@@ -29,12 +29,12 @@ const stimToggleSlice = createSlice({
             state.currentStimType = stimType;
         },
 
-        toggleStim(state: StimToggleState, action: PayloadAction<number>){
-            const index = action.payload;
-            const {patternModel, currentStimType} = state;
+        toggleStim(state: StimToggleState, action: PayloadAction<{index:number, stimType: STIM_TYPES}>){
+            const {index, stimType} = action.payload;
+            const {patternModel} = state;
 
-            patternModel[index] =  patternModel[index].type != currentStimType 
-            ? new PatternUnitModel(currentStimType)
+            patternModel[index] =  patternModel[index].type != stimType 
+            ? new PatternUnitModel(stimType)
             : new PatternUnitModel(STIM_TYPES.Silence);
         },
 
