@@ -10,7 +10,7 @@ import { PatternUnitModel, typeToIconMap } from "../../shared/models/patternUnit
 import { STIM_TYPES } from "../../shared/models/stimTypes"
 
 //Redux
-import { toggleStim } from "../../state/redux/stimToggleSlice"
+import { toggleStim } from "../stimToggleSlice"
 import { addFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice"
 import { RootState } from "../../state/redux/store"
 

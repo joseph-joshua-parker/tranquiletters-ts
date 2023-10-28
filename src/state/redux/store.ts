@@ -2,7 +2,7 @@ import {configureStore} from '@reduxjs/toolkit';
 import tokenNumParameterReducer from './tokenNumParameterSlice';
 import tokenSetParameterReducer from './tokenSetParameterSlice';
 import feedbackParameterReducer from './feedbackParameterSlice';
-import stimToggleSliceReducer from './stimToggleSlice';
+import stimToggleSliceReducer from '../../components/stimToggleSlice';
 
 export const store = configureStore({
     reducer: {

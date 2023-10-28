@@ -10,7 +10,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 //Redux
-import {  handleTranslate } from "../../state/redux/stimToggleSlice";
+import {  handleTranslate } from "../stimToggleSlice";
 import { RootState } from "../../state/redux/store";
 import { STIM_TYPES } from "../../shared/models/stimTypes";
 

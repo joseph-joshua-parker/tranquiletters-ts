@@ -31,6 +31,8 @@ import {
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import PlaybackContext from './state/contexts/PlaybackContext';
 
+import {Outlet} from 'react-router';
+
 
 
 
@@ -91,6 +93,8 @@ function App() {
               </WithPanel>
             </div>
           </div>
+
+          <Outlet/>
           <div>
             <StimPatternModel rerender={rerender} cursorIndex={cursorIndex}/>
             {startCancel}

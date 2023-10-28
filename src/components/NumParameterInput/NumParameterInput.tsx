@@ -13,17 +13,21 @@ import NumParamChangeHandlerContext from "../../contexts/NumParamChangeHandlerCo
 //Styles
 import './NumParameterInputStyles.css';
 
+//Tutorial Routing
+import { TUTORIAL_KEYS } from "../../shared/tutorialData";
+import TutorialLink from "../TutorialLink";
 
 interface NumParameterProps {
     name: string,
     val: number,
+    link?: TUTORIAL_KEYS,
     propDelta?: ActionCreatorWithPayload<NumActionPayload>,
     propModify?: ActionCreatorWithPayload<NumActionPayload>
 }
 
 
 
-const NumParameterInput = ({name, val, propDelta, propModify}: NumParameterProps)=>{
+const NumParameterInput = ({name, val, link, propDelta, propModify}: NumParameterProps)=>{
     const dispatch = useDispatch<AppDispatch>();
     const {delta, modify} = useContext(NumParamChangeHandlerContext); 
 
@@ -40,9 +44,11 @@ const NumParameterInput = ({name, val, propDelta, propModify}: NumParameterProps
     return (
 
         <div style={{justifyContent:'center'}} className="center-content vertical">
-            
             <div className="center-content">
                 <label className="label is-small" htmlFor={name}>{name}</label>
+                {link &&
+                    <TutorialLink link={link}/>
+                }
             </div>
            
             <div className="control center-content horizontal">

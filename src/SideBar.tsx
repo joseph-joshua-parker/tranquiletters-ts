@@ -1,6 +1,6 @@
 
 import { STIM_TYPES } from "./shared/models/stimTypes";
-import { switchStimToToggle } from "./state/redux/stimToggleSlice";
+import { switchStimToToggle } from "./components/stimToggleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./state/redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

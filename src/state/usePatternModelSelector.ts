@@ -7,7 +7,7 @@ import { RootState } from "./redux/store"
 import { STIM_TYPES } from "../shared/models/stimTypes";
 
 //Redux
-import { capOff, initializeModel, setStim} from "./redux/stimToggleSlice";
+import { capOff, initializeModel, setStim} from "../components/stimToggleSlice";
 
 
 const usePatternModelSelector = (...args: any[])=>{

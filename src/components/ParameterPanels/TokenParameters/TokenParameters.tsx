@@ -10,6 +10,7 @@ import { crementNumParameter, modifyNumParameters  } from "../../../state/redux/
 //Views & Components
 import NumParameterInput from "../../NumParameterInput/NumParameterInput";
 import StringParameterInput from "../../StringParamInput/StringParameterInput";
+import { TUTORIAL_KEYS } from "../../../shared/tutorialData";
 
 const TokenParameters = ()=>{
     const {
@@ -31,10 +32,10 @@ const TokenParameters = ()=>{
         <NumParamChangeHandlerContext.Provider value={{delta: crementNumParameter, modify: modifyNumParameters}}>
 
             <div >
-                <StringParameterInput isMultiline={false}  name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
-                <NumParameterInput name={'Tokens/Cluster'} val={TokensPerCluster}/>
-                <NumParameterInput name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
-                <NumParameterInput name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
+                <StringParameterInput link={TUTORIAL_KEYS.Tokens} isMultiline={false}  name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
+                <NumParameterInput link={TUTORIAL_KEYS.TokensPerCluster} name={'Tokens/Cluster'} val={TokensPerCluster}/>
+                <NumParameterInput link={TUTORIAL_KEYS.SilenceBetweenTokens} name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
+                <NumParameterInput link={TUTORIAL_KEYS.SilenceBetweenClusters} name={'Silence/Clusters'} val={SecondsBetweenClusters}/>
             </div>
         </NumParamChangeHandlerContext.Provider>
     )

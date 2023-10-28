@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { End, PatternUnitModel } from "../../shared/models/patternUnitModel";
-import { STIM_TYPES } from "../../shared/models/stimTypes";
+import { End, PatternUnitModel } from "../shared/models/patternUnitModel";
+import { STIM_TYPES } from "../shared/models/stimTypes";
 
 
 export interface StimToggleState {

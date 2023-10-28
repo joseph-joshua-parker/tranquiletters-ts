@@ -2,17 +2,21 @@
 import { useDispatch, } from "react-redux"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { AppDispatch } from "../../state/redux/store"
+import { TUTORIAL_KEYS } from "../../shared/tutorialData";
+
+import TutorialLink from "../TutorialLink";
 
 interface StringParameterProps {
     name: string,
     val: string,
+    link?: TUTORIAL_KEYS,
     isMultiline: boolean
     action: ActionCreatorWithPayload<string>
 }
 
 
 
-const StringParameterInput = ({name, val, action, isMultiline}: StringParameterProps)=>{
+const StringParameterInput = ({name, val, link, action, isMultiline}: StringParameterProps)=>{
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -34,6 +38,9 @@ const StringParameterInput = ({name, val, action, isMultiline}: StringParameterP
         <div style={{justifyContent:'center'}} className="center-content vertical">
             <div className="center-content ">
                 <label className="label is-small" htmlFor={name}>{name}</label>
+                {link &&
+                    <TutorialLink link={link}/>
+                }
             </div>
            
             <div className="control center-content ">
