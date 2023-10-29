@@ -3,6 +3,7 @@ import { TutorialProps } from "../components/Tutorial";
 export const TutorialData = new Map<TUTORIAL_KEYS, TutorialProps>();
 export enum TUTORIAL_KEYS {
     Tokens = 'tokens',
+    SpeakTheseTokens = 'speak-these-tokens',
     TokensPerCluster = 'tokens-per-cluster',
     SilenceBetweenTokens = 'silence-between-token',
     SilenceBetweenClusters = 'silence-between-clusters',
@@ -14,11 +15,17 @@ export enum TUTORIAL_KEYS {
 
 }
 
+TutorialData.set(
+TUTORIAL_KEYS.Tokens, {
+    title: 'Tokens',
+    description: `A letter or word from will be spoken to you, selected randomly. Personally, I visualize the token in my mind, and
+    you may find other ways of engaging with them that you find grounding.`
+});
 
 TutorialData.set(
-    TUTORIAL_KEYS.Tokens, {
-        title: 'Tokens',
-        description: `A letter or word from this list will be spoken to you, selected randomly. Separated by spaces, so 'hello there' is two
+    TUTORIAL_KEYS.SpeakTheseTokens, {
+        title: 'Speak These Tokens',
+        description: `You can select which tokens you want spoken to you by typing them here. They're separated by spaces, so 'hello there' is two
         separate tokens`
     });
 

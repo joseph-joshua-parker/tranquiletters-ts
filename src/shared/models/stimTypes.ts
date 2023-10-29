@@ -8,5 +8,6 @@ export enum STIM_TYPES{
     HigherOrderPatterns = 'higher_order_patterns',
     Silence = 'silence',
     End = 'end',
-    Cursor='cursor'
+    Cursor='cursor',
+    None = 'none'
 }

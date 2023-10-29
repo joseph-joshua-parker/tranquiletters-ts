@@ -30,9 +30,8 @@ const TokenParameters = ()=>{
     
     return (
         <NumParamChangeHandlerContext.Provider value={{delta: crementNumParameter, modify: modifyNumParameters}}>
-
             <div >
-                <StringParameterInput link={TUTORIAL_KEYS.Tokens} isMultiline={false}  name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
+                <StringParameterInput link={TUTORIAL_KEYS.SpeakTheseTokens} isMultiline={false}  name={'Tokens'} val={TokensVal.join(' ')} action={setTokens}/>
                 <NumParameterInput link={TUTORIAL_KEYS.TokensPerCluster} name={'Tokens/Cluster'} val={TokensPerCluster}/>
                 <NumParameterInput link={TUTORIAL_KEYS.SilenceBetweenTokens} name={'Silence/Tokens'} val={SecondsBetweenTokens}/>
                 <NumParameterInput link={TUTORIAL_KEYS.SilenceBetweenClusters} name={'Silence/Clusters'} val={SecondsBetweenClusters}/>

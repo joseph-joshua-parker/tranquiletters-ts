@@ -23,6 +23,11 @@ const router = createBrowserRouter([
         path: TUTORIAL_KEYS.Tokens,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Tokens)}/>
       },
+
+      {
+        path: TUTORIAL_KEYS.SpeakTheseTokens,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.SpeakTheseTokens)}/>
+      },
     
       {
         path: TUTORIAL_KEYS.TokensPerCluster,

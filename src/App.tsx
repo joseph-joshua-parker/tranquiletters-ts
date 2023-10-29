@@ -28,9 +28,13 @@ import {
 
   WithPanel
 } from './components/ParameterPanels/index';
+
+import Welcome from './Welcome';
+
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import PlaybackContext from './state/contexts/PlaybackContext';
 
+//Tutorial Routing
 import {Outlet} from 'react-router';
 import TutorialLink from './components/TutorialLink';
 import { TUTORIAL_KEYS } from './shared/tutorialData';
@@ -60,7 +64,7 @@ function App() {
       case STIM_TYPES.NormalRhythm: return NormalRhythmParameters
       case STIM_TYPES.PolyRhythm: return PolyRhythmParameters
       case STIM_TYPES.HigherOrderPatterns: return HigherOrderPatternParameters
-      default: return TokenParameters
+      default: return Welcome
     }
   })()
 
@@ -112,8 +116,7 @@ function App() {
 
         </div>
         <div style={{display:'flex', justifyContent: 'right'}}>
-        <a href="https://www.patreon.com/bePatron?u=91118617" data-patreon-widget-type="become-patron-button">Become a member!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
-        </div>
+        <a href="https://www.patreon.com/bePatron?u=91118617" data-patreon-widget-type="become-patron-button">Become a member!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>        </div>
 
       </PlaybackContext.Provider>
       

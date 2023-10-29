@@ -16,7 +16,7 @@ interface SetStimPayload {
 
 const DefaultStimsToggled = {
     patternModel: new Array<PatternUnitModel>(),
-    currentStimType: STIM_TYPES.Token,
+    currentStimType: STIM_TYPES.None,
 
 }
 

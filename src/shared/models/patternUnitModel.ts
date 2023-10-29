@@ -19,5 +19,6 @@ export const typeToIconMap = {
     [STIM_TYPES.PolyRhythm]: faSquare,
     [STIM_TYPES.HigherOrderPatterns]: faSquare,
     [STIM_TYPES.End]: faPause,
-    [STIM_TYPES.Cursor]: faICursor
+    [STIM_TYPES.Cursor]: faICursor,
+    [STIM_TYPES.None]: faSquare
 }

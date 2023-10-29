@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./state/redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition, faReply, faSignature } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import { TUTORIAL_KEYS } from "./shared/tutorialData";
 
 
 const SideBar = () =>{
@@ -17,13 +19,14 @@ const SideBar = () =>{
     interface SideBarIconProps {
         stim: STIM_TYPES,
         icon: IconDefinition,
-        label: string
+        label: string,
+        link: TUTORIAL_KEYS
     }
-    const SideBarIcon: React.FC<SideBarIconProps> = ({stim, icon, label}) =>{
+    const SideBarIcon: React.FC<SideBarIconProps> = ({stim, icon, label, link}) =>{
         return <li style={{backgroundColor: isSelectedStyle(stim), boxSizing: 'border-box'}} onClick={()=>handleStimSelect(stim)}>
-            <a>
+            <Link to={link}>
                 <FontAwesomeIcon color={'#303030'} icon={icon}/>{label}
-            </a>
+            </Link>
         </li>
     }
 
@@ -32,8 +35,8 @@ const SideBar = () =>{
             <aside className="menu">
                 <p className="menu-label">Aspects</p>
                 <ul className="menu-list">
-                    <SideBarIcon icon={faSignature} label='Tokens' stim={STIM_TYPES.Token}/>
-                    <SideBarIcon icon={faReply} label='Feedback' stim={STIM_TYPES.Feedback}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.Tokens} icon={faSignature} label='Tokens' stim={STIM_TYPES.Token}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.FeedbackGeneral} icon={faReply} label='Feedback' stim={STIM_TYPES.Feedback}/>
                 </ul>
 
                 <p className="menu-label">Coming Soon...</p>
