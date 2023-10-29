@@ -38,7 +38,7 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index, rerender}
         }
 
 
-        rerender();
+       
     }
 
     return (

@@ -68,6 +68,31 @@ const router = createBrowserRouter([
         path: TUTORIAL_KEYS.Timeline,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Timeline)}/>
       },
+
+      {
+        path: TUTORIAL_KEYS.SoundFX,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.SoundFX)}/>
+      },
+
+      {
+        path: TUTORIAL_KEYS.Ambience,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Ambience)}/>
+      },
+
+      {
+        path: TUTORIAL_KEYS.NormalRhythm,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.NormalRhythm)}/>
+      },
+
+      {
+        path: TUTORIAL_KEYS.PolyRhythm,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.PolyRhythm)}/>
+      },
+
+      {
+        path: TUTORIAL_KEYS.HigherOrderPatterns,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.HigherOrderPatterns)}/>
+      },
     ]
   },
 

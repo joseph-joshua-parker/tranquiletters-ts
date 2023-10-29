@@ -104,9 +104,7 @@ function App() {
           <div>
 
             <StimPatternModel rerender={rerender} cursorIndex={cursorIndex}/>
-            <div style={{display:'flex', justifyContent: 'center',}}>
-              <TutorialLink link={TUTORIAL_KEYS.Timeline}/>
-            </div>
+
             {startCancel}
             {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
           </div>

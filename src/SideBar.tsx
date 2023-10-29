@@ -4,7 +4,7 @@ import { switchStimToToggle } from "./state/redux/stimToggleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./state/redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition, faReply, faSignature } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition, faReply, faSignature, faSquare } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { TUTORIAL_KEYS } from "./shared/tutorialData";
 
@@ -41,11 +41,11 @@ const SideBar = () =>{
 
                 <p className="menu-label">Coming Soon...</p>
                 <ul className="menu-list">
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.SoundFX)}><a>SoundFX</a></li>
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.Ambience)}><a>Ambience</a></li>
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.NormalRhythm)}><a>Normal Rhythm</a></li>
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.PolyRhythm)}><a>Poly Rhythm</a></li>
-                    <li onClick={()=>handleStimSelect(STIM_TYPES.HigherOrderPatterns)}><a>Higher Order Patterns</a></li>
+                    <SideBarIcon link={TUTORIAL_KEYS.SoundFX} icon={faSquare} label='Sound FX' stim={STIM_TYPES.SoundFX}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.Ambience} icon={faSquare} label='Ambience' stim={STIM_TYPES.Ambience}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.NormalRhythm} icon={faSquare} label='Normal Rhythm' stim={STIM_TYPES.NormalRhythm}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.PolyRhythm} icon={faSquare} label='Poly Rhythm' stim={STIM_TYPES.PolyRhythm}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.HigherOrderPatterns} icon={faSquare} label='Higher Order Patterns' stim={STIM_TYPES.HigherOrderPatterns}/>
                 </ul>
             </aside>
         </div>

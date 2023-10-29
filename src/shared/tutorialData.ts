@@ -10,6 +10,11 @@ export enum TUTORIAL_KEYS {
     FeedbackGeneral = 'feedback-general',
     FeedbackByVoice = 'feedback-by-voice',
     FeedbackByMediaKeys = 'feedback-by-media-keys',
+    SoundFX = 'sound-fx',
+    Ambience = 'ambience',
+    NormalRhythm = 'normal-rhythm',
+    PolyRhythm = 'poly-rhythm',
+    HigherOrderPatterns = 'higher-order-patterns',
     Adaptive = 'adaptive',
     Timeline = 'timeline'
 
@@ -88,6 +93,41 @@ TutorialData.set(
         a stim. When you hit start, a cursor will move across the timeline, playing the stim you've toggled.` 
     });
 
+
+
+TutorialData.set(
+    TUTORIAL_KEYS.SoundFX,  {
+        title: 'SoundFX',
+        description: `[COMING SOON] This feature will allow you to upload your own sound effects, either through recording, or existing files, and
+        add them as stims to the Timeline. Widgets will provide a some sounds out-of-the-box to get you started.` 
+    });
+
+TutorialData.set(
+    TUTORIAL_KEYS.Ambience,  {
+        title: 'Ambience',
+        description: `[COMING SOON] This feature will allow Widgets to dynamically generate customizable ambient soundscapes and noise from a small number of samples. Widgets
+        will provide some samples and soundscapes out-of-the-box to get you started` 
+    });
+
+TutorialData.set(
+    TUTORIAL_KEYS.NormalRhythm,  {
+        title: 'Ambience',
+        description: `[COMING SOON] This feature will allow Widgets to generate rhythmic patterns that can be synchronized to the Tokens` 
+    });
+
+TutorialData.set(
+    TUTORIAL_KEYS.PolyRhythm,  {
+        title: 'Ambience',
+        description: `[COMING SOON] This feature will allow Widgets to generate Euclidean Poly Rhythms that can be synchronized with the Tokens` 
+    });
+
+TutorialData.set(
+    TUTORIAL_KEYS.HigherOrderPatterns,  {
+        title: 'Higher Order Patterns',
+        description: `[COMING SOON] This feature will allow Widgets to generate dynamically changing patterns of Tokens & Sound Effects, such as ensuring 
+        that a cluster of, say, 3 tokens takes the form [a OR b] AND [e OR f] AND [y OR z]
+        ` 
+    });
 
 
 

@@ -13,6 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  handleTranslate } from "../../state/redux/stimToggleSlice";
 import { RootState } from "../../state/redux/store";
 import { STIM_TYPES } from "../../shared/models/stimTypes";
+import TutorialLink from "../TutorialLink";
+import { TUTORIAL_KEYS } from "../../shared/tutorialData";
 
 
 
@@ -37,27 +39,31 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex, rerende
     )
 
     const modelPanel =    
-    <div className="columns is-mobile">
-        <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}} 
-        onClick={()=>dispatch(handleTranslate(-1))}>
-            <FontAwesomeIcon icon={faArrowLeft}/>
+        <div>
+            <div className="columns is-mobile">
+                <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}}
+                onClick={()=>dispatch(handleTranslate(-1))}>
+                    <FontAwesomeIcon icon={faArrowLeft}/>
+                </div>
+                <div className="column is-10" >
+                    {displayedModel}
+                </div>
+                <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}}
+                onClick={()=>dispatch(handleTranslate(1))}>
+                    <FontAwesomeIcon icon={faArrowRight}/>
+                </div>
+            </div>
+            <div style={{display:'flex', justifyContent: 'center'}}>
+                <TutorialLink link={TUTORIAL_KEYS.Timeline}/>
+            </div>
         </div>
-        <div className="column is-10" >
-            {displayedModel}
-        </div>
-        <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}} 
-        onClick={()=>dispatch(handleTranslate(1))}>
-            <FontAwesomeIcon icon={faArrowRight}/>
-        </div>
-    </div>
 
-    const comingSoonMessage = <div>Coming soon...</div>
 
     return (
         
             isFeatureImplemented
             ? modelPanel
-            : comingSoonMessage
+            : <></>
     )
 }
 
