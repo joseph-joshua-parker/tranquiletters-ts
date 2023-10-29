@@ -39,8 +39,8 @@ const FeedBackParameters = ()=>{
                 </div>
 
                 <div className="field">
-                    <input id="toggleVocal" type="checkbox" name="toggleMediaKey" className="switch" checked={false}/>
-                    <label htmlFor="toggleVocal">Media Key Mode</label>
+                    <input id="toggleMediaKey" type="checkbox" name="toggleMediaKey" className="switch" checked={false}/>
+                    <label htmlFor="toggleMediaKey">Media Key Mode</label>
                     <TutorialLink link={TUTORIAL_KEYS.FeedbackByMediaKeys}/>
                 </div>
 
