@@ -43,9 +43,9 @@ export enum PLAYBACK_STATE {
         return tokens[Math.floor(Math.random()*max)];
     }
 
-  let sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
-  let timeElapsed = useRef(0)
-  let currentIndex = useRef(0);
+  const sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
+  const timeElapsed = useRef(0)
+  const  currentIndex = useRef(0);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
@@ -55,7 +55,7 @@ export enum PLAYBACK_STATE {
       if(!isAdaptive) return;
       if(hitCount.current >= hitUpgradeThreshold){
         pause();
-        speak('Ease of focus detected, reducing stimulation');
+        speak('Easy focus detected, reducing stimulation');
         setTimeout(resume, 5000)
         if(TPC > 1) dispatch(crementNumParameter({name: 'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
         else dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
@@ -73,10 +73,11 @@ export enum PLAYBACK_STATE {
       if(strikeCount.current >= 3){
         speak('Over excitedness detected; consider changing parameters');
         cancel();
+        return
       }
       if(timeElapsed.current >= sessionTime) {
-        cancel();
         speak('Session Finished');
+        cancel();
         return;
       }
 
