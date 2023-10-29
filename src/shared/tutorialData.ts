@@ -61,7 +61,8 @@ TutorialData.set(
     TUTORIAL_KEYS.FeedbackByMediaKeys,  {
         title: 'Feedback By Media Keys',
         description: `[COMING SOON] Media Keys are the Play, Pause, and other buttons on your headset or earphones. I consider it
-        critical for this app, and others that I want to make. Oddly enough, the Vocal Mode was much easier to implement. `
+        critical for this app, and others that I want to make. Oddly enough, this is turning out to be much, much harder to implement
+        than Vocal Mode, and it really shouldn't be.`
     });
 
 TutorialData.set(

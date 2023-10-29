@@ -83,7 +83,7 @@ function App() {
       <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion}}>
         <div>
             <h1 className="label center-content">A Day Waker's Widgets</h1>
-            <h2 className="label center-content">Anchoring & meditation toolkit for automatic daydreamers and overthinkers</h2>
+            <h2 className="label center-content">Anchoring, stimming, sleeping & meditation toolkit for automatic daydreamers, persons with sensory issues and overthinkers</h2>
             <br/>
           <div className="columns is-mobile">
             <div className="column is-6">
@@ -111,7 +111,12 @@ function App() {
           <Outlet/>
 
         </div>
+        <div style={{display:'flex', justifyContent: 'right'}}>
+        <a href="https://www.patreon.com/bePatron?u=91118617" data-patreon-widget-type="become-patron-button">Become a member!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+        </div>
+
       </PlaybackContext.Provider>
+      
 
   );
 }
