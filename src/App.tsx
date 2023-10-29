@@ -35,7 +35,7 @@ import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import PlaybackContext from './state/contexts/PlaybackContext';
 
 //Tutorial Routing
-import {Outlet} from 'react-router';
+import {Outlet, useNavigate} from 'react-router';
 import TutorialLink from './components/TutorialLink';
 import { TUTORIAL_KEYS } from './shared/tutorialData';
 
@@ -56,6 +56,9 @@ function App() {
 
   //Components
   const StimParams = (()=> {
+
+    
+
     switch(currentStimType){
       case STIM_TYPES.Token: return TokenParameters
       case STIM_TYPES.Feedback: return FeedBackParameters
@@ -67,6 +70,7 @@ function App() {
       default: return Welcome
     }
   })()
+
 
   const startCancel = <div>
     { (playbackState == PLAYBACK_STATE.Waiting)

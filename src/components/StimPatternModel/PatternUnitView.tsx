@@ -28,17 +28,15 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index, rerender}
 
     const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
     const chooseToToggle = ()=>{
- 
+        if(currentStimType == STIM_TYPES.None) return;
+        
         dispatch(toggleStim({index, stimType: currentStimType}));
         switch(currentStimType){
             case STIM_TYPES.Feedback: {
                 if(unit.type == STIM_TYPES.Feedback)    dispatch(removeFeedback(index));
                 else                                    dispatch(addFeedback(index));
             }
-        }
-
-
-       
+        }    
     }
 
     return (
