@@ -3,6 +3,7 @@ import tokenNumParameterReducer from './tokenNumParameterSlice';
 import tokenSetParameterReducer from './tokenSetParameterSlice';
 import feedbackParameterReducer from './feedbackParameterSlice';
 import stimToggleSliceReducer from './stimToggleSlice';
+import soundEffectsReducer from './soundEffectsSlice';
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
@@ -18,7 +19,8 @@ const rootReducer = combineReducers(
         tokenNumParameterReducer, 
         tokenSetParameterReducer,
         feedbackParameterReducer,
-        stimToggleSliceReducer
+        stimToggleSliceReducer,
+        soundEffectsReducer
     }
 )
 

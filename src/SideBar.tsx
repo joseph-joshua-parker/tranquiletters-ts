@@ -4,7 +4,7 @@ import { switchStimToToggle } from "./state/redux/stimToggleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./state/redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition, faReply, faSignature, faSquare } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition, faReply, faSignature, faSquare, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { TUTORIAL_KEYS } from "./shared/tutorialData";
 
@@ -37,11 +37,12 @@ const SideBar = () =>{
                 <ul className="menu-list">
                     <SideBarIcon link={TUTORIAL_KEYS.Tokens} icon={faSignature} label='Tokens' stim={STIM_TYPES.Token}/>
                     <SideBarIcon link={TUTORIAL_KEYS.FeedbackGeneral} icon={faReply} label='Feedback' stim={STIM_TYPES.Feedback}/>
+                    <SideBarIcon link={TUTORIAL_KEYS.SoundFX} icon={faVolumeHigh} label='Sound FX' stim={STIM_TYPES.SoundFX}/>
+
                 </ul>
 
                 <p className="menu-label">Coming Soon...</p>
                 <ul className="menu-list">
-                    <SideBarIcon link={TUTORIAL_KEYS.SoundFX} icon={faSquare} label='Sound FX' stim={STIM_TYPES.SoundFX}/>
                     <SideBarIcon link={TUTORIAL_KEYS.Ambience} icon={faSquare} label='Ambience' stim={STIM_TYPES.Ambience}/>
                     <SideBarIcon link={TUTORIAL_KEYS.NormalRhythm} icon={faSquare} label='Normal Rhythm' stim={STIM_TYPES.NormalRhythm}/>
                     <SideBarIcon link={TUTORIAL_KEYS.PolyRhythm} icon={faSquare} label='Poly Rhythm' stim={STIM_TYPES.PolyRhythm}/>

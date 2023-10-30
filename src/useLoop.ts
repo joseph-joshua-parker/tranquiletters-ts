@@ -1,16 +1,18 @@
-import { PatternUnitModel } from "./shared/models/patternUnitModel";
 import {speak, init} from './audio/speechSynthesis';
 import { STIM_TYPES } from "./shared/models/stimTypes";
-import { useState, useRef, MutableRefObject, useEffect } from "react";
+import { useState, useRef} from "react";
 import usePayloads from "./shared/utilities/usePayloads";
 import useFeedback from "./shared/utilities/useFeedback";
-import { useDispatch, useSelector, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { crementNumParameter } from "./state/redux/tokenNumParameterSlice";
-import { RootState } from "./state/redux/store";
 import usePatternModelSelector from "./state/usePatternModelSelector";
 import {useInterval} from 'usehooks-ts';
-import { toggleStim } from "./state/redux/stimToggleSlice";
 import { addFeedback } from "./state/redux/feedbackParameterSlice";
+import { RootState } from "./state/redux/store";
+import useSound from 'use-sound';
+
+const currentSound = require('./assets/soundFX/effect_1.wav');
+
 
 export enum PLAYBACK_STATE {
     Paused = 'paused',
@@ -31,6 +33,8 @@ export enum PLAYBACK_STATE {
       feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, isGeneratingFeedback, isReducingClusters, acknowledgementsAccepted,
       patternModel
     } = usePayloads();
+
+
     const {
       answerQuestion, askQuestion, reset, 
       strikeCount, hitCount
@@ -40,9 +44,9 @@ export enum PLAYBACK_STATE {
       notifyUser, spreadClusters, cancel
     });
 
+    const {soundEffectAt} = useSelector((state:RootState)=>state.persistedRootReducer.soundEffectsReducer);
+    const [playSoundEffect] = useSound(currentSound); 
 
-
-  
     const sessionTime = SessionTime*60*1000;
 
     const selectToken = ()=>{
@@ -82,7 +86,7 @@ export enum PLAYBACK_STATE {
       switch(unit.type){
         case STIM_TYPES.Token: speak(selectToken()); break;
         case STIM_TYPES.Feedback: askQuestion();  break;
-
+        case STIM_TYPES.SoundFX: playSoundEffect(); break;
       }
 
       timeElapsed.current += 1000;

@@ -28,7 +28,7 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex, rerende
     const dispatch = useDispatch();
 
     const {currentStimType, patternModel} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
-    const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.None]
+    const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.SoundFX, STIM_TYPES.None]
     const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
 
     const displayedModel = patternModel.map((unit, index)=>{

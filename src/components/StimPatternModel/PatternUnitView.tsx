@@ -13,6 +13,7 @@ import { STIM_TYPES } from "../../shared/models/stimTypes"
 import { toggleStim } from "../../state/redux/stimToggleSlice"
 import { addFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice"
 import { RootState } from "../../state/redux/store"
+import { addSoundEffect, removeSoundEffect } from "../../state/redux/soundEffectsSlice"
 
 interface StimPatternViewProps {
     unit: PatternUnitModel,
@@ -34,7 +35,14 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
             case STIM_TYPES.Feedback: {
                 if(unit.type == STIM_TYPES.Feedback)    dispatch(removeFeedback(index));
                 else                                    dispatch(addFeedback(index));
+                break;
             }
+
+            case STIM_TYPES.SoundFX: {
+                if(unit.type == STIM_TYPES.SoundFX)    dispatch(removeSoundEffect(index));
+                else                                    dispatch(addSoundEffect(index));
+                break;
+            } 
         }    
     }
 

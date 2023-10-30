@@ -19,6 +19,7 @@ const usePatternModelSelector = (...args: any[])=>{
                 tokenSetParameterReducer:Set, 
                 tokenNumParameterReducer: TokenParams, 
                 feedbackParameterReducer: FeedbackParams,
+                soundEffectsReducer: SoundEffects,
                 stimToggleSliceReducer: StimToggle
             
         } = state
@@ -31,6 +32,7 @@ const usePatternModelSelector = (...args: any[])=>{
         } = TokenParams
     
         const {feedbackAt} = FeedbackParams;
+        const {soundEffectAt} = SoundEffects;
         const modelLength = TPC*SBT+SBC
 
         useEffect(()=>{
@@ -44,6 +46,11 @@ const usePatternModelSelector = (...args: any[])=>{
         
                 //Add Feedback
                 feedbackAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.Feedback})));
+
+                soundEffectAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.SoundFX})));
+
+
+
         
         
                 //Cap off
