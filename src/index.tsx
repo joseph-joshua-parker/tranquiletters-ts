@@ -6,7 +6,7 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 import { persistedStore, store } from './state/redux/store';
 import { PersistGate } from 'redux-persist/integration/react'
-
+import { PURGE } from 'redux-persist';
 
 import {
   createBrowserRouter,
@@ -116,7 +116,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-root.render(
+
+const createApp = () => root.render(
   <React.StrictMode>
     
     <Provider store={store}>
@@ -126,6 +127,12 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
+
+try{createApp();}
+catch(e: any){ 
+  persistedStore.purge()
+  createApp();
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
