@@ -32,8 +32,13 @@ export enum PLAYBACK_STATE {
       patternModel
     } = usePayloads();
     const {
-      answerQuestion,
-      askQuestion, reset, strikeCount, hitCount} = useFeedback({ feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, isVocal });
+      answerQuestion, askQuestion, reset, 
+      strikeCount, hitCount
+    } = useFeedback({ 
+      feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, 
+      isVocal, isAdaptive, isReducingClusters, TPC,
+      notifyUser, spreadClusters
+    });
 
 
 
@@ -52,33 +57,14 @@ export enum PLAYBACK_STATE {
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
 
-    const spreadClusters = ()=>{
+    
+
+    function spreadClusters(){
       dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
       if(isGeneratingFeedback) dispatch(addFeedback(patternModel.length-1))
     }
 
     usePatternModelSelector(hitCount.current)
-    useEffect(()=>{
-      if(!isAdaptive) return;
-      if(hitCount.current >= hitUpgradeThreshold){
-        pause();
-        speak('Effortless focus detected, reducing stimulation');
-        setTimeout(resume, 5000)
-
-        if(isReducingClusters)
-          spreadClusters();
-        
-        
-
-        else if(TPC > 1) dispatch(crementNumParameter({name:'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
-        else spreadClusters();     
-          
-
-        reset();
-      }
-    },[hitCount.current])
-
-
 
   
     useInterval(()=>{
@@ -129,6 +115,12 @@ export enum PLAYBACK_STATE {
     clearInterval(sessionInterval.current);
     sessionInterval.current = undefined;
     setPlaybackState(PLAYBACK_STATE.Paused);
+  }
+
+  function notifyUser(message: string){
+    pause();
+    speak(message);
+    setTimeout(resume, 5000)
   }
 
   const rerender = ()=>{

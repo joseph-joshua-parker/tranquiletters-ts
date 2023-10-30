@@ -1,7 +1,9 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import useSound from 'use-sound';
 import useCommandRecognition from '../../audio/recognition/useCommandRecognition';
 import SpeechRecognition from 'react-speech-recognition';
+import { useDispatch } from 'react-redux';
+import { crementNumParameter } from '../../state/redux/tokenNumParameterSlice';
 
 const question = require('../../assets/soundFX/question.wav');
 const smallHit = require('../../assets/soundFX/small_hit.wav');
@@ -9,13 +11,23 @@ const largeHit = require('../../assets/soundFX/large_hit.wav');
 const strike = require('../../assets/soundFX/small_strike.wav');
 
 interface FeedbackParameters {
+    TPC:number,
     feedbackTime: number, 
     acknowledgementsAccepted: string[], 
     hitUpgradeThreshold: number,
-    isVocal: boolean
+    isVocal: boolean,
+    isAdaptive: boolean,
+    isReducingClusters: boolean,
+    notifyUser: (message:string)=>void,
+    spreadClusters: ()=>void
 }
 
-const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, isVocal}:FeedbackParameters)=>{
+const useFeedback = ({
+    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, isVocal, isAdaptive, isReducingClusters, TPC,
+    notifyUser, spreadClusters
+}:FeedbackParameters)=>{
+    const dispatch = useDispatch();
+    
     const [playQuestion] = useSound(question); 
     const [playSmallHit] = useSound(smallHit);
     const [playLargeHit] = useSound(largeHit);
@@ -34,6 +46,22 @@ const useFeedback = ({feedbackTime, acknowledgementsAccepted, hitUpgradeThreshol
         hitTime.current += feedbackTime;
         hitCount.current++;
     }
+
+    useEffect(()=>{
+        if(!isAdaptive) return;
+        if(hitCount.current >= hitUpgradeThreshold){
+            playSmallHit();
+            playLargeHit()
+          notifyUser('Good focus detected, reducing stimulation')
+          if(isReducingClusters)
+            spreadClusters();
+          
+          else if(TPC > 1) dispatch(crementNumParameter({name:'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
+          else spreadClusters();     
+            
+          reset();
+        }
+      },[hitCount.current])
 
     const {transcript, listening} = useCommandRecognition(answerQuestion, acknowledgementsAccepted);
 
