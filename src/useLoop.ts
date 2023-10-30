@@ -35,9 +35,9 @@ export enum PLAYBACK_STATE {
       answerQuestion, askQuestion, reset, 
       strikeCount, hitCount
     } = useFeedback({ 
-      feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, 
+      feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, strikeThreshold:3,
       isVocal, isAdaptive, isReducingClusters, TPC,
-      notifyUser, spreadClusters
+      notifyUser, spreadClusters, cancel
     });
 
 
@@ -52,7 +52,7 @@ export enum PLAYBACK_STATE {
 
   const sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
   const timeElapsed = useRef(0)
-  const currentIndex = useRef(0);
+  let currentIndex = 0;
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
@@ -68,11 +68,6 @@ export enum PLAYBACK_STATE {
 
   
     useInterval(()=>{
-      if(strikeCount.current >= 3){
-        speak('Over excitedness detected; consider changing parameters');
-        cancel();
-        return
-      }
       if(timeElapsed.current >= sessionTime) {
         speak('Session Finished');
         cancel();
@@ -80,11 +75,10 @@ export enum PLAYBACK_STATE {
       }
 
       //reset the timeline loop
-      if(currentIndex.current >= patternModel.length-1)
-      currentIndex.current = -1;
+      if(currentIndex >= patternModel.length-1)
+      currentIndex = -1;
       
-      const unit = patternModel[++currentIndex.current];
-      setCursorIndex(currentIndex.current);
+      const unit = patternModel[++currentIndex];
       switch(unit.type){
         case STIM_TYPES.Token: speak(selectToken()); break;
         case STIM_TYPES.Feedback: askQuestion();  break;
@@ -94,24 +88,28 @@ export enum PLAYBACK_STATE {
       timeElapsed.current += 1000;
     }, delay)
 
+    useEffect(()=>{setCursorIndex(currentIndex)}, [currentIndex])
 
+  function start(){
+      currentIndex = 0;
+      setPlaybackState(PLAYBACK_STATE.Playing)
+    }
 
-  const cancel = ()=>{
+  function cancel(){
     clearInterval(sessionInterval.current);
     reset();
-    setCursorIndex(-1)
     sessionInterval.current = undefined;
     timeElapsed.current = 0;
-    currentIndex.current = -1;
+    currentIndex = -1;
     setPlaybackState(PLAYBACK_STATE.Waiting);
   }
 
-  const resume = ()=>{
+  function resume(){
     if(playbackState == PLAYBACK_STATE.Paused)
       setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
-  const pause = ()=>{
+  function pause(){
     clearInterval(sessionInterval.current);
     sessionInterval.current = undefined;
     setPlaybackState(PLAYBACK_STATE.Paused);
@@ -128,10 +126,6 @@ export enum PLAYBACK_STATE {
     resume(); 
   }
 
-  const start = ()=>{
-    setCursorIndex(0)
-    setPlaybackState(PLAYBACK_STATE.Playing)
-  }
 
   return {answerQuestion, start, pause, resume, cancel, rerender, playbackState, currentIndex}
 }

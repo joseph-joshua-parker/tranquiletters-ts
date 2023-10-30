@@ -13,12 +13,14 @@ import { capOff, initializeModel, setStim} from "./redux/stimToggleSlice";
 const usePatternModelSelector = (...args: any[])=>{
 
     const dispatch = useDispatch();
-     const state = useSelector((state:RootState)=>state);
+     const state = useSelector((state:RootState)=>state.persistedRootReducer);
         const {
-            tokenSetParameterReducer:Set, 
-            tokenNumParameterReducer: TokenParams, 
-            feedbackParameterReducer: FeedbackParams,
-            stimToggleSliceReducer: StimToggle
+
+                tokenSetParameterReducer:Set, 
+                tokenNumParameterReducer: TokenParams, 
+                feedbackParameterReducer: FeedbackParams,
+                stimToggleSliceReducer: StimToggle
+            
         } = state
 
          const {

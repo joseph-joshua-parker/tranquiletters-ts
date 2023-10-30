@@ -17,12 +17,12 @@ const TokenParameters = ()=>{
         ['Tokens/Cluster']:     TokensPerCluster,
         ['Silence/Tokens']:     SecondsBetweenTokens,
         ['Silence/Clusters']:   SecondsBetweenClusters,
-    } = useSelector((state:RootState)=>state.tokenNumParameterReducer)  
+    } = useSelector((state:RootState)=>state.persistedRootReducer.tokenNumParameterReducer)  
             
     const {
         ['Name']:   NameVal,
         ['Tokens']: TokensVal
-    } = useSelector((state:RootState)=>state.tokenSetParameterReducer);
+    } = useSelector((state:RootState)=>state.persistedRootReducer.tokenSetParameterReducer);
 
 
 

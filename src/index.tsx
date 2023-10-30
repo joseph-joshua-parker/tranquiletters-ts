@@ -4,7 +4,9 @@ import {Provider} from 'react-redux';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
-import { store } from './state/redux/store';
+import { persistedStore, store } from './state/redux/store';
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 import {
   createBrowserRouter,
@@ -117,8 +119,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     
-      <Provider store={store}>
-      <RouterProvider router={router}/>
+    <Provider store={store}>
+      <PersistGate loading = {null} persistor={persistedStore}>
+        <RouterProvider router={router}/>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

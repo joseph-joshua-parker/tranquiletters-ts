@@ -12,7 +12,7 @@ const usePayloads = ()=>{
             ['SessionTime']: SessionTime
           },
         stimToggleSliceReducer: {patternModel}
-    } = useSelector((state: RootState)=>state)
+    } = useSelector((state: RootState)=>state.persistedRootReducer)
     
 
     return {
@@ -28,7 +28,7 @@ const usePayloads = ()=>{
         isVocal,
         isGeneratingFeedback,
         isReducingClusters,
-        
+
         acknowledgementsAccepted,
     
         patternModel

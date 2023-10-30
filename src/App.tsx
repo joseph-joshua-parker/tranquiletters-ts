@@ -35,9 +35,8 @@ import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import PlaybackContext from './state/contexts/PlaybackContext';
 
 //Tutorial Routing
-import {Outlet, useNavigate} from 'react-router';
-import TutorialLink from './components/TutorialLink';
-import { TUTORIAL_KEYS } from './shared/tutorialData';
+import {Outlet, } from 'react-router';
+
 
 
 
@@ -46,7 +45,7 @@ function App() {
   
   //React API
   const [cursorIndex, setCursorIndex] = useState(-1);
-  const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer)
+  const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
 
   //Hooks
   const {start, cancel, pause, resume, rerender, playbackState, answerQuestion} = useLoop(setCursorIndex)

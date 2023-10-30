@@ -15,16 +15,18 @@ interface FeedbackParameters {
     feedbackTime: number, 
     acknowledgementsAccepted: string[], 
     hitUpgradeThreshold: number,
+    strikeThreshold: number,
     isVocal: boolean,
     isAdaptive: boolean,
     isReducingClusters: boolean,
     notifyUser: (message:string)=>void,
-    spreadClusters: ()=>void
+    spreadClusters: ()=>void,
+    cancel: ()=>void
 }
 
 const useFeedback = ({
-    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, isVocal, isAdaptive, isReducingClusters, TPC,
-    notifyUser, spreadClusters
+    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, strikeThreshold, isVocal, isAdaptive, isReducingClusters, TPC,
+    notifyUser, spreadClusters, cancel
 }:FeedbackParameters)=>{
     const dispatch = useDispatch();
     
@@ -62,6 +64,11 @@ const useFeedback = ({
           reset();
         }
       },[hitCount.current])
+
+      if(strikeCount.current >= 3){
+        notifyUser('Over excitedness detected; consider changing parameters');
+        cancel();
+      }
 
     const {transcript, listening} = useCommandRecognition(answerQuestion, acknowledgementsAccepted);
 

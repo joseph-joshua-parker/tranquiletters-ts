@@ -11,7 +11,7 @@ import { TUTORIAL_KEYS } from "./shared/tutorialData";
 
 const SideBar = () =>{
     const dispatch = useDispatch();
-    const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer);
+    const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer);
 
     const handleStimSelect = (type: STIM_TYPES) => dispatch(switchStimToToggle(type));
     const isSelectedStyle = (stim:STIM_TYPES)=> stim == currentStimType ? 'dimgray' : 'black'

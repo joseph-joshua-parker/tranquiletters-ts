@@ -19,7 +19,7 @@ const FeedBackParameters = ()=>{
         isVocal,
         isGeneratingFeedback,
         isReducingClusters,
-    } = useSelector((state:RootState)=>state.feedbackParameterReducer);
+    } = useSelector((state:RootState)=>state.persistedRootReducer.feedbackParameterReducer);
 
 
 

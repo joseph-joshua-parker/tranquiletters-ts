@@ -17,19 +17,18 @@ import { RootState } from "../../state/redux/store"
 interface StimPatternViewProps {
     unit: PatternUnitModel,
     index: number
-    rerender: ()=>void
 }
 
-const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index, rerender})=>{
+const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
 
     const dispatch = useDispatch();
-    const {currentStimType} = useSelector((state:RootState)=>state.stimToggleSliceReducer);
+    const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer);
 
 
     const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
     const chooseToToggle = ()=>{
         if(currentStimType == STIM_TYPES.None) return;
-        
+
         dispatch(toggleStim({index, stimType: currentStimType}));
         switch(currentStimType){
             case STIM_TYPES.Feedback: {
