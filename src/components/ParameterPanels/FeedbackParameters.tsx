@@ -1,10 +1,9 @@
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 
 import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../ParameterInputFields/StringParamInput/StringParameterInput";
-import TutorialLink from "../TutorialLink";
 import { TUTORIAL_KEYS } from "../../shared/tutorialData";
 import { useContext } from "react";
 import PlaybackContext from "../../state/contexts/PlaybackContext";
@@ -34,8 +33,6 @@ const FeedBackParameters = ()=>{
                 <div style={{display:'flex', justifyContent:'center', margin:'1rem'}}>
                     <button onClick={answerQuestion} className="button is-large">Acknowledge</button>
                 </div>
-
-
 
                 <BooleanParameterInput 
                     link={TUTORIAL_KEYS.FeedbackByMediaKeys} 
@@ -87,10 +84,6 @@ const FeedBackParameters = ()=>{
                             Reduce Clusters
                     </BooleanParameterInput>
                 }
-
-
-                
-
             </div>
         
     )

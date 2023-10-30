@@ -50,9 +50,8 @@ export enum PLAYBACK_STATE {
         return tokens[Math.floor(Math.random()*max)];
     }
 
-  const sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
   const timeElapsed = useRef(0)
-  let currentIndex = 0;
+  const currentIndex = useRef(0);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
@@ -75,10 +74,11 @@ export enum PLAYBACK_STATE {
       }
 
       //reset the timeline loop
-      if(currentIndex >= patternModel.length-1)
-      currentIndex = -1;
+      if(currentIndex.current >= patternModel.length-1)
+      currentIndex.current = -1;
       
-      const unit = patternModel[++currentIndex];
+      const unit = patternModel[++currentIndex.current];
+      setCursorIndex(currentIndex.current);
       switch(unit.type){
         case STIM_TYPES.Token: speak(selectToken()); break;
         case STIM_TYPES.Feedback: askQuestion();  break;
@@ -88,31 +88,28 @@ export enum PLAYBACK_STATE {
       timeElapsed.current += 1000;
     }, delay)
 
-    useEffect(()=>{setCursorIndex(currentIndex)}, [currentIndex])
 
   function start(){
-      currentIndex = 0;
+      setCursorIndex(0)
       setPlaybackState(PLAYBACK_STATE.Playing)
     }
 
   function cancel(){
-    clearInterval(sessionInterval.current);
+
     reset();
-    sessionInterval.current = undefined;
+    setCursorIndex(-1)
+
     timeElapsed.current = 0;
-    currentIndex = -1;
+    currentIndex.current = -1;
     setPlaybackState(PLAYBACK_STATE.Waiting);
   }
 
   function resume(){
-    if(playbackState == PLAYBACK_STATE.Paused)
       setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
   function pause(){
-    clearInterval(sessionInterval.current);
-    sessionInterval.current = undefined;
-    setPlaybackState(PLAYBACK_STATE.Paused);
+      setPlaybackState(PLAYBACK_STATE.Paused);
   }
 
   function notifyUser(message: string){

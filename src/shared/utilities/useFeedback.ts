@@ -53,13 +53,14 @@ const useFeedback = ({
         if(!isAdaptive) return;
         if(hitCount.current >= hitUpgradeThreshold){
             playSmallHit();
-            playLargeHit()
-          notifyUser('Good focus detected, reducing stimulation')
+            playLargeHit();
+            notifyUser('Good focus detected, reducing stimulation');
+
           if(isReducingClusters)
             spreadClusters();
           
           else if(TPC > 1) dispatch(crementNumParameter({name:'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
-          else spreadClusters();     
+          //else spreadClusters();     
             
           reset();
         }
