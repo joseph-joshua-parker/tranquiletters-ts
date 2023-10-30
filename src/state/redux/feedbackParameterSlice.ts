@@ -21,6 +21,8 @@ export interface FeedbackParameterState {
     hitUpgradeThreshold: 0
     isAdaptive: boolean,
     isVocal:boolean
+    isGeneratingFeedback: boolean,
+    isReducingClusters: boolean
 }
 
 export const DefaultFeedbackParameters = {
@@ -34,7 +36,9 @@ export const DefaultFeedbackParameters = {
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
     hitUpgradeThreshold: 10,
     isAdaptive: false,
-    isVocal: false
+    isVocal: false,
+    isGeneratingFeedback: false,
+    isReducingClusters: false
 }
 
 const feedbackParameterSlice = createSlice({
@@ -72,13 +76,10 @@ const feedbackParameterSlice = createSlice({
             state.acknowledgementsAccepted = state.acknowledgementsAccepted.filter(ack => ack != action.payload);
         },
 
-        toggleAdaptation(state){
-            state.isAdaptive = !state.isAdaptive
-        },
-
-        toggleVocal(state){
-            state.isVocal = !state.isVocal;
-        }
+        toggleAdaptation(state){state.isAdaptive = !state.isAdaptive},
+        toggleVocal(state){state.isVocal = !state.isVocal;},
+        toggleClusterReduction(state){state.isReducingClusters = !state.isReducingClusters;},
+        toggleFeedbackGeneration(state){state.isGeneratingFeedback = !state.isGeneratingFeedback;}
     }
 })
 
@@ -91,7 +92,9 @@ export const {
     removeAcceptedAcknowledgement, 
     modifyAcceptedAcknowledgements,
     toggleAdaptation,
-    toggleVocal
+    toggleVocal,
+    toggleClusterReduction,
+    toggleFeedbackGeneration
 
 } = feedbackParameterSlice.actions;
 export default feedbackParameterSlice.reducer; 

@@ -1,10 +1,10 @@
 //React & Redux API
 import { useDispatch, } from "react-redux"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
-import { AppDispatch } from "../../state/redux/store"
-import { TUTORIAL_KEYS } from "../../shared/tutorialData";
+import { AppDispatch } from "../../../state/redux/store"
+import { TUTORIAL_KEYS } from "../../../shared/tutorialData";
 
-import TutorialLink from "../TutorialLink";
+import TutorialLink from "../../TutorialLink";
 
 interface StringParameterProps {
     name: string,

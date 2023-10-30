@@ -8,8 +8,8 @@ import { setName, setTokens } from "../../../state/redux/tokenSetParameterSlice"
 import { crementNumParameter, modifyNumParameters  } from "../../../state/redux/tokenNumParameterSlice";
 
 //Views & Components
-import NumParameterInput from "../../NumParameterInput/NumParameterInput";
-import StringParameterInput from "../../StringParamInput/StringParameterInput";
+import NumParameterInput from "../../ParameterInputFields/NumParameterInput/NumParameterInput";
+import StringParameterInput from "../../ParameterInputFields/StringParamInput/StringParameterInput";
 import { TUTORIAL_KEYS } from "../../../shared/tutorialData";
 
 const TokenParameters = ()=>{

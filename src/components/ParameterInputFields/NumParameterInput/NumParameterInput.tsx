@@ -1,21 +1,21 @@
 //React & Redux API
 import { useContext } from "react";
 import { useDispatch, } from "react-redux"
-import { AppDispatch } from "../../state/redux/store"
+import { AppDispatch } from "../../../state/redux/store"
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 
 //Models & enums
-import { NumActionPayload } from "../../shared/models/actionsPayload";
+import { NumActionPayload } from "../../../shared/models/actionsPayload";
 
 //Context
-import NumParamChangeHandlerContext from "../../contexts/NumParamChangeHandlerContext";
+import NumParamChangeHandlerContext from "../../../contexts/NumParamChangeHandlerContext";
 
 //Styles
 import './NumParameterInputStyles.css';
 
 //Tutorial Routing
-import { TUTORIAL_KEYS } from "../../shared/tutorialData";
-import TutorialLink from "../TutorialLink";
+import { TUTORIAL_KEYS } from "../../../shared/tutorialData";
+import TutorialLink from "../../TutorialLink";
 
 interface NumParameterProps {
     name: string,

@@ -93,6 +93,16 @@ const router = createBrowserRouter([
         path: TUTORIAL_KEYS.HigherOrderPatterns,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.HigherOrderPatterns)}/>
       },
+
+      {
+        path: TUTORIAL_KEYS.ReduceClusters,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.ReduceClusters)}/>
+      },
+
+      {
+        path: TUTORIAL_KEYS.GenerateFeedback,
+        element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.GenerateFeedback)}/>
+      },
     ]
   },
 

@@ -16,7 +16,9 @@ export enum TUTORIAL_KEYS {
     PolyRhythm = 'poly-rhythm',
     HigherOrderPatterns = 'higher-order-patterns',
     Adaptive = 'adaptive',
-    Timeline = 'timeline'
+    Timeline = 'timeline',
+    GenerateFeedback = 'generate-feedback',
+    ReduceClusters = 'reduce-clusters'
 
 }
 
@@ -126,6 +128,21 @@ TutorialData.set(
         title: 'Higher Order Patterns',
         description: `[COMING SOON] This feature will allow Widgets to generate dynamically changing patterns of Tokens & Sound Effects, such as ensuring 
         that a cluster of, say, 3 tokens takes the form [a OR b] AND [e OR f] AND [y OR z]
+        ` 
+    });
+
+TutorialData.set(
+    TUTORIAL_KEYS.GenerateFeedback,  {
+        title: 'Generate Feedback to fill increasing silence',
+        description: `With Adaptive Mode, there will be increasingly long stretches of silence. This setting will tell Widgets to break
+        those long stretches up with Feedback. This setting is only really useful when you want to keep Tokens in your loop.
+        ` 
+    });
+
+TutorialData.set(
+    TUTORIAL_KEYS.ReduceClusters,  {
+        title: 'Reduce Cluster Frequency',
+        description: `Adaptive Mode can instead reduce how often token clusters are spoken, rather than the number of tokens per cluster
         ` 
     });
 

@@ -9,6 +9,8 @@ import { crementNumParameter } from "./state/redux/tokenNumParameterSlice";
 import { RootState } from "./state/redux/store";
 import usePatternModelSelector from "./state/usePatternModelSelector";
 import {useInterval} from 'usehooks-ts';
+import { toggleStim } from "./state/redux/stimToggleSlice";
+import { addFeedback } from "./state/redux/feedbackParameterSlice";
 
 export enum PLAYBACK_STATE {
     Paused = 'paused',
@@ -26,7 +28,7 @@ export enum PLAYBACK_STATE {
 
     const {
       TPC, SBC, SessionTime, tokens, 
-      feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, acknowledgementsAccepted,
+      feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, isGeneratingFeedback, isReducingClusters, acknowledgementsAccepted,
       patternModel
     } = usePayloads();
     const {
@@ -45,22 +47,32 @@ export enum PLAYBACK_STATE {
 
   const sessionInterval: MutableRefObject<NodeJS.Timer | undefined> = useRef(undefined);
   const timeElapsed = useRef(0)
-  const  currentIndex = useRef(0);
+  const currentIndex = useRef(0);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
+
+    const spreadClusters = ()=>{
+      dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
+      if(isGeneratingFeedback) dispatch(addFeedback(patternModel.length-1))
+    }
 
     usePatternModelSelector(hitCount.current)
     useEffect(()=>{
       if(!isAdaptive) return;
       if(hitCount.current >= hitUpgradeThreshold){
         pause();
-        speak('Easy focus detected, reducing stimulation');
+        speak('Effortless focus detected, reducing stimulation');
         setTimeout(resume, 5000)
-        if(TPC > 1) dispatch(crementNumParameter({name: 'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
-        else dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
 
+        if(isReducingClusters)
+          spreadClusters();
+        
+        
 
+        else if(TPC > 1) dispatch(crementNumParameter({name:'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
+        else spreadClusters();     
+          
 
         reset();
       }
@@ -81,6 +93,7 @@ export enum PLAYBACK_STATE {
         return;
       }
 
+      //reset the timeline loop
       if(currentIndex.current >= patternModel.length-1)
       currentIndex.current = -1;
       
@@ -88,11 +101,9 @@ export enum PLAYBACK_STATE {
       setCursorIndex(currentIndex.current);
       switch(unit.type){
         case STIM_TYPES.Token: speak(selectToken()); break;
-        case STIM_TYPES.Feedback: askQuestion(); console.log('feedback'); break;
+        case STIM_TYPES.Feedback: askQuestion();  break;
 
       }
-      
-      
 
       timeElapsed.current += 1000;
     }, delay)
@@ -110,7 +121,8 @@ export enum PLAYBACK_STATE {
   }
 
   const resume = ()=>{
-    setPlaybackState(PLAYBACK_STATE.Playing)
+    if(playbackState == PLAYBACK_STATE.Paused)
+      setPlaybackState(PLAYBACK_STATE.Playing)
   }
 
   const pause = ()=>{
@@ -120,7 +132,6 @@ export enum PLAYBACK_STATE {
   }
 
   const rerender = ()=>{
-    const originalState = playbackState;
     pause();
     resume(); 
   }
