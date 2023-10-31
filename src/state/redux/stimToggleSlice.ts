@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { End, PatternUnitModel } from "../../shared/models/patternUnitModel";
 import { STIM_TYPES } from "../../shared/models/stimTypes";
+import { PURGE } from "redux-persist";
 
 
 export interface StimToggleState {
@@ -72,7 +73,11 @@ const stimToggleSlice = createSlice({
         capOff(state){
             state.patternModel.push(End)
         }
-    }
+    },
+
+    extraReducers: 
+        (builder)=> { builder.addCase(PURGE, state=>state = DefaultStimsToggled)}
+    
 })
 
 export const {switchStimToToggle, toggleStim, initializeModel, setStim, handleTranslate, capOff} = stimToggleSlice.actions;
