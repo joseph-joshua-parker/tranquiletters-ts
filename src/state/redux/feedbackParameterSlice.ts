@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { NumActionPayload } from "../../shared/models/actionsPayload";
+import { PURGE } from "redux-persist";
 
 export enum ON_STRIKEOUT {
     Adapt = 'adapt',
@@ -80,7 +81,10 @@ const feedbackParameterSlice = createSlice({
         toggleVocal(state){state.isVocal = !state.isVocal;},
         toggleClusterReduction(state){state.isReducingClusters = !state.isReducingClusters;},
         toggleFeedbackGeneration(state){state.isGeneratingFeedback = !state.isGeneratingFeedback;}
-    }
+    },
+
+    extraReducers: 
+    (builder)=> { builder.addCase(PURGE, state=> DefaultFeedbackParameters)}
 })
 
 export const {

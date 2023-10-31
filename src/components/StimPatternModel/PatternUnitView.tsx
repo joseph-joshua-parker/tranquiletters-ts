@@ -14,6 +14,7 @@ import { toggleStim } from "../../state/redux/stimToggleSlice"
 import { addFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice"
 import { RootState } from "../../state/redux/store"
 import { addSoundEffect, removeSoundEffect } from "../../state/redux/soundEffectsSlice"
+import { persistedStore } from "../../state/redux/store"
 
 interface StimPatternViewProps {
     unit: PatternUnitModel,
@@ -25,34 +26,54 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
     const dispatch = useDispatch();
     const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer);
 
+    const safeCompare = (unit: PatternUnitModel, reference: STIM_TYPES = currentStimType)=>{
+        
+        if(unit == null){
+        
+            console.log(`Erroneous state of ${unit} detected on index: ${index}, on the PatternUnitView of StimPatternModel`)
+            persistedStore.purge()
+            return false;
+        }
 
-    const isSilence = (unit:PatternUnitModel)=> unit.type == STIM_TYPES.Silence
+        else {
+            return unit.type == reference;
+        }
+        
+    }
+
+    const isSilence = (unit:PatternUnitModel)=> {
+        return safeCompare(unit, STIM_TYPES.Silence);
+    }
+        
+
     const chooseToToggle = ()=>{
         if(currentStimType == STIM_TYPES.None) return;
 
         dispatch(toggleStim({index, stimType: currentStimType}));
         switch(currentStimType){
             case STIM_TYPES.Feedback: {
-                if(unit.type == STIM_TYPES.Feedback)    dispatch(removeFeedback(index));
+                if(safeCompare(unit, STIM_TYPES.Feedback))    dispatch(removeFeedback(index));
                 else                                    dispatch(addFeedback(index));
                 break;
             }
 
             case STIM_TYPES.SoundFX: {
-                if(unit.type == STIM_TYPES.SoundFX)    dispatch(removeSoundEffect(index));
+                if(safeCompare(unit, STIM_TYPES.SoundFX))    dispatch(removeSoundEffect(index));
                 else                                    dispatch(addSoundEffect(index));
                 break;
             } 
         }    
     }
 
-    return (
+    return unit &&
         <FontAwesomeIcon 
             style={{width:'5vw'}} 
             color={isSilence(unit) ? 'black' : '#303030' } 
             icon={typeToIconMap[unit.type]} 
             onClick={chooseToToggle}
-        />)
+        />
+
+        
 }
 
 export default StimPatternView

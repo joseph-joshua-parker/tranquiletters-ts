@@ -117,7 +117,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const createApp = () => root.render(
+root.render(
   <React.StrictMode>
     
     <Provider store={store}>
@@ -128,11 +128,8 @@ const createApp = () => root.render(
   </React.StrictMode>
 );
 
-try{createApp();}
-catch(e: any){ 
-  persistedStore.purge().then(createApp);
 
-}
+
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

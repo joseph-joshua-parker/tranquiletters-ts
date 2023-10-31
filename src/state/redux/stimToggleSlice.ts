@@ -76,7 +76,7 @@ const stimToggleSlice = createSlice({
     },
 
     extraReducers: 
-        (builder)=> { builder.addCase(PURGE, state=>state = DefaultStimsToggled)}
+        (builder)=> { builder.addCase(PURGE, state=> DefaultStimsToggled)}
     
 })
 

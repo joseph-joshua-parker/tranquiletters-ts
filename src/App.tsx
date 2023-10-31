@@ -1,6 +1,6 @@
 //React & Redux API
 import { useState } from 'react';
-import { RootState } from './state/redux/store';
+import { RootState, persistedStore } from './state/redux/store';
 import { useSelector } from 'react-redux';
 
 //CSS
@@ -89,6 +89,8 @@ function App() {
   return (
       <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion}}>
         <div>
+        
+
             <h1 className="label center-content">A Day Waker's Widgets</h1>
             <h2 className="label center-content">Anchoring, stimming, sleeping & meditation toolkit for automatic daydreamers, persons with sensory issues and overthinkers</h2>
             <br/>

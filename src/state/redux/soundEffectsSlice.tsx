@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PURGE } from "redux-persist";
 
 interface SoundEffectsState {
     assetNames: string[],
@@ -27,7 +28,10 @@ const soundEffectsSlice = createSlice({
         removeSoundEffect(state, action: PayloadAction<number>){
             state.soundEffectAt = state.soundEffectAt.filter(index => index != action.payload)
         }
-    }
+    },
+
+    extraReducers: 
+    (builder)=> { builder.addCase(PURGE, state=> initialState)}
 
 });
 
