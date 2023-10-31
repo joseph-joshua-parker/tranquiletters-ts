@@ -130,8 +130,8 @@ const createApp = () => root.render(
 
 try{createApp();}
 catch(e: any){ 
-  persistedStore.purge()
-  createApp();
+  persistedStore.purge().then(createApp);
+
 }
 
 // If you want your app to work offline and load faster, you can change
