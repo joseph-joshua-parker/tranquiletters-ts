@@ -4,8 +4,7 @@ import { useState, useRef} from "react";
 import usePayloads from "./shared/utilities/usePayloads";
 import useFeedback from "./shared/utilities/useFeedback";
 import { useDispatch, useSelector } from "react-redux";
-import { crementNumParameter } from "./state/redux/tokenNumParameterSlice";
-import usePatternModelSelector from "./state/usePatternModelSelector";
+import { crementSBT, crementTPC } from "./state/redux/tokenNumParameterSlice";
 import {useInterval} from 'usehooks-ts';
 import { addFeedback } from "./state/redux/feedbackParameterSlice";
 import { RootState } from "./state/redux/store";
@@ -29,7 +28,7 @@ export enum PLAYBACK_STATE {
     const dispatch = useDispatch();
 
     const {
-      TPC, SBC, SessionTime, tokens, 
+     tokensPerCluster, silenceBetweenTokens, sessionMinutes, tokens, 
       feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, isGeneratingFeedback, isReducingClusters, acknowledgementsAccepted,
       patternModel
     } = usePayloads();
@@ -40,14 +39,14 @@ export enum PLAYBACK_STATE {
       strikeCount, hitCount
     } = useFeedback({ 
       feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, strikeThreshold:3,
-      isVocal, isAdaptive, isReducingClusters, TPC,
+      isVocal, isAdaptive, isReducingClusters, tokensPerCluster,
       notifyUser, spreadClusters, cancel
     });
 
-    const {soundEffectAt} = useSelector((state:RootState)=>state.persistedRootReducer.soundEffectsReducer);
+    const {soundEffectsAt} = useSelector((state:RootState)=>state.persistedRootReducer.soundEffectsReducer);
     const [playSoundEffect] = useSound(currentSound); 
 
-    const sessionTime = SessionTime*60*1000;
+    const sessionTime = sessionMinutes*60*1000;
 
     const selectToken = ()=>{
         const max = tokens.length-1;
@@ -63,11 +62,10 @@ export enum PLAYBACK_STATE {
     
 
     function spreadClusters(){
-      dispatch(crementNumParameter({name:'Silence/Clusters', val:SBC}))
+      //dispatch(crement({name:'Silence/Clusters', val:SBC}))
       if(isGeneratingFeedback) dispatch(addFeedback(patternModel.length-1))
     }
 
-    usePatternModelSelector(hitCount.current)
 
   
     useInterval(()=>{

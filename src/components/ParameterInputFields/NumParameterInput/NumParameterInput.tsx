@@ -2,7 +2,7 @@
 import { useContext } from "react";
 import { useDispatch, } from "react-redux"
 import { AppDispatch } from "../../../state/redux/store"
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
+import { ActionCreatorWithPayload, isActionCreator } from "@reduxjs/toolkit";
 
 //Models & enums
 import { NumActionPayload } from "../../../shared/models/actionsPayload";
@@ -21,25 +21,26 @@ interface NumParameterProps {
     name: string,
     val: number,
     link?: TUTORIAL_KEYS,
-    propDelta?: ActionCreatorWithPayload<NumActionPayload>,
-    propModify?: ActionCreatorWithPayload<NumActionPayload>
+    delta: ActionCreatorWithPayload<number>  | ((index:number)=> void),
+    modify: ActionCreatorWithPayload<number>
 }
 
 
 
-const NumParameterInput = ({name, val, link, propDelta, propModify}: NumParameterProps)=>{
+const NumParameterInput = ({name, val, link, delta, modify}: NumParameterProps)=>{
     const dispatch = useDispatch<AppDispatch>();
-    const {delta, modify} = useContext(NumParamChangeHandlerContext); 
 
-    const trueDelta = delta ?? propDelta;
-    const trueModify = modify ?? propModify;
 
-    const handleDelta = (val: number)=> dispatch(trueDelta({name, val}));
-    const handleModify = ((e:React.ChangeEvent<HTMLInputElement>)=> dispatch(trueModify({name, val:parseInt(e.target.value)})));
+    const handleDelta = (val: number)=>{ 
+        if(isActionCreator(delta)) dispatch(delta(val))
+        else delta(val);
+    
+    }
+    const handleModify = ((e:React.ChangeEvent<HTMLInputElement>)=> dispatch(modify(parseInt(e.target.value))));
 
     const deltaFactor = val >=4 ? Math.trunc(val/2) : 2;
     const displayMinusFactorDelta = val > 2;
-    const displayMinusDelta = val > 1;
+    const displayMinusDelta = val > 1;  
 
     return (
 

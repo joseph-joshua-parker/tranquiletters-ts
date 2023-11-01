@@ -7,6 +7,7 @@ import { PURGE } from "redux-persist";
 export interface StimToggleState {
     patternModel: PatternUnitModel[],
     currentStimType: STIM_TYPES,
+    sessionMinutes: number
 }
 
 interface SetStimPayload {
@@ -16,8 +17,9 @@ interface SetStimPayload {
 
 
 const DefaultStimsToggled = {
-    patternModel: new Array<PatternUnitModel>(),
+    patternModel: new Array<PatternUnitModel>(30),
     currentStimType: STIM_TYPES.None,
+    sessionMinutes: 10
 
 }
 
@@ -44,9 +46,21 @@ const stimToggleSlice = createSlice({
             state.patternModel[index] = new PatternUnitModel(type);
         },
 
-        initializeModel(state, action: PayloadAction<number>){
-            const length = action.payload;
-            state.patternModel.length = length;
+
+        crementModelLength(state, action: PayloadAction<number>){
+            state.patternModel.length += action.payload;
+        },
+
+        modifyModelLength(state, action: PayloadAction<number>){
+            state.patternModel.length = action.payload;
+        },
+
+        crementSessionMinutes(state, action: PayloadAction<number>){
+            state.sessionMinutes += action.payload;
+        },
+
+        modifySessionMinutes(state, action: PayloadAction<number>){
+            state.sessionMinutes = action.payload;
         },
 
         handleTranslate(state, action: PayloadAction<number>){
@@ -71,7 +85,7 @@ const stimToggleSlice = createSlice({
 
 
         capOff(state){
-            state.patternModel.push(End)
+           // state.patternModel.push(End)
         }
     },
 
@@ -80,5 +94,5 @@ const stimToggleSlice = createSlice({
     
 })
 
-export const {switchStimToToggle, toggleStim, initializeModel, setStim, handleTranslate, capOff} = stimToggleSlice.actions;
+export const {switchStimToToggle, toggleStim, setStim, handleTranslate, crementModelLength, modifyModelLength, crementSessionMinutes, modifySessionMinutes,  capOff} = stimToggleSlice.actions;
 export default stimToggleSlice.reducer;

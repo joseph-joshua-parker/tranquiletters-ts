@@ -1,6 +1,6 @@
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 
-import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
+import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, modifyFeedbackTime, modifyHitUpgradeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../ParameterInputFields/StringParamInput/StringParameterInput";
@@ -28,7 +28,7 @@ const FeedBackParameters = ()=>{
 
     return (
             <div>
-                <NumParameterInput link={TUTORIAL_KEYS.FeedbackGeneral} name= "Time to Acknowledge (Seconds)" val={feedbackTime} propDelta={crementFeedbackTime}/>
+                <NumParameterInput link={TUTORIAL_KEYS.FeedbackGeneral} name= "Time to Acknowledge (Seconds)" val={feedbackTime} modify={modifyFeedbackTime} delta={crementFeedbackTime}/>
                 
                 <div style={{display:'flex', justifyContent:'center', margin:'1rem'}}>
                     <button onClick={answerQuestion} className="button is-large">Acknowledge</button>
@@ -61,7 +61,8 @@ const FeedBackParameters = ()=>{
 
                 {isAdaptive &&
                     <NumParameterInput 
-                        propDelta={crementHitUpgradeThreshold} 
+                        delta={crementHitUpgradeThreshold} 
+                        modify={modifyHitUpgradeThreshold}
                         val={hitUpgradeThreshold} 
                         name="Successes needed to trigger Adaptation"
                     />

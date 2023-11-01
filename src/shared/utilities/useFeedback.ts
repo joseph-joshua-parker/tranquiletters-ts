@@ -3,7 +3,7 @@ import useSound from 'use-sound';
 import useCommandRecognition from '../../audio/recognition/useCommandRecognition';
 import SpeechRecognition from 'react-speech-recognition';
 import { useDispatch } from 'react-redux';
-import { crementNumParameter } from '../../state/redux/tokenNumParameterSlice';
+import { crementSBT, crementTPC } from '../../state/redux/tokenNumParameterSlice';
 
 const question = require('../../assets/soundFX/question.wav');
 const smallHit = require('../../assets/soundFX/small_hit.wav');
@@ -11,7 +11,7 @@ const largeHit = require('../../assets/soundFX/large_hit.wav');
 const strike = require('../../assets/soundFX/small_strike.wav');
 
 interface FeedbackParameters {
-    TPC:number,
+  tokensPerCluster:number,
     feedbackTime: number, 
     acknowledgementsAccepted: string[], 
     hitUpgradeThreshold: number,
@@ -25,7 +25,7 @@ interface FeedbackParameters {
 }
 
 const useFeedback = ({
-    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, strikeThreshold, isVocal, isAdaptive, isReducingClusters, TPC,
+    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, strikeThreshold, isVocal, isAdaptive, isReducingClusters, tokensPerCluster,
     notifyUser, spreadClusters, cancel
 }:FeedbackParameters)=>{
     const dispatch = useDispatch();
@@ -59,7 +59,7 @@ const useFeedback = ({
           if(isReducingClusters)
             spreadClusters();
           
-          else if(TPC > 1) dispatch(crementNumParameter({name:'Tokens/Cluster', val:-Math.trunc(TPC/2)}))
+          else if(tokensPerCluster > 1) dispatch(crementTPC(-Math.trunc(tokensPerCluster/2)))
           //else spreadClusters();     
             
           reset();

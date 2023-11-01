@@ -9,7 +9,6 @@ import 'bulma-switch/dist/css/bulma-switch.min.css';
 import './styles.css';
 
 //hooks
-import usePatternModelSelector from './state/usePatternModelSelector';
 import useLoop, { PLAYBACK_STATE } from './useLoop';
 
 //models & enums
@@ -49,14 +48,12 @@ function App() {
 
   //Hooks
   const {start, cancel, pause, resume, rerender, playbackState, answerQuestion} = useLoop(setCursorIndex)
-  usePatternModelSelector(playbackState);
 
-
+  const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.SoundFX, STIM_TYPES.None]
+  const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
 
   //Components
   const StimParams = (()=> {
-
-    
 
     switch(currentStimType){
       case STIM_TYPES.Token: return TokenParameters
@@ -89,8 +86,6 @@ function App() {
   return (
       <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion}}>
         <div>
-        
-
             <h1 className="label center-content">A Day Waker's Widgets</h1>
             <h2 className="label center-content">Anchoring, stimming, sleeping & meditation toolkit for automatic daydreamers, persons with sensory issues and overthinkers</h2>
             <br/>
@@ -99,9 +94,11 @@ function App() {
               <SideBar/>
             </div>
             <div className="column is-6">
+              {isFeatureImplemented && 
               <WithPanel>
                 <StimParams/>
               </WithPanel>
+              }
             </div>
           </div>
 

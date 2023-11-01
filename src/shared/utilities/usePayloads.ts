@@ -7,18 +7,17 @@ const usePayloads = ()=>{
         feedbackParameterReducer : {questionSound, feedbackTime, isVocal, hitUpgradeThreshold, isAdaptive, isGeneratingFeedback, isReducingClusters, acknowledgementsAccepted},
         tokenSetParameterReducer : {['Tokens']: tokens},
         tokenNumParameterReducer:  {
-            ['Tokens/Cluster']: TPC,
-            ['Silence/Clusters']: SBC,
-            ['SessionTime']: SessionTime
+            tokensPerCluster,
+            silenceBetweenTokens,
           },
-        stimToggleSliceReducer: {patternModel}
+        stimToggleSliceReducer: {patternModel, sessionMinutes}
     } = useSelector((state: RootState)=>state.persistedRootReducer)
     
 
     return {
-        TPC,
-        SBC,
-        SessionTime,
+        tokensPerCluster,
+        silenceBetweenTokens,
+        sessionMinutes,
         tokens, 
         
         questionSound, 

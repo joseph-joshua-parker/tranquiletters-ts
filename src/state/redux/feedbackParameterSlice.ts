@@ -56,12 +56,25 @@ const feedbackParameterSlice = createSlice({
             state.feedbackAt = state.feedbackAt.filter(i=> i != index);
         },
 
-        crementFeedbackTime(state, action: PayloadAction<NumActionPayload>){
-            state.feedbackTime += action.payload.val;
+        clearAllFeedback(state){
+            state.feedbackAt = [] as number[]
         },
 
-        crementHitUpgradeThreshold(state, action: PayloadAction<NumActionPayload>){
-            state.hitUpgradeThreshold += action.payload.val;
+        crementFeedbackTime(state, action: PayloadAction<number>){
+            state.feedbackTime += action.payload;
+        },
+
+        
+        modifyFeedbackTime(state, action: PayloadAction<number>){
+            state.feedbackTime = action.payload;
+        },
+
+        crementHitUpgradeThreshold(state, action: PayloadAction<number>){
+            state.hitUpgradeThreshold += action.payload;
+        },
+
+        modifyHitUpgradeThreshold(state, action: PayloadAction<number>){
+            state.hitUpgradeThreshold = action.payload;
         },
 
         addAcceptedAcknowledgement(state, action: PayloadAction<string>){
@@ -84,14 +97,18 @@ const feedbackParameterSlice = createSlice({
     },
 
     extraReducers: 
-    (builder)=> { builder.addCase(PURGE, state=> DefaultFeedbackParameters)}
+    (builder)=> { builder.addCase(PURGE, ()=> DefaultFeedbackParameters)}
 })
 
 export const {
     addFeedback, 
     removeFeedback, 
-    crementFeedbackTime, 
+    clearAllFeedback,
+    
+    crementFeedbackTime,
+    modifyFeedbackTime, 
     crementHitUpgradeThreshold,
+    modifyHitUpgradeThreshold,
     addAcceptedAcknowledgement,
     removeAcceptedAcknowledgement, 
     modifyAcceptedAcknowledgements,

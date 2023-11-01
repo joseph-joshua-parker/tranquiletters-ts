@@ -1,36 +1,62 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NumActionPayload } from "../../shared/models/actionsPayload";
 import { TOKEN_NUM_PARAMS } from "../../shared/models/parameters";
+import { PURGE } from "redux-persist";
 
 
 
-const initialState = {
-        'Tokens/Cluster': 10,
-        'Silence/Tokens': 2,
-        'Silence/Clusters': 10,
-        'SessionTime': 10
-  
+interface TokenState {
+    tokensPerCluster: number,
+    silenceBetweenTokens: 2,
+    tokensAt: number[]
+}
+
+const initialState: TokenState = {
+        tokensPerCluster: 10,
+        silenceBetweenTokens: 2,
+
+        tokensAt: [] as number[]
 };
+
+
 
 const tokenNumParameterSlice = createSlice({
     name: 'tokenParameters',
     initialState,
     reducers: {
-        modifyNumParameters(state, action: PayloadAction<NumActionPayload>){
-            const {name, val} = action.payload as NumActionPayload;
-            if(action.payload.val <= 0) return;
-            state[name as TOKEN_NUM_PARAMS]  = val;
+        modifyTPC(state: TokenState, action: PayloadAction<number>){
+            state.tokensPerCluster = action.payload;
         },
 
-        crementNumParameter(state, action:PayloadAction<NumActionPayload>){
-            const {name, val} = action.payload as NumActionPayload;
-            state[name as TOKEN_NUM_PARAMS]  = state[name as TOKEN_NUM_PARAMS]+ val;
+        modifySBT(state: TokenState, action: PayloadAction<number>){
+            state.tokensPerCluster = action.payload;
         },
 
 
-        
-    }
+        crementTPC(state: TokenState, action:PayloadAction<number>){
+            state.tokensPerCluster  += action.payload;;
+        },
+
+        crementSBT(state: TokenState, action:PayloadAction<number>){
+            state.silenceBetweenTokens  += action.payload;;
+        },
+
+        addToken(state: TokenState, action: PayloadAction<number>){
+            state.tokensAt.push(action.payload);
+        },
+
+        removeToken(state: TokenState, action: PayloadAction<number>){
+            state.tokensAt = state.tokensAt.filter(index=> index != action.payload);
+        },
+
+        clearAllTokens(state: TokenState){
+            state.tokensAt = [] as number[];
+        }
+    }, 
+
+    extraReducers: 
+    (builder)=> { builder.addCase(PURGE, ()=> initialState)}
 })
 
-export const {modifyNumParameters, crementNumParameter} = tokenNumParameterSlice.actions;
+export const {modifySBT, modifyTPC, crementSBT, crementTPC, addToken, removeToken, clearAllTokens} = tokenNumParameterSlice.actions;
 export default tokenNumParameterSlice.reducer;
