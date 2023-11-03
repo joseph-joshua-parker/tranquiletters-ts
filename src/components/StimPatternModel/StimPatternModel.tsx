@@ -16,7 +16,7 @@ import TutorialLink from "../TutorialLink";
 import { TUTORIAL_KEYS } from "../../shared/tutorialData";
 import { clearAllFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice";
 import { clearAllSoundEffects, removeSoundEffect } from "../../state/redux/soundEffectsSlice";
-import { clearAllTokens, removeToken } from "../../state/redux/tokenNumParameterSlice";
+import { addToken, clearAllTokens, removeToken } from "../../state/redux/tokenNumParameterSlice";
 import { crementModelLength, modifyModelLength, setStim } from "../../state/redux/stimToggleSlice";
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 import useCompositeActions from "../../state/redux/compositeActions";
@@ -27,21 +27,28 @@ import { useEffect } from "react";
 
 interface StimPatternModelProps {
     cursorIndex:number,
-    rerender:()=>void
 }
 
-const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex, rerender})=>{
+const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex})=>{
 
     const dispatch = useDispatch();
     const {silenceAll} = useCompositeActions();
 
-    const {currentStimType, patternModel} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
-    const {feedbackParameterReducer, soundEffectsReducer, tokenNumParameterReducer} = useSelector((state:RootState)=>state.persistedRootReducer)
+    const {patternModel} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
+    const {
+        feedbackParameterReducer, 
+        soundEffectsReducer, 
+        tokenNumParameterReducer, 
+        stimToggleSliceReducer,
+        tokenSetParameterReducer
+    } = useSelector((state:RootState)=>state.persistedRootReducer)
 
     const {feedbackAt} = feedbackParameterReducer;
     const {tokensAt} = tokenNumParameterReducer;
     const {soundEffectsAt} = soundEffectsReducer;
 
+    const {currentlySelectedSet, tokenSets} = tokenSetParameterReducer;
+    
 
 
 
@@ -88,8 +95,6 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex, rerende
             : <StimPatternView index={index} unit={Cursor}/>
         } 
     )
-
-
 
     return (
         <div>

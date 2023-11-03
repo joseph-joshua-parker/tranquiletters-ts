@@ -133,6 +133,9 @@ dependencies:
     version: 6.6.1
 
 devDependencies:
+  '@creativebulma/bulma-collapsible':
+    specifier: ^1.0.4
+    version: 1.0.4
   '@types/react-speech-recognition':
     specifier: ^3.9.3
     version: 3.9.3
@@ -1479,6 +1482,12 @@ packages:
 
   /@bcoe/v8-coverage@0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+
+  /@creativebulma/bulma-collapsible@1.0.4:
+    resolution: {integrity: sha512-aNqSwyuJxshoIc4oD3wJ3eRqOANRweYfpzqmef/fj5tf0Yn7UVx99yh8ovY6vhB8Il31bFcc7f/eRfJvEMNUPw==}
+    dependencies:
+      bulma: 0.9.4
+    dev: true
 
   /@csstools/normalize.css@12.0.0:
     resolution: {integrity: sha512-M0qqxAcwCsIVfpFQSlGN5XjXWu8l5JDZN+fPt1LeW5SZexQTgnaEvgXAY+CeygRw0EeppWHi12JxESWiWrB0Sg==}
@@ -3476,7 +3485,6 @@ packages:
 
   /bulma@0.9.4:
     resolution: {integrity: sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ==}
-    dev: false
 
   /bytes@3.0.0:
     resolution: {integrity: sha512-pMhOfFDPiv9t5jjIXkHosWmkSyQbvsgEVNkz0ERHbuLh2T/7j4Mqqpz523Fe8MVY89KC6Sh/QfS2sM+SjgFDcw==}

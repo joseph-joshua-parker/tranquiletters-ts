@@ -11,7 +11,7 @@ interface StringParameterProps {
     val: string,
     link?: TUTORIAL_KEYS,
     isMultiline: boolean
-    action: ActionCreatorWithPayload<string>
+    action: ActionCreatorWithPayload<any>
 }
 
 

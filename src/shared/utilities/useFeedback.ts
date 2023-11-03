@@ -11,22 +11,19 @@ const largeHit = require('../../assets/soundFX/large_hit.wav');
 const strike = require('../../assets/soundFX/small_strike.wav');
 
 interface FeedbackParameters {
-  tokensPerCluster:number,
     feedbackTime: number, 
     acknowledgementsAccepted: string[], 
     hitUpgradeThreshold: number,
     strikeThreshold: number,
     isVocal: boolean,
     isAdaptive: boolean,
-    isReducingClusters: boolean,
     notifyUser: (message:string)=>void,
-    spreadClusters: ()=>void,
     cancel: ()=>void
 }
 
 const useFeedback = ({
-    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, strikeThreshold, isVocal, isAdaptive, isReducingClusters, tokensPerCluster,
-    notifyUser, spreadClusters, cancel
+    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, strikeThreshold, isVocal, isAdaptive,
+    notifyUser, cancel
 }:FeedbackParameters)=>{
     const dispatch = useDispatch();
     
@@ -55,12 +52,6 @@ const useFeedback = ({
             playSmallHit();
             playLargeHit();
             notifyUser('Good focus detected, reducing stimulation');
-
-          if(isReducingClusters)
-            spreadClusters();
-          
-          else if(tokensPerCluster > 1) dispatch(crementTPC(-Math.trunc(tokensPerCluster/2)))
-          //else spreadClusters();     
             
           reset();
         }

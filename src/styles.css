@@ -23,7 +23,7 @@ fieldset{
     border-color: dimgray !important;
 }
 
-html, input, textarea, button, div{
+html, input, textarea, button, div, span{
     background-color: black !important;
     color:gray !important;
     border-color: dimgray !important;

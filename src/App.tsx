@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import 'bulma/css/bulma.min.css';
 import 'bulma-switch/dist/css/bulma-switch.min.css';
 import './styles.css';
+import 'bulma-accordion/dist/css/bulma-accordion.min.css'
 
 //hooks
 import useLoop, { PLAYBACK_STATE } from './useLoop';
@@ -27,6 +28,7 @@ import {
 
   WithPanel
 } from './components/ParameterPanels/index';
+
 
 import Welcome from './Welcome';
 
@@ -105,7 +107,7 @@ function App() {
           
           <div>
 
-            <StimPatternModel rerender={rerender} cursorIndex={cursorIndex}/>
+            <StimPatternModel cursorIndex={cursorIndex}/>
 
             {startCancel}
             {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}

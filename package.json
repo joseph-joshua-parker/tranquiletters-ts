@@ -75,6 +75,7 @@
     }
   },
   "devDependencies": {
+    "@creativebulma/bulma-collapsible": "^1.0.4",
     "@types/react-speech-recognition": "^3.9.3",
     "eslint-config-react-app": "^7.0.1"
   }

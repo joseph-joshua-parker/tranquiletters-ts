@@ -5,6 +5,20 @@ export class PatternUnitModel {
     constructor(public type: STIM_TYPES){}
 }
 
+export enum ORDER {
+    Forward = 'forward',
+    Backward = 'backward',
+    Random = 'random'
+}
+
+export class TokenUnitModel extends PatternUnitModel {
+
+
+    constructor(public type: STIM_TYPES, public order:ORDER){
+        super(type);
+    }
+}
+
 export const Silence = new PatternUnitModel(STIM_TYPES.Silence);
 export const End = new PatternUnitModel(STIM_TYPES.End);
 export const Cursor = new PatternUnitModel(STIM_TYPES.Cursor);

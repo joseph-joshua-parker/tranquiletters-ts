@@ -4,11 +4,11 @@ import { useState, useRef} from "react";
 import usePayloads from "./shared/utilities/usePayloads";
 import useFeedback from "./shared/utilities/useFeedback";
 import { useDispatch, useSelector } from "react-redux";
-import { crementSBT, crementTPC } from "./state/redux/tokenNumParameterSlice";
 import {useInterval} from 'usehooks-ts';
 import { addFeedback } from "./state/redux/feedbackParameterSlice";
 import { RootState } from "./state/redux/store";
 import useSound from 'use-sound';
+import { Root } from 'react-dom/client';
 
 const currentSound = require('./assets/soundFX/effect_1.wav');
 
@@ -28,19 +28,20 @@ export enum PLAYBACK_STATE {
     const dispatch = useDispatch();
 
     const {
-     tokensPerCluster, silenceBetweenTokens, sessionMinutes, tokens, 
-      feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, isGeneratingFeedback, isReducingClusters, acknowledgementsAccepted,
+      sessionMinutes, tokenSets, currentlySelectedSet, 
+      feedbackTime, hitUpgradeThreshold, isAdaptive, isVocal, isGeneratingFeedback, acknowledgementsAccepted,
       patternModel
     } = usePayloads();
 
+    const tokens = tokenSets.find(set=> set.setName == currentlySelectedSet)?.tokens;
 
     const {
       answerQuestion, askQuestion, reset, 
       strikeCount, hitCount
     } = useFeedback({ 
       feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, strikeThreshold:3,
-      isVocal, isAdaptive, isReducingClusters, tokensPerCluster,
-      notifyUser, spreadClusters, cancel
+      isVocal, isAdaptive,
+      notifyUser, cancel
     });
 
     const {soundEffectsAt} = useSelector((state:RootState)=>state.persistedRootReducer.soundEffectsReducer);
@@ -49,8 +50,12 @@ export enum PLAYBACK_STATE {
     const sessionTime = sessionMinutes*60*1000;
 
     const selectToken = ()=>{
-        const max = tokens.length-1;
+      if(tokens){
+        let max = tokens.length-1;
         return tokens[Math.floor(Math.random()*max)];
+      }
+
+      else return 'token not found'
     }
 
   const timeElapsed = useRef(0)
@@ -59,13 +64,7 @@ export enum PLAYBACK_STATE {
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
 
-    
-
-    function spreadClusters(){
-      //dispatch(crement({name:'Silence/Clusters', val:SBC}))
-      if(isGeneratingFeedback) dispatch(addFeedback(patternModel.length-1))
-    }
-
+  
 
   
     useInterval(()=>{
