@@ -113,11 +113,15 @@ export enum PLAYBACK_STATE {
       setPlaybackState(PLAYBACK_STATE.Paused);
   }
 
-  function notifyUser(message: string){
+  function notifyUser(message: string, isContinuing: boolean){
+    const afterNotify = isContinuing ? resume : cancel;
+    
     pause();
     speak(message);
-    setTimeout(resume, 5000)
+    setTimeout(afterNotify, 5000)
   }
+
+
 
   const rerender = ()=>{
     pause();

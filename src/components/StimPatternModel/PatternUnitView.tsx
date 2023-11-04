@@ -15,6 +15,7 @@ import { addFeedback, removeFeedback } from "../../state/redux/feedbackParameter
 import { RootState } from "../../state/redux/store"
 import { addSoundEffect, removeSoundEffect } from "../../state/redux/soundEffectsSlice"
 import { persistedStore } from "../../state/redux/store"
+import { addToken, removeToken } from "../../state/redux/tokenNumParameterSlice"
 
 interface StimPatternViewProps {
     unit: PatternUnitModel,
@@ -60,6 +61,11 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
             case STIM_TYPES.SoundFX: {
                 if(safeCompare(unit, STIM_TYPES.SoundFX))    dispatch(removeSoundEffect(index));
                 else                                    dispatch(addSoundEffect(index));
+                break;
+            } 
+            case STIM_TYPES.Token: {
+                if(safeCompare(unit, STIM_TYPES.Token))    dispatch(removeToken(index));
+                else                                    dispatch(addToken(index));
                 break;
             } 
         }    

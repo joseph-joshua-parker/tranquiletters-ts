@@ -43,6 +43,7 @@ const tokenNumParameterSlice = createSlice({
 
         addToken(state: TokenState, action: PayloadAction<number>){
             state.tokensAt.push(action.payload);
+            state.tokensAt.sort();
         },
 
         removeToken(state: TokenState, action: PayloadAction<number>){
