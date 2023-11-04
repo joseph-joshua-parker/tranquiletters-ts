@@ -12,6 +12,8 @@ export enum ON_STRIKEOUT {
 
 export interface FeedbackParameterState {
     acknowledgementsAccepted: string[],
+    increasesAccepted: string[],
+    decreasesAccepted: string[],
     questionSound:string,
     hitSound: string,
     strikeSound:string,
@@ -28,6 +30,8 @@ export interface FeedbackParameterState {
 
 export const DefaultFeedbackParameters = {
     acknowledgementsAccepted: ['yes', 'good', 'okay', 'right', 'got it'],
+    increasesAccepted: ['increase', 'more'],
+    decreasesAccepted: ['decrease', 'less'],
     questionSound: 'question.wav',
     hitSound: 'small_hit.wav',
     strikeSound: 'small_strike.wav',
@@ -90,6 +94,35 @@ const feedbackParameterSlice = createSlice({
             state.acknowledgementsAccepted = state.acknowledgementsAccepted.filter(ack => ack != action.payload);
         },
 
+
+        addAcceptedIncreases(state, action: PayloadAction<string>){
+            state.increasesAccepted.push(action.payload);
+        },
+
+        modifyAcceptedIncreases(state, action: PayloadAction<string>){
+            const increases = action.payload.split(',');
+            state.increasesAccepted = increases;
+        },
+
+        removeAcceptedIncreases(state, action: PayloadAction<string>){
+            state.increasesAccepted = state.increasesAccepted.filter(ack => ack != action.payload);
+        },
+
+
+        addAcceptedDecreases(state, action: PayloadAction<string>){
+            state.decreasesAccepted.push(action.payload);
+        },
+
+        modifyAcceptedDecreases(state, action: PayloadAction<string>){
+            const decreases = action.payload.split(',');
+            state.decreasesAccepted = decreases;
+        },
+
+        removeAcceptedDecreases(state, action: PayloadAction<string>){
+            state.decreasesAccepted = state.decreasesAccepted.filter(ack => ack != action.payload);
+        },
+
+
         toggleAdaptation(state){state.isAdaptive = !state.isAdaptive},
         toggleVocal(state){state.isVocal = !state.isVocal;},
         toggleClusterReduction(state){state.isReducingClusters = !state.isReducingClusters;},
@@ -109,9 +142,20 @@ export const {
     modifyFeedbackTime, 
     crementHitUpgradeThreshold,
     modifyHitUpgradeThreshold,
+
     addAcceptedAcknowledgement,
     removeAcceptedAcknowledgement, 
     modifyAcceptedAcknowledgements,
+
+    addAcceptedIncreases,
+    modifyAcceptedIncreases,
+    removeAcceptedIncreases,
+
+    addAcceptedDecreases,
+    modifyAcceptedDecreases,
+    removeAcceptedDecreases,
+
+
     toggleAdaptation,
     toggleVocal,
     toggleClusterReduction,
