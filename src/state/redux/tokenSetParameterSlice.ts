@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 
-interface TokenSet {
+export interface TokenSet {
     setName: string,
     tokens: string[]
 }
@@ -33,9 +33,9 @@ const tokenSetParameterSlice = createSlice({
     initialState: defaultTokens,
     reducers: {
         selectSet(state, action: PayloadAction<string>){
+            state.currentlySelectedSet = action.payload;
             const tokenSet = state.tokenSets.find(set=> set.setName == state.currentlySelectedSet);
             if(!tokenSet) {console.log('token set not found for selecting set'); return;}
-            state.currentlySelectedSet = action.payload;
         },
 
         setTokens(state, action: PayloadAction<TokensPayload>){
@@ -57,9 +57,21 @@ const tokenSetParameterSlice = createSlice({
             const setName = action.payload;
             state.tokenSets = state.tokenSets.filter(set=>set.setName != setName);
             if(state.currentlySelectedSet == setName)   state.currentlySelectedSet = '';
+        },
+
+        editSetName(state, action: PayloadAction<{prev:string, next:string}>){
+            const {prev, next} = action.payload;
+            if(prev == next) return;
+            const {tokenSets} = state;
+            const tokens = tokenSets.find(set=>set.setName == prev)?.tokens;
+            state.tokenSets = tokenSets.filter(set=>set.setName != prev);
+            if(tokens) state.tokenSets.push({setName: next, tokens});
+            else  console.log('tokens lost');
+            state.currentlySelectedSet = next;
+
         }
     }
 })
 
-export const {selectSet, setTokens, addNewSet, removeSet} = tokenSetParameterSlice.actions;
+export const {selectSet, setTokens, addNewSet, removeSet, editSetName} = tokenSetParameterSlice.actions;
 export default tokenSetParameterSlice.reducer;

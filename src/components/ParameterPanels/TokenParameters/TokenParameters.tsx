@@ -5,12 +5,12 @@ import {  RootState } from "../../../state/redux/store";
 //Redux & Context
 import { setTokens, selectSet, addNewSet, removeSet } from "../../../state/redux/tokenSetParameterSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 
 //Views & Components
-
+import TokenSetView from "./TokenSetView";
 
 const TokenParameters = ()=>{
     const {
@@ -37,28 +37,25 @@ const TokenParameters = ()=>{
         setPendingSetTokens('');
     }
 
-    const tokens = tokenSets.find(set=>set.setName == currentlySelectedSet)?.tokens;
+    const tokensSet = tokenSets.find(set=>set.setName == currentlySelectedSet) 
+    const tokens = tokensSet
+                        ? tokensSet.tokens
+                        : [];
 
 
     const tokenSetLabels = tokenSets.map(({setName})=>{
         return <span onClick={()=>dispatch(selectSet(setName))} className='tag is-small'>{setName}</span>
     })
     
-    const chosenTokenSet = 
 
-            <div style={{justifyContent:'center'}} className=" card center-content vertical">
-                    <div className=" center-content ">
-                        <label className="card-header-title label is-medium" htmlFor={currentlySelectedSet}>{currentlySelectedSet}</label>
-                        <div className="card-content">
-                        <input  style={{width:'10rem'}} className=" is-small input " 
-                                value={tokens!.join(' ')} id={currentlySelectedSet} onChange={(e)=>dispatch(setTokens({setName:currentlySelectedSet, tokens:e.target.value.split(' ')}))} type="text"  name={currentlySelectedSet}/>         
-                        </div>
-                    </div>
-                </div>
 
-    const triggerNewSetInput = <label className="label is-medium" onClick={toggleAddingSet}>
-        New Set <FontAwesomeIcon icon={faPlus}></FontAwesomeIcon>
-    </label>
+
+    const triggerNewSetInput = <span className=" is-small " onClick={toggleAddingSet}>
+       {!isAddingSet 
+       ? <FontAwesomeIcon  style={{color:'dimgray'}}  icon={faPlus}></FontAwesomeIcon>
+       : <FontAwesomeIcon  style={{color:'dimgray'}} icon={faMinus}></FontAwesomeIcon>
+}
+    </span>
 
     const newSetInput = <div>
         <label className="label is-medium" htmlFor={'Pending Set Name'}>Name</label>
@@ -78,14 +75,11 @@ const TokenParameters = ()=>{
 
     
     return (
-        <div>
-        {tokenSetLabels}
-        {chosenTokenSet}
-        {isAddingSet  
-            ? newSetInput
-            : triggerNewSetInput
-        }
-        </div>
+        <>
+        {tokenSetLabels} {triggerNewSetInput}
+        {currentlySelectedSet && <TokenSetView setName={currentlySelectedSet} tokens={tokens} />}
+        {isAddingSet  && newSetInput}
+        </>
 
 
                 

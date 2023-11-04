@@ -1,7 +1,14 @@
 .center-content {
     display:flex;
     justify-content: center;
+    align-content: center;
     box-sizing: border-box;
+}
+
+.center {
+    display:flex;
+    justify-content: center;
+    align-content: center;
 }
 
 .horizontal {
@@ -25,7 +32,6 @@ fieldset{
 
 html, input, textarea, button, div, span{
     background-color: black !important;
-    color:gray !important;
     border-color: dimgray !important;
 }
 
