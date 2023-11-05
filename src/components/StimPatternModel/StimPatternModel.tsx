@@ -17,7 +17,7 @@ import { TUTORIAL_KEYS } from "../../shared/tutorialData";
 import { clearAllFeedback, removeFeedback } from "../../state/redux/feedbackParameterSlice";
 import { clearAllSoundEffects, removeSoundEffect } from "../../state/redux/soundEffectsSlice";
 import { addToken, clearAllTokens, removeToken } from "../../state/redux/tokenNumParameterSlice";
-import { crementModelLength, modifyModelLength, setStim } from "../../state/redux/stimToggleSlice";
+import { clearModel, crementModelLength, modifyModelLength, setStim } from "../../state/redux/stimToggleSlice";
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 import useCompositeActions from "../../state/redux/compositeActions";
 import { useEffect } from "react";
@@ -83,6 +83,8 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex})=>{
 
     //Add Tokens
     useEffect(()=>{    
+        dispatch(clearModel());
+        console.log('rerendering')
         tokensAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.Token})));
         //Add Feedback
         feedbackAt.forEach(index => dispatch(setStim({index, type:STIM_TYPES.Feedback})));

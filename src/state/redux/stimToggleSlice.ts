@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { End, PatternUnitModel } from "../../shared/models/patternUnitModel";
+import { End, PatternUnitModel, Silence } from "../../shared/models/patternUnitModel";
 import { STIM_TYPES } from "../../shared/models/stimTypes";
 import { PURGE } from "redux-persist";
 
@@ -63,6 +63,11 @@ const stimToggleSlice = createSlice({
             state.sessionMinutes = action.payload;
         },
 
+        clearModel(state){
+            const length = state.patternModel.length;
+            state.patternModel = new Array<PatternUnitModel>(length).fill(Silence);
+        },
+
         handleTranslate(state, action: PayloadAction<number>){
             const translation = action.payload;
             const {patternModel} = state;
@@ -94,5 +99,5 @@ const stimToggleSlice = createSlice({
     
 })
 
-export const {switchStimToToggle, toggleStim, setStim, handleTranslate, crementModelLength, modifyModelLength, crementSessionMinutes, modifySessionMinutes,  capOff} = stimToggleSlice.actions;
+export const {switchStimToToggle, toggleStim, setStim, handleTranslate, crementModelLength, modifyModelLength, crementSessionMinutes, modifySessionMinutes,  capOff, clearModel} = stimToggleSlice.actions;
 export default stimToggleSlice.reducer;

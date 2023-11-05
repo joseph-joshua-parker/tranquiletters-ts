@@ -4,7 +4,7 @@ import { addFeedback, clearAllFeedback, removeFeedback } from "./feedbackParamet
 import { addSoundEffect, clearAllSoundEffects, removeSoundEffect } from "./soundEffectsSlice";
 import stimToggleSlice, { crementModelLength, setStim } from "./stimToggleSlice";
 import { RootState } from "./store";
-import tokenNumParameterSlice, { clearAllTokens, removeToken } from "./tokenNumParameterSlice";
+import tokenNumParameterSlice, { addToken, clearAllTokens, removeToken } from "./tokenNumParameterSlice";
 
 
 const useCompositeActions = ()=>{
@@ -25,9 +25,33 @@ const useCompositeActions = ()=>{
         dispatch(clearAllTokens());
     }
 
+    const replaceStimAtWith = (at: number, stim: STIM_TYPES) =>{
+        switch(stim){
+            case STIM_TYPES.Feedback : {
+                dispatch(removeSoundEffect(at));
+                dispatch(removeToken(at));
+                dispatch(addFeedback(at));
+                break;
+            }
+
+            case STIM_TYPES.SoundFX : {
+                dispatch(removeFeedback(at));
+                dispatch(removeToken(at));
+                dispatch(addSoundEffect(at));
+                break;
+            }
+
+            case STIM_TYPES.Token : {
+                dispatch(removeFeedback(at));
+                dispatch(removeSoundEffect(at));
+                dispatch(addToken(at));
+            }
+        }
+    }
 
 
-    return {silenceAll};
+
+    return {silenceAll, replaceStimAtWith};
 }
 
 export default useCompositeActions;

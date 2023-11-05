@@ -52,7 +52,10 @@ const feedbackParameterSlice = createSlice({
     reducers: {
         addFeedback(state, action: PayloadAction<number>){
             const index = action.payload;
-            state.feedbackAt.push(index);
+            const {feedbackAt} = state;
+            if(feedbackAt.includes(index)) return;
+            else state.feedbackAt.push(index);
+            feedbackAt.sort();
         },
 
         removeFeedback(state, action: PayloadAction<number>){

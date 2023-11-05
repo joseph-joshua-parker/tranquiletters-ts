@@ -59,7 +59,7 @@ export enum PLAYBACK_STATE {
     }
 
   const timeElapsed = useRef(0)
-  const currentIndex = useRef(0);
+  const currentIndex = useRef(-1);
 
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;

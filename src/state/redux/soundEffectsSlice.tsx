@@ -22,7 +22,11 @@ const soundEffectsSlice = createSlice({
         },
 
         addSoundEffect(state, action: PayloadAction<number>){
-            state.soundEffectsAt.push(action.payload);
+            const index = action.payload;
+            const {soundEffectsAt} = state;
+            if(soundEffectsAt.includes(index)) return;
+            else soundEffectsAt.push(index);
+            soundEffectsAt.sort();
         },
 
         removeSoundEffect(state, action: PayloadAction<number>){

@@ -4,11 +4,11 @@ import useCommandRecognition from '../../audio/recognition/useCommandRecognition
 import SpeechRecognition from 'react-speech-recognition';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStim } from '../../state/redux/stimToggleSlice';
-import { removeFeedback } from '../../state/redux/feedbackParameterSlice';
-import { removeToken } from '../../state/redux/tokenNumParameterSlice';
+import { addFeedback, removeFeedback } from '../../state/redux/feedbackParameterSlice';
+import { addToken, removeToken } from '../../state/redux/tokenNumParameterSlice';
 import { RootState } from '../../state/redux/store';
 import { STIM_TYPES } from '../models/stimTypes';
-import soundEffectsSlice, { removeSoundEffect } from '../../state/redux/soundEffectsSlice';
+import soundEffectsSlice, { addSoundEffect, removeSoundEffect } from '../../state/redux/soundEffectsSlice';
 
 const question = require('../../assets/soundFX/question.wav');
 const smallHit = require('../../assets/soundFX/small_hit.wav');
@@ -32,9 +32,10 @@ const useFeedback = ({
 }:FeedbackParameters)=>{
     const dispatch = useDispatch();
     const {
-        feedbackParameterReducer : {feedbackAt},
+        feedbackParameterReducer : {feedbackAt, increasesAccepted, decreasesAccepted},
         tokenNumParameterReducer : {tokensAt},
-        soundEffectsReducer: {soundEffectsAt}
+        soundEffectsReducer: {soundEffectsAt},
+        stimToggleSliceReducer: {patternModel}
     } = useSelector((state:RootState)=>state.persistedRootReducer);
     
     const [playQuestion] = useSound(question); 
@@ -46,6 +47,7 @@ const useFeedback = ({
     const strikeCount = useRef(0);
     const hitTime = useRef(0);
     const hitCount = useRef(0);
+    const patternModelLength = useRef(patternModel.length);
 
     const answerQuestion = ()=>{
         if(pendingQuestion.current == undefined) return;
@@ -62,34 +64,63 @@ const useFeedback = ({
                 case STIM_TYPES.Feedback: return [feedbackAt, removeFeedback]; 
                 case STIM_TYPES.Token: return [tokensAt, removeToken]; 
                 case STIM_TYPES.SoundFX: return [soundEffectsAt, removeSoundEffect]
-                default: return [[], null]
+                default: return [[] as number[], null]
             }})()
-            console.log(tokensAt)
-            console.log(stimsAt)
-            console.log(removeStim)
+
 
 
             if(!(stimsAt.length > 1)) return; 
+
             const median = Math.trunc(stimsAt.length/factor);
+
             stimsAt.forEach((at, index)=>{
                 if(at > median && removeStim) {
                     dispatch(removeStim(at));
                     dispatch(setStim({index: at, type: STIM_TYPES.Silence}));
                 }
-            })
+            })        
+    }
 
+    const increaseStims  = ()=>{
+        incrementStims(STIM_TYPES.Token);
+        incrementStims(STIM_TYPES.SoundFX);
+        answerQuestion();
+    }
 
-        
+    const incrementStims = (type: STIM_TYPES)=>{
+        const [stimsAt, addStim] = (()=>{switch(type){
+            //case STIM_TYPES.Feedback: return [feedbackAt, addFeedback]; 
+            case STIM_TYPES.Token: return [tokensAt, addToken]; 
+            case STIM_TYPES.SoundFX: return [soundEffectsAt, addSoundEffect]
+            default: return [[], null]
+        }})()
+
+        const originalStimsLength = stimsAt.length;
+        for(let i=0; i< originalStimsLength; i++){
+            const at = stimsAt[i];
+            if((i < patternModel.length-1) && addStim){
+                console.log('increase')
+                dispatch(addStim(at+1));
+                dispatch(setStim({index: i+1, type}));
+
+            }
+        }
+    }   
+
+    function decreaseStims(){
+        divideStimsBy(STIM_TYPES.Token, 2)
+        divideStimsBy(STIM_TYPES.Feedback, 2)
+        answerQuestion();
     }
 
     useEffect(()=>{
+        console.log(isAdaptive)
         if(!isAdaptive) return;
         else if (hitCount.current >= hitUpgradeThreshold){
             playSmallHit();
             playLargeHit();
             notifyUser('Good focus detected, reducing stimulation', true);
-            divideStimsBy(STIM_TYPES.Token, 2)
-            divideStimsBy(STIM_TYPES.Feedback, 2)
+            decreaseStims();
              
           reset();
         }
@@ -100,7 +131,16 @@ const useFeedback = ({
         cancel();
       }
 
-    const {transcript, listening} = useCommandRecognition(answerQuestion, acknowledgementsAccepted);
+    const {transcript, listening} = useCommandRecognition(
+        answerQuestion, 
+        decreaseStims,
+        increaseStims,
+   
+
+        acknowledgementsAccepted,
+        increasesAccepted,
+        decreasesAccepted
+        );
 
     const askQuestion = ()=>{
         playQuestion();
