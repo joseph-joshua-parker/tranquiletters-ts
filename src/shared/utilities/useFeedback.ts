@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useSound from 'use-sound';
 import useCommandRecognition from '../../audio/recognition/useCommandRecognition';
 import SpeechRecognition from 'react-speech-recognition';
@@ -46,8 +46,10 @@ const useFeedback = ({
 
     const strikeCount = useRef(0);
     const hitTime = useRef(0);
-    const hitCount = useRef(0);
+    const [hitCount, setHitCount] = useState(0);
+    const results = useRef(0);
     const patternModelLength = useRef(patternModel.length);
+    const stimLength = useRef(0);
 
     const answerQuestion = ()=>{
         if(pendingQuestion.current == undefined) return;
@@ -55,7 +57,7 @@ const useFeedback = ({
         pendingQuestion.current = undefined;
         playSmallHit();
         hitTime.current += feedbackTime;
-        hitCount.current++;
+        setHitCount(prev=>++prev);
     }
 
     const divideStimsBy = (type: STIM_TYPES, factor: number)=>{ 
@@ -76,15 +78,17 @@ const useFeedback = ({
             stimsAt.forEach((at, index)=>{
                 if(at > median && removeStim) {
                     dispatch(removeStim(at));
-                    dispatch(setStim({index: at, type: STIM_TYPES.Silence}));
                 }
             })        
     }
 
     const increaseStims  = ()=>{
+        if(results.current > 0) return;
+        console.log(results.current);
+        results.current++;
         incrementStims(STIM_TYPES.Token);
-        incrementStims(STIM_TYPES.SoundFX);
-        answerQuestion();
+        notifyUser('Increasing tokens', true);
+        reset();
     }
 
     const incrementStims = (type: STIM_TYPES)=>{
@@ -95,36 +99,36 @@ const useFeedback = ({
             default: return [[], null]
         }})()
 
-        const originalStimsLength = stimsAt.length;
-        for(let i=0; i< originalStimsLength; i++){
-            const at = stimsAt[i];
+        stimLength.current = stimsAt.length;
+        for(let i=0; i< stimLength.current; i++){
+            const at = stimsAt[i];  
             if((i < patternModel.length-1) && addStim){
-                console.log('increase')
                 dispatch(addStim(at+1));
-                dispatch(setStim({index: i+1, type}));
 
             }
         }
     }   
 
     function decreaseStims(){
+        if(results.current > 0) return;
+        results.current++;
         divideStimsBy(STIM_TYPES.Token, 2)
-        divideStimsBy(STIM_TYPES.Feedback, 2)
-        answerQuestion();
+        notifyUser('Decreasing tokens', true);
+        reset();
     }
 
     useEffect(()=>{
         console.log(isAdaptive)
         if(!isAdaptive) return;
-        else if (hitCount.current >= hitUpgradeThreshold){
+        else if (hitCount >= hitUpgradeThreshold){
             playSmallHit();
             playLargeHit();
-            notifyUser('Good focus detected, reducing stimulation', true);
+            notifyUser('Good focus detected, decreasing tokens', true);
             decreaseStims();
              
           reset();
         }
-      },[hitCount.current])
+      },[hitCount])
 
       if(strikeCount.current >= 3){
         notifyUser('Over excitedness detected; consider changing parameters', false);
@@ -139,7 +143,8 @@ const useFeedback = ({
 
         acknowledgementsAccepted,
         increasesAccepted,
-        decreasesAccepted
+        decreasesAccepted,
+
         );
 
     const askQuestion = ()=>{
@@ -153,8 +158,9 @@ const useFeedback = ({
 
     const reset = ()=>{
         strikeCount.current = 0;
-        hitCount.current = 0;
+        setHitCount(0);
         clearTimeout(pendingQuestion.current);
+        setTimeout(()=>results.current = 0, 1000);
     }
 
     return {askQuestion, answerQuestion, reset, strikeCount, hitTime, hitCount};

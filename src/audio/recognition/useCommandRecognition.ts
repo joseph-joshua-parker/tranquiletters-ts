@@ -1,3 +1,4 @@
+import { MutableRefObject } from 'react';
 import {useSpeechRecognition} from 'react-speech-recognition';
 
 const useCommandRecognition = (
@@ -7,7 +8,8 @@ const useCommandRecognition = (
 
     acknowledgementsAccepted: string[],
     increasesAccepted: string[],
-    decreasesAccepted: string[]
+    decreasesAccepted: string[],
+
     )=>{
 
     const unpedantic= {
