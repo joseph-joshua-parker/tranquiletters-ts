@@ -51,8 +51,9 @@ function App() {
   //Hooks
   const {start, cancel, pause, resume, rerender, playbackState, answerQuestion} = useLoop(setCursorIndex)
 
-  const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.SoundFX, STIM_TYPES.None]
+  const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.None]
   const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
+  console.log(isFeatureImplemented);
 
   //Components
   const StimParams = (()=> {
@@ -95,23 +96,26 @@ function App() {
             <div className="column is-6">
               <SideBar/>
             </div>
-            <div className="column is-6">
-              {isFeatureImplemented && 
+            
+           
+              <div className="column is-6"> 
               <WithPanel>
                 <StimParams/>
               </WithPanel>
-              }
-            </div>
+              </div>
+              
+            
           </div>
 
-          
-          <div>
+          {isFeatureImplemented &&
+            <div>
 
-            <StimPatternModel cursorIndex={cursorIndex}/>
+              <StimPatternModel cursorIndex={cursorIndex}/>
 
-            {startCancel}
-            {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
-          </div>
+              {startCancel}
+              {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+            </div>  
+            }
 
 
           <Outlet/>
