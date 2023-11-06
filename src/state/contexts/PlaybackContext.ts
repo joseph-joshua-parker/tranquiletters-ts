@@ -8,6 +8,7 @@ interface PlaybackControl {
     cancel: ()=> void
     rerender: ()=>void,
     answerQuestion: ()=>void,
+    seekCommand: ()=>void,
     playbackState: PLAYBACK_STATE
 }
 

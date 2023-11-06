@@ -23,7 +23,8 @@ export interface FeedbackParameterState {
     onStrikeout: ON_STRIKEOUT
     hitUpgradeThreshold: 0
     isAdaptive: boolean,
-    isVocal:boolean
+    isVocal:boolean,
+    isMediaKey: boolean,
     isGeneratingFeedback: boolean,
     isReducingClusters: boolean
 }
@@ -42,6 +43,7 @@ export const DefaultFeedbackParameters = {
     hitUpgradeThreshold: 10,
     isAdaptive: false,
     isVocal: false,
+    isMediaKey: false,
     isGeneratingFeedback: false,
     isReducingClusters: false
 }
@@ -129,7 +131,8 @@ const feedbackParameterSlice = createSlice({
         toggleAdaptation(state){state.isAdaptive = !state.isAdaptive},
         toggleVocal(state){state.isVocal = !state.isVocal;},
         toggleClusterReduction(state){state.isReducingClusters = !state.isReducingClusters;},
-        toggleFeedbackGeneration(state){state.isGeneratingFeedback = !state.isGeneratingFeedback;}
+        toggleFeedbackGeneration(state){state.isGeneratingFeedback = !state.isGeneratingFeedback;},
+        toggleMediaKey(state){state.isMediaKey = !state.isMediaKey;}
     },
 
     extraReducers: 
@@ -162,7 +165,8 @@ export const {
     toggleAdaptation,
     toggleVocal,
     toggleClusterReduction,
-    toggleFeedbackGeneration
+    toggleFeedbackGeneration,
+    toggleMediaKey
 
 } = feedbackParameterSlice.actions;
 export default feedbackParameterSlice.reducer; 

@@ -17,6 +17,9 @@ dependencies:
   '@fortawesome/react-fontawesome':
     specifier: ^0.2.0
     version: 0.2.0(@fortawesome/fontawesome-svg-core@6.4.2)(react@18.2.0)
+  '@mebtte/react-media-session':
+    specifier: ^1.1.2
+    version: 1.1.2(react@18.2.0)
   '@reduxjs/toolkit':
     specifier: ^1.9.6
     version: 1.9.6(react-redux@8.1.2)(react@18.2.0)
@@ -41,6 +44,9 @@ dependencies:
   '@types/react-dom':
     specifier: ^18.2.7
     version: 18.2.7
+  '@uidotdev/usehooks':
+    specifier: 2.4.1-experimental.1
+    version: 2.4.1-experimental.1(react-dom@18.2.0)(react@18.2.0)
   babel-plugin-macros:
     specifier: ^3.1.0
     version: 3.1.0
@@ -57,10 +63,10 @@ dependencies:
     specifier: ^4.7.0
     version: 4.7.0
   react:
-    specifier: ^18.2.0
+    specifier: 18.2.0
     version: 18.2.0
   react-dom:
-    specifier: ^18.2.0
+    specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
   react-redux:
     specifier: ^8.1.2
@@ -89,6 +95,9 @@ dependencies:
   use-sound:
     specifier: ^4.0.1
     version: 4.0.1(react@18.2.0)
+  use-timeout:
+    specifier: ^1.1.0
+    version: 1.1.0(react-dom@18.2.0)(react@18.2.0)
   usehooks-ts:
     specifier: ^2.9.1
     version: 2.9.1(react-dom@18.2.0)(react@18.2.0)
@@ -2000,6 +2009,15 @@ packages:
     resolution: {integrity: sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==}
     dev: false
 
+  /@mebtte/react-media-session@1.1.2(react@18.2.0):
+    resolution: {integrity: sha512-cf+E/ZXOvmDG76nRuuNBFgDvQURsAaM4B8w0p+P0ugy6tUGErEE0eHPtz66p/FnXrEtj2F+45iPEKDzW2R0+Bw==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1:
     resolution: {integrity: sha512-54/JRvkLIzzDWshCWfuhadfrfZVPiElY8Fcgmg1HroEly/EDSszzhBAsarCux+D/kOslTRquNzuyGSmUSTTHGg==}
     dependencies:
@@ -2770,6 +2788,17 @@ packages:
     dependencies:
       '@typescript-eslint/types': 5.62.0
       eslint-visitor-keys: 3.4.3
+
+  /@uidotdev/usehooks@2.4.1-experimental.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-rcDUGS2Cpw6fTkdvYAytK+ej2nW0/ZNTAVvN9Eyj1Fu5XshsZPjnstDCDjkO/J6w7W9cwPWPoj4q4iiYW2seZA==}
+    engines: {node: '>=16'}
+    peerDependencies:
+      react: 0.0.0-experimental-bfb9cbd8c-20230223
+      react-dom: 0.0.0-experimental-bfb9cbd8c-20230223
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
 
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}
@@ -9594,6 +9623,16 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /use-timeout@1.1.0(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-1veqpjjjHvjQ7qcMrz72HnL+6WgsehNFnFbdKNsSGWa+GcbjXrPrfFiBj/wtzHBBB8h5WO4B3O7i54NT8RIr6w==}
+    peerDependencies:
+      react: '>=16.8.0-alpha.1'
+      react-dom: '>=16.8.0-alpha.1'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /usehooks-ts@2.9.1(react-dom@18.2.0)(react@18.2.0):

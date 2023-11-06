@@ -1,6 +1,6 @@
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 
-import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
+import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleMediaKey, toggleVocal } from "../../state/redux/feedbackParameterSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../ParameterInputFields/StringParamInput/StringParameterInput";
@@ -10,6 +10,7 @@ import PlaybackContext from "../../state/contexts/PlaybackContext";
 import BooleanParameterInput from "../ParameterInputFields/BooleanParameterInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import MediaKeyController from "../../shared/utilities/MediaKeyController";
 
 const FeedBackParameters = ()=>{
     const {
@@ -20,6 +21,7 @@ const FeedBackParameters = ()=>{
         decreasesAccepted,
         isAdaptive,
         isVocal,
+        isMediaKey,
         isGeneratingFeedback,
         isReducingClusters,
     } = useSelector((state:RootState)=>state.persistedRootReducer.feedbackParameterReducer);
@@ -27,7 +29,7 @@ const FeedBackParameters = ()=>{
 
 
 
-    const {answerQuestion} = useContext(PlaybackContext);
+    const {answerQuestion, seekCommand} = useContext(PlaybackContext);
     const [isViewingVocalOptions, setIsViewingVocalOptions] = useState(false);
     const vocalOptionsExpand = isViewingVocalOptions ? faChevronUp : faChevronDown
     const toggleVocalOptionsView = ()=> setIsViewingVocalOptions(prev=>!prev);
@@ -35,6 +37,10 @@ const FeedBackParameters = ()=>{
     const [isViewingAdaptiveOptions, setIsViewingAdaptiveOptions] = useState(false);
     const adaptiveOptionsExpand = isViewingAdaptiveOptions ? faChevronUp : faChevronDown
     const toggleAdaptiveOptionsView = ()=> setIsViewingAdaptiveOptions(prev=>!prev);
+
+    const [isViewingMediaKeyOptions, setIsViewingMediaKeyOptions] = useState(false);
+    const mediaKeyOptionsExpand = isViewingMediaKeyOptions ? faChevronUp : faChevronDown;
+    const toggleMediaKeyOptionsView = ()=>setIsViewingMediaKeyOptions(prev => !prev);
 
     return (
             <div>
@@ -46,9 +52,18 @@ const FeedBackParameters = ()=>{
 
                 <BooleanParameterInput 
                     link={TUTORIAL_KEYS.FeedbackByMediaKeys} 
-                    htmlMeta={'toggleMediaKey'} state={false}>
+                    htmlMeta={'toggleMediaKey'} 
+                    state={isMediaKey} switchHandler={toggleMediaKey}> 
                         Media Key Mode
+                        <FontAwesomeIcon style={{marginLeft:'1rem'}} icon={mediaKeyOptionsExpand} onClick={toggleMediaKeyOptionsView}/>
+
                 </BooleanParameterInput>
+
+
+                { isMediaKey &&
+                    <MediaKeyController onSingleTap={answerQuestion} onDoubleTap={seekCommand} wait = {1000}/>
+                }
+
 
                 <BooleanParameterInput 
                     link={TUTORIAL_KEYS.FeedbackByVoice} 
@@ -67,7 +82,6 @@ const FeedBackParameters = ()=>{
                         <StringParameterInput isMultiline={true} name="Increases Accepted" val={increasesAccepted.join(',')} action={modifyAcceptedIncreases}/>
                         <StringParameterInput isMultiline={true} name="Decreases Accepted" val={decreasesAccepted.join(',')} action={modifyAcceptedDecreases}/>
                     </div>
-
                 }
 
 
@@ -88,21 +102,22 @@ const FeedBackParameters = ()=>{
                             val={hitUpgradeThreshold}
                             name="Successes needed to trigger Adaptation"/>
 
-                        <BooleanParameterInput
-                            link={TUTORIAL_KEYS.GenerateFeedback}
-                            htmlMeta={'toggleFeedbackGeneration'} state={isGeneratingFeedback}
-                            switchHandler={toggleFeedbackGeneration}>
-                                Generate Feedback
-                        </BooleanParameterInput>
-                   
-                
-                    <BooleanParameterInput 
-                        link={TUTORIAL_KEYS.ReduceClusters} 
-                        htmlMeta={'reduceClusters'} state={isReducingClusters}
-                        switchHandler={toggleClusterReduction}>
-                            Reduce Clusters
-                    </BooleanParameterInput>
-                </div>
+                            {/*
+                            <BooleanParameterInput
+                                link={TUTORIAL_KEYS.GenerateFeedback}
+                                htmlMeta={'toggleFeedbackGeneration'} state={isGeneratingFeedback}
+                                switchHandler={toggleFeedbackGeneration}>
+                                    Generate Feedback
+                            </BooleanParameterInput>
+                    
+                    
+                        <BooleanParameterInput 
+                            link={TUTORIAL_KEYS.ReduceClusters} 
+                            htmlMeta={'reduceClusters'} state={isReducingClusters}
+                            switchHandler={toggleClusterReduction}>
+                                Reduce Clusters
+                        </BooleanParameterInput>*/}
+                    </div>
                 }
             </div>
         

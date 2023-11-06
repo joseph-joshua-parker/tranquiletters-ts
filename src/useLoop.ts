@@ -36,7 +36,7 @@ export enum PLAYBACK_STATE {
     const tokens = tokenSets.find(set=> set.setName == currentlySelectedSet)?.tokens;
 
     const {
-      answerQuestion, askQuestion, reset, 
+      answerQuestion, seekCommand, askQuestion, reset, 
       strikeCount, hitCount
     } = useFeedback({ 
       feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, strikeThreshold:3,
@@ -129,7 +129,7 @@ export enum PLAYBACK_STATE {
   }
 
 
-  return {answerQuestion, start, pause, resume, cancel, rerender, playbackState, currentIndex}
+  return {answerQuestion, seekCommand, start, pause, resume, cancel, rerender, playbackState, currentIndex}
 }
 
 export default useLoop;

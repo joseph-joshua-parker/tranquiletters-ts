@@ -147,6 +147,10 @@ const useFeedback = ({
 
         );
 
+    const seekCommand = ()=> {
+        SpeechRecognition.startListening();
+    }
+
     const askQuestion = ()=>{
         playQuestion();
         if(isVocal) SpeechRecognition.startListening();
@@ -163,7 +167,7 @@ const useFeedback = ({
         setTimeout(()=>results.current = 0, 1000);
     }
 
-    return {askQuestion, answerQuestion, reset, strikeCount, hitTime, hitCount};
+    return {askQuestion, seekCommand, answerQuestion, reset, strikeCount, hitTime, hitCount};
 }
 
 export default useFeedback

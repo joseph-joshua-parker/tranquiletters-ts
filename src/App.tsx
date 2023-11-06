@@ -37,6 +37,7 @@ import PlaybackContext from './state/contexts/PlaybackContext';
 
 //Tutorial Routing
 import {Outlet, } from 'react-router';
+import MediaKeyController from './shared/utilities/MediaKeyController';
 
 
 
@@ -49,7 +50,7 @@ function App() {
   const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
 
   //Hooks
-  const {start, cancel, pause, resume, rerender, playbackState, answerQuestion} = useLoop(setCursorIndex)
+  const {start, cancel, pause, resume, rerender, playbackState, answerQuestion, seekCommand} = useLoop(setCursorIndex)
 
   const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.None]
   const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
@@ -87,7 +88,7 @@ function App() {
 
 
   return (
-      <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion}}>
+      <PlaybackContext.Provider value={{start, cancel, pause, resume, rerender, playbackState, answerQuestion, seekCommand}}>
         <div>
             <h1 className="label center-content">A Day Waker's Widgets</h1>
             <h2 className="label center-content">Anchoring, stimming, sleeping & meditation toolkit for automatic daydreamers, persons with sensory issues and overthinkers</h2>
