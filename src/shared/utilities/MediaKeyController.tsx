@@ -1,8 +1,9 @@
 import { useMediaSession } from '@mebtte/react-media-session';
-import React, {useEffect, useRef } from 'react';
+import React, {useCallback, useEffect, useRef } from 'react';
 import useMediaKeyTapInterpreter from './useMediaKeyTapInterpreter';
 
 const silence = require('../../assets/soundFX/silence.mp3');
+const question = require('../../assets/soundFX/question.wav');
 
 interface MediaKeyControllerProps {
 
@@ -15,6 +16,10 @@ interface MediaKeyControllerProps {
 const MediaKeyController: React.FC<MediaKeyControllerProps> = ({ wait, onSingleTap, onDoubleTap})=>{
     const audio = useRef<HTMLAudioElement>(new Audio());
 
+
+    const initialize = useCallback((node: HTMLAudioElement)=>{
+        if(node != null) node.play();
+    }, [])
 
 
     const {interpretTap, tapCount,} = useMediaKeyTapInterpreter(audio, 500, onSingleTap, onDoubleTap);
@@ -31,7 +36,7 @@ const MediaKeyController: React.FC<MediaKeyControllerProps> = ({ wait, onSingleT
         });
 
     return (
-        <audio controls={true} ref={audio} src={silence}></audio>
+        <audio  ref={initialize} src={silence}></audio>
     )
 }
 

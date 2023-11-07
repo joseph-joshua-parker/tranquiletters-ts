@@ -1,6 +1,6 @@
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 
-import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleMediaKey, toggleVocal } from "../../state/redux/feedbackParameterSlice";
+import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../ParameterInputFields/StringParamInput/StringParameterInput";
@@ -21,7 +21,6 @@ const FeedBackParameters = ()=>{
         decreasesAccepted,
         isAdaptive,
         isVocal,
-        isMediaKey,
         isGeneratingFeedback,
         isReducingClusters,
     } = useSelector((state:RootState)=>state.persistedRootReducer.feedbackParameterReducer);
@@ -38,6 +37,8 @@ const FeedBackParameters = ()=>{
     const adaptiveOptionsExpand = isViewingAdaptiveOptions ? faChevronUp : faChevronDown
     const toggleAdaptiveOptionsView = ()=> setIsViewingAdaptiveOptions(prev=>!prev);
 
+    const [isMediaKey, setMediaKey] = useState(false);
+    const toggleMediaKey = ()=>setMediaKey(prev=>!prev);
     const [isViewingMediaKeyOptions, setIsViewingMediaKeyOptions] = useState(false);
     const mediaKeyOptionsExpand = isViewingMediaKeyOptions ? faChevronUp : faChevronDown;
     const toggleMediaKeyOptionsView = ()=>setIsViewingMediaKeyOptions(prev => !prev);
@@ -53,7 +54,7 @@ const FeedBackParameters = ()=>{
                 <BooleanParameterInput 
                     link={TUTORIAL_KEYS.FeedbackByMediaKeys} 
                     htmlMeta={'toggleMediaKey'} 
-                    state={isMediaKey} switchHandler={toggleMediaKey}> 
+                    state={isMediaKey} setStateHandler={toggleMediaKey}> 
                         Media Key Mode
                         <FontAwesomeIcon style={{marginLeft:'1rem'}} icon={mediaKeyOptionsExpand} onClick={toggleMediaKeyOptionsView}/>
 
@@ -68,7 +69,7 @@ const FeedBackParameters = ()=>{
                 <BooleanParameterInput 
                     link={TUTORIAL_KEYS.FeedbackByVoice} 
                     htmlMeta={'toggleVocal'} state={isVocal} 
-                    switchHandler={toggleVocal}
+                    dispatchHandler={toggleVocal}
                     >
                         Vocal Mode 
                         <FontAwesomeIcon style={{marginLeft:'1rem'}} icon={vocalOptionsExpand} onClick={toggleVocalOptionsView}/>
@@ -88,7 +89,7 @@ const FeedBackParameters = ()=>{
                 <BooleanParameterInput 
                     link={TUTORIAL_KEYS.Adaptive} 
                     htmlMeta={'toggleAdaptation'} state={isAdaptive}
-                    switchHandler={toggleAdaptation}>
+                    dispatchHandler={toggleAdaptation}>
                         Adaptive Mode
                         <FontAwesomeIcon style={{marginLeft:'1rem'}} icon={adaptiveOptionsExpand} onClick={toggleAdaptiveOptionsView}/>
 

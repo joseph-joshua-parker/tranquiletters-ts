@@ -7,7 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 interface BooleanParameterInputProps {
-    switchHandler?: ActionCreatorWithoutPayload,
+    dispatchHandler?: ActionCreatorWithoutPayload,
+    setStateHandler?: ()=>void,
     state: boolean
     htmlMeta: string
     link: TUTORIAL_KEYS
@@ -15,10 +16,11 @@ interface BooleanParameterInputProps {
 
 }
 
-const BooleanParameterInput: React.FC<PropsWithChildren<BooleanParameterInputProps>> = ({switchHandler, htmlMeta, state, children, link})=>{
+const BooleanParameterInput: React.FC<PropsWithChildren<BooleanParameterInputProps>> = ({dispatchHandler, setStateHandler, htmlMeta, state, children, link})=>{
     const dispatch = useDispatch();
     const handleSwitch = ()=>{
-        if(switchHandler)   dispatch(switchHandler())
+        if(dispatchHandler)   dispatch(dispatchHandler())
+        else if(setStateHandler) setStateHandler();
     }
 
 

@@ -54,6 +54,7 @@ const useFeedback = ({
     const answerQuestion = ()=>{
         if(pendingQuestion.current == undefined) return;
         clearTimeout(pendingQuestion.current);
+        SpeechRecognition.stopListening();
         pendingQuestion.current = undefined;
         playSmallHit();
         hitTime.current += feedbackTime;
