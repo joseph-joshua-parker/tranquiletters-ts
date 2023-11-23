@@ -2,6 +2,7 @@ import { TutorialProps } from "../components/Tutorial";
 
 export const TutorialData = new Map<TUTORIAL_KEYS, TutorialProps>();
 export enum TUTORIAL_KEYS {
+    Home='home',
     Tokens = 'tokens',
     SpeakTheseTokens = 'speak-these-tokens',
     TokensPerCluster = 'tokens-per-cluster',

@@ -22,6 +22,12 @@ const router = createBrowserRouter([
     element: <App/>,
     children: [
       {
+        path: TUTORIAL_KEYS.Home,
+        element: null
+      },
+
+
+      {
         path: TUTORIAL_KEYS.Tokens,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.Tokens)}/>
       },

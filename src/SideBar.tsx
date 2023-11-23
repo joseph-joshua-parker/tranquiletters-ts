@@ -4,7 +4,7 @@ import { switchStimToToggle } from "./state/redux/stimToggleSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./state/redux/store";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition, faReply, faSignature, faSquare, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition, faHome, faReply, faSignature, faSquare, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { TUTORIAL_KEYS } from "./shared/tutorialData";
 
@@ -33,6 +33,12 @@ const SideBar = () =>{
     return (
         <div className="column is-one-fifth">
             <aside className="menu">
+                <ul className="menu-list">
+                    <SideBarIcon link={TUTORIAL_KEYS.Home} icon={faHome} label='Home' stim={STIM_TYPES.None}/>
+
+                </ul>
+
+
                 <p className="menu-label">Aspects</p>
                 <ul className="menu-list">
                     <SideBarIcon link={TUTORIAL_KEYS.Tokens} icon={faSignature} label='Tokens' stim={STIM_TYPES.Token}/>

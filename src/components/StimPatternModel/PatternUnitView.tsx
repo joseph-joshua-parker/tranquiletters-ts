@@ -79,7 +79,7 @@ const StimPatternView: React.FC<StimPatternViewProps> = ({unit, index})=>{
 
     return unit &&
         <FontAwesomeIcon 
-            style={{width:'5vw'}} 
+            style={{width:'5vw', borderRightStyle: 'solid', borderRightColor: 'dimgray', borderRightWidth:'1px'}} 
             color={unit.type == STIM_TYPES.Silence ? 'black' : '#303030' } 
             icon={typeToIconMap[unit.type]} 
             onClick={chooseToToggle}

@@ -47,6 +47,9 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex})=>{
     const {tokensAt} = tokenNumParameterReducer;
     const {soundEffectsAt} = soundEffectsReducer;
 
+
+
+
     const {currentlySelectedSet, tokenSets} = tokenSetParameterReducer;
     
 
@@ -99,27 +102,25 @@ const StimPatternModel: React.FC<StimPatternModelProps> = ({cursorIndex})=>{
     )
 
     return (
-        <div>
-            <div className='columns is-mobile'>
-                <button className='button' onClick={silenceAll}>Silence All</button>
-                <NumParameterInput name='Change Pattern Length' val={patternModel.length} delta={crementModelLength} modify={modifyModelLength}/>
+        <div style={{display:'flex', flexDirection:'column'}}>
+
+            <div style={{paddingBottom: '1vh', display:'flex', justifyContent: 'center'}}>
+                <TutorialLink link={TUTORIAL_KEYS.Timeline}/>
             </div>
 
             <div className="columns is-mobile">
-                <div onChange={()=>crementModelLength(-1)} className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}}
-                onClick={()=>(-1)}>
-                    <FontAwesomeIcon icon={faArrowLeft}/>
-                </div>
+
                 <div className="column is-10" >
                     {displayedModel}
                 </div>
-                <div className="column is-1" style={{display:'flex', alignItems:'center', backgroundColor:'#080808'}}
-                onClick={()=>crementModelLength(1)}>
-                    <FontAwesomeIcon icon={faArrowRight}/>
-                </div>
+
+      
+
             </div>
-            <div style={{display:'flex', justifyContent: 'center'}}>
-                <TutorialLink link={TUTORIAL_KEYS.Timeline}/>
+
+
+            <div style= {{display:'flex', alignContent:'start', justifyContent:'space-evenly'}}>
+                <button style={{marginTop:'1vh'}} className='button' onClick={silenceAll}>Silence All</button>
             </div>
         </div>
     );

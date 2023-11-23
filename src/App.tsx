@@ -30,7 +30,7 @@ import {
 } from './components/ParameterPanels/index';
 
 
-import Welcome from './Welcome';
+import Home from './Home';
 
 import StimPatternModel from './components/StimPatternModel/StimPatternModel';
 import PlaybackContext from './state/contexts/PlaybackContext';
@@ -38,6 +38,10 @@ import PlaybackContext from './state/contexts/PlaybackContext';
 //Tutorial Routing
 import {Outlet, } from 'react-router';
 import MediaKeyController from './shared/utilities/MediaKeyController';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
+import NumParameterInput from './components/ParameterInputFields/NumParameterInput/NumParameterInput';
+import { crementModelLength, modifyModelLength } from './state/redux/stimToggleSlice';
 
 
 
@@ -47,7 +51,7 @@ function App() {
   
   //React API
   const [cursorIndex, setCursorIndex] = useState(-1);
-  const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
+  const {currentStimType, patternModel} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
 
   //Hooks
   const {start, cancel, pause, resume, rerender, playbackState, answerQuestion, seekCommand} = useLoop(setCursorIndex)
@@ -67,24 +71,32 @@ function App() {
       case STIM_TYPES.NormalRhythm: return NormalRhythmParameters
       case STIM_TYPES.PolyRhythm: return PolyRhythmParameters
       case STIM_TYPES.HigherOrderPatterns: return HigherOrderPatternParameters
-      default: return Welcome
+      default: return Home
     }
   })()
 
 
-  const startCancel = <div>
+  const startCancel = <span>
     { (playbackState == PLAYBACK_STATE.Waiting)
-      ?<button onClick={start} className='button is-small'>Start</button>
-      :<button onClick={cancel} className='button is-small'>Cancel</button>
+      ?<button onClick={start} className='button is-small'>
+        <FontAwesomeIcon display="span" icon={faPlay}/>
+      </button>
+      :<button onClick={cancel} className='button is-small'>
+        <FontAwesomeIcon display="span" icon={faStop}/>
+      </button>
     }
-  </div>
+  </span>
 
-  const pauseResume = <div>
+  const pauseResume = <span >
     { (playbackState != PLAYBACK_STATE.Paused)
-    ? <button onClick={pause} className='button is-small'>Pause</button>
-    : <button onClick={resume} className='button is-small'>Resume</button>
+    ? <button onClick={pause} className='button is-small'>
+      <FontAwesomeIcon display="span" icon={faPause}/>
+    </button>
+    : <button onClick={resume} className='button is-small'>
+      <FontAwesomeIcon display="span" icon={faPlay}/>
+    </button>
     }
-  </div>
+  </span>
 
 
   return (
@@ -110,11 +122,17 @@ function App() {
 
           {isFeatureImplemented &&
             <div>
+              <div style={{display:'flex', justifyContent:'space-evenly'}}>
 
-              <StimPatternModel cursorIndex={cursorIndex}/>
+                <div style={{marginTop:'2.5vh'}}>
+                  {startCancel}
+                  {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+                </div>
+                <NumParameterInput name='Change Pattern Length' val={patternModel.length} delta={crementModelLength} modify={modifyModelLength}/>
 
-              {startCancel}
-              {!(playbackState == PLAYBACK_STATE.Waiting) &&  pauseResume}
+              </div>
+
+                            <StimPatternModel cursorIndex={cursorIndex}/>
             </div>  
             }
 
