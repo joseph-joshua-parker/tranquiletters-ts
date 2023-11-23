@@ -26,6 +26,10 @@ export enum PLAYBACK_STATE {
     init();
 
     const dispatch = useDispatch();
+    const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
+    const timeElapsed = useRef(0)
+    const currentIndex = useRef(-1);
+
 
     const {
       sessionMinutes, tokenSets, currentlySelectedSet, 
@@ -58,10 +62,8 @@ export enum PLAYBACK_STATE {
       else return 'token not found'
     }
 
-  const timeElapsed = useRef(0)
-  const currentIndex = useRef(-1);
 
-    const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
+
     const delay = playbackState == PLAYBACK_STATE.Playing ? 1000 : null;
 
   
@@ -97,7 +99,7 @@ export enum PLAYBACK_STATE {
 
   function cancel(){
 
-    reset();
+
     setCursorIndex(-1)
 
     timeElapsed.current = 0;

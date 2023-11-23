@@ -131,9 +131,10 @@ const useFeedback = ({
         }
       },[hitCount])
 
-      if(strikeCount.current >= 3){
-        notifyUser('Over excitedness detected; consider changing parameters', false);
-        cancel();
+      if(strikeCount.current >= 1){
+        notifyUser('Are you focused? No interaction detected', false);
+        reset();
+
       }
 
     const {transcript, listening} = useCommandRecognition(
@@ -161,7 +162,7 @@ const useFeedback = ({
         }, feedbackTime*1000)
     }
 
-    const reset = ()=>{
+    function reset(){
         strikeCount.current = 0;
         setHitCount(0);
         clearTimeout(pendingQuestion.current);
