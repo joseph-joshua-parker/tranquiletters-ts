@@ -28,6 +28,7 @@ export enum PLAYBACK_STATE {
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);
     const timeElapsed = useRef(0)
     const currentIndex = useRef(-1);
+    const notificationPause = useRef<NodeJS.Timeout | undefined>();
 
 
     const {
@@ -71,6 +72,7 @@ export enum PLAYBACK_STATE {
     useInterval(()=>{
       if(timeElapsed.current >= sessionTime) {
         speak('Session Finished');
+        clearTimeout(notificationPause.current);
         cancel();
         return;
       }
@@ -104,6 +106,7 @@ export enum PLAYBACK_STATE {
     timeElapsed.current = 0;
     currentIndex.current = -1;
     setPlaybackState(PLAYBACK_STATE.Waiting);
+    clearTimeout(notificationPause.current);
   }
 
   function resume(){
@@ -111,6 +114,7 @@ export enum PLAYBACK_STATE {
   }
 
   function pause(){
+    clearTimeout(notificationPause.current);
       setPlaybackState(PLAYBACK_STATE.Paused);
   }
 
@@ -119,7 +123,7 @@ export enum PLAYBACK_STATE {
     
     pause();
     speak(message);
-    setTimeout(afterNotify, 5000)
+    notificationPause.current = setTimeout(afterNotify, 5000)
   }
 
 
