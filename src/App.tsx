@@ -1,5 +1,5 @@
 //React & Redux API
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RootState, persistedStore } from './state/redux/store';
 import { useSelector } from 'react-redux';
 
@@ -43,12 +43,14 @@ import { faPause, faPlay, faStop } from '@fortawesome/free-solid-svg-icons';
 import NumParameterInput from './components/ParameterInputFields/NumParameterInput/NumParameterInput';
 import { crementModelLength, modifyModelLength } from './state/redux/stimToggleSlice';
 
+import { init } from './audio/speechSynthesis';
 
 
 
 
 function App() {
-  
+  useEffect(init, []);
+
   //React API
   const [cursorIndex, setCursorIndex] = useState(-1);
   const {currentStimType, patternModel} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer)
@@ -97,6 +99,7 @@ function App() {
     </button>
     }
   </span>
+
 
 
   return (

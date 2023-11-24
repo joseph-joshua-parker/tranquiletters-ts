@@ -1,8 +1,8 @@
 const speaker = window.speechSynthesis;
 
 const init = ()=>{
-    const silence = new SpeechSynthesisUtterance('');
-    speaker.speak(silence);
+    const welcome = new SpeechSynthesisUtterance('Welcome');
+    speaker.speak(welcome);
 }
 
 const speak = (token: string)=>{

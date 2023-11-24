@@ -23,7 +23,6 @@ export enum PLAYBACK_STATE {
  const useLoop = (
     setCursorIndex: React.Dispatch<React.SetStateAction<number>>
 )=>{
-    init();
 
     const dispatch = useDispatch();
     const [playbackState, setPlaybackState] = useState<PLAYBACK_STATE>(PLAYBACK_STATE.Waiting);

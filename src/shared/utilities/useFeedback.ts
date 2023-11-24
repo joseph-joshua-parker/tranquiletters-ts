@@ -72,12 +72,13 @@ const useFeedback = ({
 
 
 
-            if(!(stimsAt.length > 1)) return; 
+            if(!(stimsAt.length > 0)) return; 
 
             const median = Math.trunc(stimsAt.length/factor);
+            console.log(median);
 
             stimsAt.forEach((at, index)=>{
-                if(at > median && removeStim) {
+                if(index+1 > median && removeStim) {
                     dispatch(removeStim(at));
                 }
             })        
