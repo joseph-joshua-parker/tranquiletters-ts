@@ -27,12 +27,12 @@ interface FeedbackParameters {
 }
 
 const useFeedback = ({
-    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, strikeThreshold, isVocal, isAdaptive,
+    feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, isVocal, isAdaptive,
     notifyUser, cancel
 }:FeedbackParameters)=>{
     const dispatch = useDispatch();
     const {
-        feedbackParameterReducer : {feedbackAt, increasesAccepted, decreasesAccepted},
+        feedbackParameterReducer : {feedbackAt, increasesAccepted, decreasesAccepted, strikeThreshold},
         tokenNumParameterReducer : {tokensAt},
         soundEffectsReducer: {soundEffectsAt},
         stimToggleSliceReducer: {patternModel}
@@ -131,7 +131,7 @@ const useFeedback = ({
         }
       },[hitCount])
 
-      if(strikeCount.current >= 1){
+      if(strikeCount.current >= strikeThreshold){
         notifyUser('Are you focused? No interaction detected', false);
         reset();
 

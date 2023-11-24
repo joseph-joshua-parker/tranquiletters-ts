@@ -56,6 +56,11 @@ const router = createBrowserRouter([
         path: TUTORIAL_KEYS.FeedbackGeneral,
         element: <Tutorial {...TutorialData.get(TUTORIAL_KEYS.FeedbackGeneral)}/>
       },
+
+      {
+        path: TUTORIAL_KEYS.FeedbackStrikes,
+        element: <Tutorial  {...TutorialData.get(TUTORIAL_KEYS.FeedbackStrikes)}/>
+      },
     
       {
         path: TUTORIAL_KEYS.FeedbackByVoice,

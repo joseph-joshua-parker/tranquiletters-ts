@@ -1,6 +1,6 @@
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 
-import { crementFeedbackTime, crementHitUpgradeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
+import { crementFeedbackTime, crementHitUpgradeThreshold, crementStrikeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, modifyStrikeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../ParameterInputFields/StringParamInput/StringParameterInput";
@@ -21,6 +21,7 @@ const FeedBackParameters = ()=>{
         decreasesAccepted,
         isAdaptive,
         isVocal,
+        strikeThreshold,
         isGeneratingFeedback,
         isReducingClusters,
     } = useSelector((state:RootState)=>state.persistedRootReducer.feedbackParameterReducer);
@@ -46,7 +47,9 @@ const FeedBackParameters = ()=>{
     return (
             <div>
                 <NumParameterInput link={TUTORIAL_KEYS.FeedbackGeneral} name= "Time to Acknowledge (Seconds)" val={feedbackTime} modify={modifyFeedbackTime} delta={crementFeedbackTime}/>
+                <NumParameterInput link={TUTORIAL_KEYS.FeedbackStrikes} name= "Number of Strikes" val={strikeThreshold} modify={modifyStrikeThreshold} delta={crementStrikeThreshold}/>
                 
+
                 <div style={{display:'flex', justifyContent:'center', margin:'1rem'}}>
                     <button onClick={answerQuestion} className="button is-large">Acknowledge</button>
                 </div>

@@ -9,6 +9,7 @@ export enum TUTORIAL_KEYS {
     SilenceBetweenTokens = 'silence-between-token',
     SilenceBetweenClusters = 'silence-between-clusters',
     FeedbackGeneral = 'feedback-general',
+    FeedbackStrikes = 'feedback-strikes',
     FeedbackByVoice = 'feedback-by-voice',
     FeedbackByMediaKeys = 'feedback-by-media-keys',
     SoundFX = 'sound-fx',
@@ -65,6 +66,15 @@ TutorialData.set(
     });
 
 TutorialData.set(
+    TUTORIAL_KEYS.FeedbackStrikes, {
+        title: 'Feedback Strikes',
+        description : `With Feedback, you must respond when the beep occurs. If you reach the set number of strikes, Widgets will notify you and stop the 
+        session so you can change your settings to something you can more easily focus on.`
+
+    }
+)
+
+TutorialData.set(
     TUTORIAL_KEYS.FeedbackByVoice,  {
         title: 'Feedback By Voice',
         description: `If you're working with your hands, or just don't want to hold your phone constantly, you can instead speak your
@@ -75,9 +85,8 @@ TutorialData.set(
 TutorialData.set(
     TUTORIAL_KEYS.FeedbackByMediaKeys,  {
         title: 'Feedback By Media Keys',
-        description: `[COMING SOON] Media Keys are the Play, Pause, and other buttons on your headset or earphones. I consider it
-        critical for this app, and others that I want to make. Oddly enough, this is turning out to be much, much harder to implement
-        than Vocal Mode, and it really shouldn't be.`
+        description: `Media Keys are the Play, Pause, and other buttons on your headset or earphones. With this mode, you can tap your earphone's Play/Pause button in order to respond.
+        Note that you won't be able to control other media on your phone while this mode is active, though this may change in the future.`
     });
 
 TutorialData.set(
@@ -114,13 +123,13 @@ TutorialData.set(
 
 TutorialData.set(
     TUTORIAL_KEYS.NormalRhythm,  {
-        title: 'Ambience',
+        title: 'Normal Rhythm',
         description: `[COMING SOON] This feature will allow Widgets to generate rhythmic patterns that can be synchronized to the Tokens` 
     });
 
 TutorialData.set(
     TUTORIAL_KEYS.PolyRhythm,  {
-        title: 'Ambience',
+        title: 'Poly Rhythm',
         description: `[COMING SOON] This feature will allow Widgets to generate Euclidean Poly Rhythms that can be synchronized with the Tokens` 
     });
 

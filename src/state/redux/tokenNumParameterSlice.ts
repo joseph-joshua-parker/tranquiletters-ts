@@ -15,7 +15,7 @@ const initialState: TokenState = {
         tokensPerCluster: 10,
         silenceBetweenTokens: 2,
 
-        tokensAt: [] as number[]
+        tokensAt: [4, 5, 6, 7] as number[]
 };
 
 

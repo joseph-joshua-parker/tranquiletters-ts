@@ -36,7 +36,7 @@ export const DefaultFeedbackParameters = {
     questionSound: 'question.wav',
     hitSound: 'small_hit.wav',
     strikeSound: 'small_strike.wav',
-    strikeCount: 3,
+    strikeThreshold: 3,
     feedbackAt: new Array<number>(),
     feedbackTime: 5,
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
@@ -127,6 +127,14 @@ const feedbackParameterSlice = createSlice({
             state.decreasesAccepted = state.decreasesAccepted.filter(ack => ack != action.payload);
         },
 
+        crementStrikeThreshold(state, action){
+            state.strikeThreshold += action.payload
+        },
+
+        modifyStrikeThreshold(state, action){
+            state.strikeThreshold = action.payload;
+        },
+
 
         toggleAdaptation(state){state.isAdaptive = !state.isAdaptive},
         toggleVocal(state){state.isVocal = !state.isVocal;},
@@ -161,6 +169,8 @@ export const {
     modifyAcceptedDecreases,
     removeAcceptedDecreases,
 
+    crementStrikeThreshold,
+    modifyStrikeThreshold,
 
     toggleAdaptation,
     toggleVocal,
