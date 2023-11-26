@@ -165,6 +165,7 @@ const useFeedback = ({
         pendingQuestion.current =  setTimeout(()=>{
             playStrike();
             strikeCount.current++;  
+            feedbackAgo.current = 0;
         }, feedbackTime*1000)
     }
 
