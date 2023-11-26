@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { NumActionPayload } from "../../shared/models/actionsPayload";
 import { PURGE } from "redux-persist";
+import { todayIs } from "../../shared/utilities/date";
 
 export enum ON_STRIKEOUT {
     Adapt = 'adapt',
@@ -20,6 +21,8 @@ export interface FeedbackParameterState {
     strikeCount: number,
     feedbackAt: number[],
     feedbackTime:number,
+    todaysProgress: number,
+    todaysDate: string,
     onStrikeout: ON_STRIKEOUT
     hitUpgradeThreshold: 0
     isAdaptive: boolean,
@@ -39,6 +42,8 @@ export const DefaultFeedbackParameters = {
     strikeThreshold: 3,
     feedbackAt: new Array<number>(),
     feedbackTime: 5,
+    todaysProgress: 0,
+    todaysDate: '',
     ON_STRIKEOUT: ON_STRIKEOUT.Cancel,
     hitUpgradeThreshold: 10,
     isAdaptive: false,
@@ -135,6 +140,19 @@ const feedbackParameterSlice = createSlice({
             state.strikeThreshold = action.payload;
         },
 
+        crementTodaysProgress(state, action){
+            state.todaysProgress += action.payload;
+        },
+
+        resetTodaysProgress(state){
+            state.todaysProgress = 0;
+        },
+
+        setTodaysDate(state){
+            const date = new Date();
+            state.todaysDate = todayIs();
+        },
+
 
         toggleAdaptation(state){state.isAdaptive = !state.isAdaptive},
         toggleVocal(state){state.isVocal = !state.isVocal;},
@@ -171,6 +189,10 @@ export const {
 
     crementStrikeThreshold,
     modifyStrikeThreshold,
+
+    crementTodaysProgress,
+    resetTodaysProgress,
+    setTodaysDate,
 
     toggleAdaptation,
     toggleVocal,

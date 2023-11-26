@@ -4,7 +4,7 @@ import useCommandRecognition from '../../audio/recognition/useCommandRecognition
 import SpeechRecognition from 'react-speech-recognition';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStim } from '../../state/redux/stimToggleSlice';
-import { addFeedback, removeFeedback } from '../../state/redux/feedbackParameterSlice';
+import { addFeedback, crementTodaysProgress, removeFeedback } from '../../state/redux/feedbackParameterSlice';
 import { addToken, removeToken } from '../../state/redux/tokenNumParameterSlice';
 import { RootState } from '../../state/redux/store';
 import { STIM_TYPES } from '../models/stimTypes';
@@ -44,6 +44,8 @@ const useFeedback = ({
     const [playStrike] = useSound(strike);
     const pendingQuestion = useRef<NodeJS.Timeout | undefined>();
 
+    const feedbackAgo = useRef(0);
+
     const strikeCount = useRef(0);
     const hitTime = useRef(0);
     const [hitCount, setHitCount] = useState(0);
@@ -53,6 +55,9 @@ const useFeedback = ({
 
     const answerQuestion = ()=>{
         if(pendingQuestion.current == undefined) return;
+
+        dispatch(crementTodaysProgress(feedbackAgo.current));
+        feedbackAgo.current = 0;
         clearTimeout(pendingQuestion.current);
         SpeechRecognition.stopListening();
         pendingQuestion.current = undefined;
@@ -170,7 +175,7 @@ const useFeedback = ({
         setTimeout(()=>results.current = 0, 1000);
     }
 
-    return {askQuestion, seekCommand, answerQuestion, reset, strikeCount, hitTime, hitCount};
+    return {askQuestion, seekCommand, answerQuestion, reset, feedbackAgo, strikeCount, hitTime, hitCount};
 }
 
 export default useFeedback

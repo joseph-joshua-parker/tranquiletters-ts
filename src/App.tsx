@@ -49,7 +49,6 @@ import { init } from './audio/speechSynthesis';
 
 
 function App() {
-  useEffect(init, []);
 
   //React API
   const [cursorIndex, setCursorIndex] = useState(-1);

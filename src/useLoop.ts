@@ -41,7 +41,7 @@ export enum PLAYBACK_STATE {
 
     const {
       answerQuestion, seekCommand, askQuestion, reset, 
-      strikeCount, hitCount
+      strikeCount, hitCount, feedbackAgo
     } = useFeedback({ 
       feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, strikeThreshold:3,
       isVocal, isAdaptive,
@@ -90,6 +90,7 @@ export enum PLAYBACK_STATE {
       }
 
       timeElapsed.current += 1000;
+      feedbackAgo.current++;
     }, delay)
 
 

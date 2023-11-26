@@ -1,7 +1,7 @@
 import NumParameterInput from "../ParameterInputFields/NumParameterInput/NumParameterInput";
 
-import { crementFeedbackTime, crementHitUpgradeThreshold, crementStrikeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, modifyStrikeThreshold, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
-import { useSelector } from "react-redux";
+import { crementFeedbackTime, crementHitUpgradeThreshold, crementStrikeThreshold, modifyAcceptedAcknowledgements, modifyAcceptedDecreases, modifyAcceptedIncreases, modifyFeedbackTime, modifyHitUpgradeThreshold, modifyStrikeThreshold, resetTodaysProgress, setTodaysDate, toggleAdaptation, toggleClusterReduction, toggleFeedbackGeneration, toggleVocal } from "../../state/redux/feedbackParameterSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/redux/store";
 import StringParameterInput from "../ParameterInputFields/StringParamInput/StringParameterInput";
 import { TUTORIAL_KEYS } from "../../shared/tutorialData";
@@ -11,6 +11,7 @@ import BooleanParameterInput from "../ParameterInputFields/BooleanParameterInput
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import MediaKeyController from "../../shared/utilities/MediaKeyController";
+import { convertHMS, todayIs } from "../../shared/utilities/date";
 
 const FeedBackParameters = ()=>{
     const {
@@ -24,15 +25,18 @@ const FeedBackParameters = ()=>{
         strikeThreshold,
         isGeneratingFeedback,
         isReducingClusters,
+        todaysProgress,
+        todaysDate
     } = useSelector((state:RootState)=>state.persistedRootReducer.feedbackParameterReducer);
 
 
-
+    const dispatch = useDispatch();
 
     const {answerQuestion, seekCommand} = useContext(PlaybackContext);
     const [isViewingVocalOptions, setIsViewingVocalOptions] = useState(false);
     const vocalOptionsExpand = isViewingVocalOptions ? faChevronUp : faChevronDown
     const toggleVocalOptionsView = ()=> setIsViewingVocalOptions(prev=>!prev);
+
 
     const [isViewingAdaptiveOptions, setIsViewingAdaptiveOptions] = useState(false);
     const adaptiveOptionsExpand = isViewingAdaptiveOptions ? faChevronUp : faChevronDown
@@ -44,8 +48,18 @@ const FeedBackParameters = ()=>{
     const mediaKeyOptionsExpand = isViewingMediaKeyOptions ? faChevronUp : faChevronDown;
     const toggleMediaKeyOptionsView = ()=>setIsViewingMediaKeyOptions(prev => !prev);
 
+
+    if(todaysDate != todayIs()){
+        dispatch(resetTodaysProgress());
+        dispatch(setTodaysDate());
+    }    
+
+
     return (
             <div>
+
+                <label className="label">Today's Progress: {convertHMS(todaysProgress)}</label>
+
                 <NumParameterInput link={TUTORIAL_KEYS.FeedbackGeneral} name= "Time to Acknowledge (Seconds)" val={feedbackTime} modify={modifyFeedbackTime} delta={crementFeedbackTime}/>
                 <NumParameterInput link={TUTORIAL_KEYS.FeedbackStrikes} name= "Number of Strikes" val={strikeThreshold} modify={modifyStrikeThreshold} delta={crementStrikeThreshold}/>
                 

@@ -10,7 +10,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 
 
 const persistConfig = {
-    key: 'day-wakers-widgets-v10',
+    key: 'day-wakers-widgets-v11',
     storage,
 }
 
