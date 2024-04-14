@@ -22,7 +22,7 @@ const MediaKeyController: React.FC<MediaKeyControllerProps> = ({ wait, onSingleT
     }, [])
 
 
-    const {interpretTap, tapCount,} = useMediaKeyTapInterpreter(audio, 500, onSingleTap, onDoubleTap);
+    const {interpretTap, tapCount,} = useMediaKeyTapInterpreter(audio, 1500, onSingleTap, onDoubleTap);
 
 
     useMediaSession({
