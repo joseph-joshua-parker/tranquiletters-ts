@@ -20,7 +20,7 @@ interface SetStimPayload {
 const DefaultStimsToggled = {
     patternModel: new Array<PatternUnitModel>(30),
     currentStimType: STIM_TYPES.None,
-    sessionMinutes: 10,
+    sessionMinutes: 100,
     rowLength: 10,
 
 }
