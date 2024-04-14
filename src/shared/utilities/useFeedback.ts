@@ -23,12 +23,13 @@ interface FeedbackParameters {
     isVocal: boolean,
     isAdaptive: boolean,
     notifyUser: (message:string, isContinuing: boolean)=>void,
-    cancel: ()=>void
+    cancel: ()=>void,
+    start: ()=>void
 }
 
 const useFeedback = ({
     feedbackTime, acknowledgementsAccepted, hitUpgradeThreshold, isVocal, isAdaptive,
-    notifyUser, cancel
+    notifyUser, cancel, start
 }:FeedbackParameters)=>{
     const dispatch = useDispatch();
     const {
@@ -52,6 +53,8 @@ const useFeedback = ({
     const results = useRef(0);
     const patternModelLength = useRef(patternModel.length);
     const stimLength = useRef(0);
+
+    const startsAccepted = ['start'];
 
     const answerQuestion = ()=>{
         if(pendingQuestion.current == undefined) return;
@@ -130,7 +133,7 @@ const useFeedback = ({
         else if (hitCount >= hitUpgradeThreshold){
             playSmallHit();
             playLargeHit();
-            notifyUser('Good focus detected, decreasing tokens', true);
+            notifyUser('Good focus detected', true);
             decreaseStims();
              
           reset();
@@ -147,11 +150,13 @@ const useFeedback = ({
         answerQuestion, 
         decreaseStims,
         increaseStims,
+        start,
    
 
         acknowledgementsAccepted,
         increasesAccepted,
         decreasesAccepted,
+        startsAccepted
 
         );
 

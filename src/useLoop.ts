@@ -45,7 +45,7 @@ export enum PLAYBACK_STATE {
     } = useFeedback({ 
       feedbackTime, hitUpgradeThreshold, acknowledgementsAccepted, strikeThreshold:3,
       isVocal, isAdaptive,
-      notifyUser, cancel
+      notifyUser, cancel, start
     });
 
     const {soundEffectsAt} = useSelector((state:RootState)=>state.persistedRootReducer.soundEffectsReducer);

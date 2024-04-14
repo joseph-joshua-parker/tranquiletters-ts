@@ -5,10 +5,12 @@ const useCommandRecognition = (
     acceptAnswer: ()=>void, 
     decreaseStims: ()=>void,
     increaseStims: ()=>void,
+    startSession: ()=>void,
 
     acknowledgementsAccepted: string[],
     increasesAccepted: string[],
     decreasesAccepted: string[],
+    startsAccepted: string[],
 
     )=>{
 
@@ -41,6 +43,14 @@ const useCommandRecognition = (
             command: inc,
             ...unpedantic,
             callback: increaseStims,
+        }
+    })
+
+    const readyStarts = startsAccepted.map(start=>{
+        return { 
+            command:start,
+            ...unpedantic,
+            callback: startSession
         }
     })
 
