@@ -110,7 +110,7 @@ const useFeedback = ({
         for(let i=0; i< stimLength.current; i++){
             const at = stimsAt[i];  
             if((i < patternModel.length-1) && addStim){
-                dispatch(addStim(at+1));
+                dispatch(addStim(at+2));
 
             }
         }
