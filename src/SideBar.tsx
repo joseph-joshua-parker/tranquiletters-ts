@@ -7,9 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition, faHome, faReply, faSignature, faSquare, faVolumeHigh } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { TUTORIAL_KEYS } from "./shared/tutorialData";
+import { PLAYBACK_STATE } from "./useLoop";
 
+interface SidebarProps {
+    state: PLAYBACK_STATE
+}
 
-const SideBar = () =>{
+const SideBar:React.FC<SidebarProps> = ({state}) =>{
     const dispatch = useDispatch();
     const {currentStimType} = useSelector((state:RootState)=>state.persistedRootReducer.stimToggleSliceReducer);
 
@@ -32,7 +36,9 @@ const SideBar = () =>{
 
     return (
         <div className="column is-one-fifth">
-            <aside className="menu">
+            
+            
+            {state == PLAYBACK_STATE.Playing || <aside className="menu">
                 <ul className="menu-list">
                     <SideBarIcon link={TUTORIAL_KEYS.Home} icon={faHome} label='Home' stim={STIM_TYPES.None}/>
 
@@ -54,7 +60,7 @@ const SideBar = () =>{
                     <SideBarIcon link={TUTORIAL_KEYS.PolyRhythm} icon={faSquare} label='Poly Rhythm' stim={STIM_TYPES.PolyRhythm}/>
                     <SideBarIcon link={TUTORIAL_KEYS.HigherOrderPatterns} icon={faSquare} label='Higher Order Patterns' stim={STIM_TYPES.HigherOrderPatterns}/>
                 </ul>
-            </aside>
+            </aside>}
         </div>
     )
 

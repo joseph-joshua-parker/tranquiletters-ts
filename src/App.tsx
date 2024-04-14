@@ -109,12 +109,12 @@ function App() {
             <br/>
           <div className="columns is-mobile">
             <div className="column is-6">
-              <SideBar/>
+              <SideBar state={playbackState}/>
             </div>
             
            
               <div className="column is-6"> 
-              <WithPanel>
+              <WithPanel >
                 <StimParams/>
               </WithPanel>
               </div>
