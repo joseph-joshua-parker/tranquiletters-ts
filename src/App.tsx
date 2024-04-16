@@ -57,7 +57,7 @@ function App() {
   //Hooks
   const {start, cancel, pause, resume, rerender, playbackState, answerQuestion, seekCommand} = useLoop(setCursorIndex)
 
-  const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.None]
+  const CurrentlyImplemented = [STIM_TYPES.Token, STIM_TYPES.Feedback, STIM_TYPES.SoundFX, STIM_TYPES.None]
   const isFeatureImplemented = CurrentlyImplemented.includes(currentStimType);
   console.log(isFeatureImplemented);
 
