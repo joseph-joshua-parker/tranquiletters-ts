@@ -3,7 +3,6 @@ import useSound from 'use-sound';
 import useCommandRecognition from '../../audio/recognition/useCommandRecognition';
 import SpeechRecognition from 'react-speech-recognition';
 import { useDispatch, useSelector } from 'react-redux';
-import { setStim } from '../../state/redux/stimToggleSlice';
 import { addFeedback, crementTodaysProgress, removeFeedback } from '../../state/redux/feedbackParameterSlice';
 import { addToken, removeToken } from '../../state/redux/tokenNumParameterSlice';
 import { RootState } from '../../state/redux/store';
@@ -112,7 +111,7 @@ const useFeedback = ({
             if((i < patternModel.length-1) && addStim){
                 dispatch(addStim(at+1));
 
-            }
+            } 
         }
     }   
 
